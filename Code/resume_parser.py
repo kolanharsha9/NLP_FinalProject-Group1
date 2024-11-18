@@ -22,9 +22,19 @@ class ResumeParser:
     def parse_resume_file(self, file_path: str) -> Dict:
         """Parse a single resume file and its corresponding label file."""
         try:
-            # Read resume content
-            with open(file_path, 'r', encoding='utf-8') as file:
-                content = file.read()
+            # Try multiple encodings
+            encodings = ['utf-8', 'latin-1', 'iso-8859-1', 'cp1252']
+            
+            for encoding in encodings:
+                try:
+                    # Read resume content
+                    with open(file_path, 'r', encoding=encoding) as file:
+                        content = file.read()
+                    break
+                except UnicodeDecodeError:
+                    continue
+            else:
+                raise ValueError(f"Could not decode file with any encoding: {file_path}")
             
             # Read corresponding label file
             label_file = file_path.replace('.txt', '.lab')
@@ -51,7 +61,7 @@ class ResumeParser:
 
     def _clean_text(self, text: str) -> str:
         """Clean and normalize resume text."""
-        # Remove HTML tags
+        # Remove HTML tags while preserving their content
         text = re.sub(r'<[^>]+>', '', text)
         
         # Remove special characters and normalize whitespace

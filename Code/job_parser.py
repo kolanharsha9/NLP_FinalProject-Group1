@@ -3,6 +3,11 @@ import pandas as pd
 from typing import Dict, List
 import json
 
+import re
+import pandas as pd
+from typing import Dict, List
+import json
+
 class JobParser:
     def __init__(self):
         self.essential_columns = [
