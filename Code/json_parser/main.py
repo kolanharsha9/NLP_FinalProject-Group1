@@ -1,9 +1,13 @@
 # code/main.py
+#%%
+
 import os
 import pandas as pd
 import json
 from resume_parser import ResumeParser
 from job_parser import JobParser
+
+#%%
 
 def test_parsers():
     # Initialize parsers
@@ -11,12 +15,15 @@ def test_parsers():
     job_parser = JobParser()
     
     # Set up paths
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    resume_dir = os.path.join(base_dir, 'data', 'resume')
-    jobs_file = os.path.join(base_dir, 'data', 'job_descriptions.csv')
+    # base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    base_dir= os.path.abspath('../..')
+    resume_dir = os.path.join(base_dir,'assests','data','resume_txt')
+    jobs_file = os.path.join(base_dir,'assests','data','job_descriptions.csv')
+
+    print(resume_dir)
     
     # Create output directory if it doesn't exist
-    output_dir = os.path.join(base_dir, 'output')
+    output_dir = os.path.join(base_dir,'assests','data')
     os.makedirs(output_dir, exist_ok=True)
     
     # Process resumes
