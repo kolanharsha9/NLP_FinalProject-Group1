@@ -24,3 +24,10 @@ elif choice == "About":
     st.header("About")
     st.write("This is a basic Streamlit application for matching resumes with job descriptions.")
 
+
+
+
+
+
+
+
