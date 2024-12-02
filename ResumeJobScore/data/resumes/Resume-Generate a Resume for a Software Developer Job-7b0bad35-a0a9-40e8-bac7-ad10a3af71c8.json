@@ -1,0 +1,39 @@
+{
+    "clean_data": "Front End Developer span lFrontspan span lEndspan span lDeveloperspan St Louis MO Work Experience Front End Developer June 2016 to Present Frontend Developer Education Bachelors Bachelors",
+    "entities": [
+        "lFrontspan",
+        "lEndspan",
+        "Present Frontend Developer Education Bachelors Bachelors",
+        "Front End Developer"
+    ],
+    "experience": "Experience Front End Developer June 2016 to Present Frontend Developer Education Bachelors Bachelors",
+    "extracted_keywords": [
+        "End",
+        "Developer",
+        "lFrontspan",
+        "span",
+        "lEndspan",
+        "span",
+        "lDeveloperspan",
+        "St",
+        "Louis",
+        "MO",
+        "Work",
+        "Experience",
+        "Front",
+        "End",
+        "Developer",
+        "June",
+        "Present",
+        "Frontend",
+        "Developer",
+        "Education",
+        "Bachelors",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:01:15.471376",
+    "resume_data": "Front End Developer span lFrontspan span lEndspan span lDeveloperspan St Louis MO Work Experience Front End Developer June 2016 to Present Frontend Developer Education Bachelors Bachelors",
+    "unique_id": "7b0bad35-a0a9-40e8-bac7-ad10a3af71c8"
+}

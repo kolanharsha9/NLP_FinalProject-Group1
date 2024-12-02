@@ -1,0 +1,33 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Kingston NY Work Experience Systems Administrator Ulster insurance 2010 to Present Education Bachelors Marist",
+    "entities": [
+        "lAdministratorspan",
+        "lSystemsspan"
+    ],
+    "experience": "Experience Systems Administrator Ulster insurance 2010 to Present Education Bachelors Marist",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Kingston",
+        "NY",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Ulster",
+        "insurance",
+        "Present",
+        "Education",
+        "Bachelors",
+        "Marist"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:27:12.158984",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Kingston NY Work Experience Systems Administrator Ulster insurance 2010 to Present Education Bachelors Marist",
+    "unique_id": "783015ed-b09d-4f4e-80e3-607aff9ec005"
+}

@@ -1,0 +1,30 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Emerson AR Work Experience Systems Administrator Education Associate",
+    "entities": [
+        "lAdministratorspan",
+        "lSystemsspan",
+        "Emerson AR Work Experience Systems Administrator"
+    ],
+    "experience": "Experience Systems Administrator Education Associate",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Emerson",
+        "AR",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Education",
+        "Associate"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:47:06.020762",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Emerson AR Work Experience Systems Administrator Education Associate",
+    "unique_id": "744a0ea3-5dc2-4dec-8e4a-b7d7c9a9cf6c"
+}

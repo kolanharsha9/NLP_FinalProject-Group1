@@ -1,0 +1,35 @@
+{
+    "clean_data": "Front End Developer span lFrontspan span lEndspan span lDeveloperspan Vancouver WA Work Experience Front End Developer DreamHorse Classifieds August 2003 to March 2018 Education Bachelors",
+    "entities": [
+        "lFrontspan",
+        "lEndspan",
+        "Front End Developer"
+    ],
+    "experience": "Experience Front End Developer DreamHorse Classifieds August 2003 to March 2018 Education Bachelors",
+    "extracted_keywords": [
+        "End",
+        "Developer",
+        "lFrontspan",
+        "span",
+        "lEndspan",
+        "span",
+        "lDeveloperspan",
+        "Vancouver",
+        "WA",
+        "Work",
+        "Experience",
+        "Front",
+        "End",
+        "Developer",
+        "DreamHorse",
+        "August",
+        "March",
+        "Education",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T19:44:54.951283",
+    "resume_data": "Front End Developer span lFrontspan span lEndspan span lDeveloperspan Vancouver WA Work Experience Front End Developer DreamHorse Classifieds August 2003 to March 2018 Education Bachelors",
+    "unique_id": "c342c141-bf1e-462a-8e33-3b5defe1943f"
+}

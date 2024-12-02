@@ -1,0 +1,40 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan DallasFort Worth TX Work Experience Systems Administrator ITT Corporation October 2014 to Present Education Bachelors UT Arlington Skills Research 2 years",
+    "entities": [
+        "lAdministratorspan",
+        "Arlington Skills Research",
+        "lSystemsspan"
+    ],
+    "experience": "Experience Systems Administrator ITT Corporation October 2014 to Present Education Bachelors UT Arlington Skills Research 2 years",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "DallasFort",
+        "Worth",
+        "TX",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "ITT",
+        "Corporation",
+        "October",
+        "Present",
+        "Education",
+        "Bachelors",
+        "UT",
+        "Arlington",
+        "Skills",
+        "Research",
+        "years"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:07:35.429897",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan DallasFort Worth TX Work Experience Systems Administrator ITT Corporation October 2014 to Present Education Bachelors UT Arlington Skills Research 2 years",
+    "unique_id": "83cc981b-fa29-4dd6-85e9-0826d4116e46"
+}

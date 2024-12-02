@@ -1,0 +1,36 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Atlanta GA Work Experience Systems Administrator Education High school or equivalent High school or equivalent Meadowcreek High School",
+    "entities": [
+        "lAdministratorspan",
+        "Meadowcreek High School",
+        "Atlanta GA Work Experience Systems Administrator Education",
+        "lSystemsspan"
+    ],
+    "experience": "Experience Systems Administrator Education High school or equivalent High school or equivalent Meadowcreek High School",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Atlanta",
+        "GA",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Education",
+        "High",
+        "school",
+        "school",
+        "Meadowcreek",
+        "High",
+        "School"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T21:38:46.181396",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Atlanta GA Work Experience Systems Administrator Education High school or equivalent High school or equivalent Meadowcreek High School",
+    "unique_id": "75abffed-6281-40d4-8e05-c6e55f5ad217"
+}

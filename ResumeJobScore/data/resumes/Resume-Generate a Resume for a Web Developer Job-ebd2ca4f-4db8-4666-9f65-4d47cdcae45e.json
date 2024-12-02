@@ -1,0 +1,29 @@
+{
+    "clean_data": "Systems administrator span lSystemsspan span ladministratorspan Port Richey FL Work Experience Systems administrator Education Associate",
+    "entities": [
+        "lSystemsspan"
+    ],
+    "experience": "Experience Systems administrator Education Associate",
+    "extracted_keywords": [
+        "Systems",
+        "administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "ladministratorspan",
+        "Port",
+        "Richey",
+        "FL",
+        "Work",
+        "Experience",
+        "Systems",
+        "administrator",
+        "Education",
+        "Associate"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T23:00:33.998884",
+    "resume_data": "Systems administrator span lSystemsspan span ladministratorspan Port Richey FL Work Experience Systems administrator Education Associate",
+    "unique_id": "ebd2ca4f-4db8-4666-9f65-4d47cdcae45e"
+}

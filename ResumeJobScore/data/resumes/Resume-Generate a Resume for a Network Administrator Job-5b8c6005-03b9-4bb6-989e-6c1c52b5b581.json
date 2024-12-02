@@ -1,0 +1,41 @@
+{
+    "clean_data": "Receptionist Receptionist Receptionist Chandler AZ Work Experience Receptionist Aviara Healthcare Center Encinitas CA January 2010 to August 2010 Database Administrator Al Bunnia Group Amman JO September 2007 to November 2009 Jordan Education Bachelors",
+    "entities": [
+        "Aviara Healthcare Center"
+    ],
+    "experience": "Experience Receptionist Aviara Healthcare Center Encinitas CA January 2010 to August 2010 Database Administrator Al Bunnia Group Amman JO September 2007 to November 2009 Jordan Education Bachelors",
+    "extracted_keywords": [
+        "Receptionist",
+        "Receptionist",
+        "Receptionist",
+        "Chandler",
+        "AZ",
+        "Work",
+        "Experience",
+        "Receptionist",
+        "Aviara",
+        "Healthcare",
+        "Center",
+        "Encinitas",
+        "CA",
+        "January",
+        "August",
+        "Database",
+        "Administrator",
+        "Al",
+        "Bunnia",
+        "Group",
+        "Amman",
+        "JO",
+        "September",
+        "November",
+        "Jordan",
+        "Education",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:31:51.543870",
+    "resume_data": "Receptionist Receptionist Receptionist Chandler AZ Work Experience Receptionist Aviara Healthcare Center Encinitas CA January 2010 to August 2010 Database Administrator Al Bunnia Group Amman JO September 2007 to November 2009 Jordan Education Bachelors",
+    "unique_id": "5b8c6005-03b9-4bb6-989e-6c1c52b5b581"
+}

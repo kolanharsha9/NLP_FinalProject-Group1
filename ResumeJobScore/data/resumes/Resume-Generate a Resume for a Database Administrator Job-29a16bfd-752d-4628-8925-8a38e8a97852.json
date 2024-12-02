@@ -1,0 +1,39 @@
+{
+    "clean_data": "IT Project Manager span lITspan span lProjectspan span lManagerspan Princeton NJ Work Experience IT Project Manager Larsen and Toubro Infotech 2010 to Present Education Masters",
+    "entities": [
+        "Toubro Infotech 2010",
+        "lProjectspan",
+        "lManagerspan Princeton NJ Work",
+        "Present Education Masters"
+    ],
+    "experience": "Experience IT Project Manager Larsen and Toubro Infotech 2010 to Present Education Masters",
+    "extracted_keywords": [
+        "IT",
+        "Project",
+        "Manager",
+        "span",
+        "lITspan",
+        "span",
+        "lProjectspan",
+        "span",
+        "lManagerspan",
+        "Princeton",
+        "NJ",
+        "Work",
+        "Experience",
+        "IT",
+        "Project",
+        "Manager",
+        "Larsen",
+        "Toubro",
+        "Infotech",
+        "Present",
+        "Education",
+        "Masters"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T19:52:52.912725",
+    "resume_data": "IT Project Manager span lITspan span lProjectspan span lManagerspan Princeton NJ Work Experience IT Project Manager Larsen and Toubro Infotech 2010 to Present Education Masters",
+    "unique_id": "29a16bfd-752d-4628-8925-8a38e8a97852"
+}

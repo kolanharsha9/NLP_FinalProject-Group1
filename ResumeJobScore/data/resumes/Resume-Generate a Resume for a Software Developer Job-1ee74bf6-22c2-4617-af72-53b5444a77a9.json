@@ -1,0 +1,30 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Raleigh MS Work Experience Systems Administrator Education Associate",
+    "entities": [
+        "lAdministratorspan",
+        "Raleigh MS Work Experience Systems Administrator",
+        "lSystemsspan"
+    ],
+    "experience": "Experience Systems Administrator Education Associate",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Raleigh",
+        "MS",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Education",
+        "Associate"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:04:44.784178",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Raleigh MS Work Experience Systems Administrator Education Associate",
+    "unique_id": "1ee74bf6-22c2-4617-af72-53b5444a77a9"
+}

@@ -1,0 +1,39 @@
+{
+    "clean_data": "Web Developer span lWebspan span lDeveloperspan Baltimore MD Work Experience Web Developer Web4ughana June 2014 to July 2019 Education Bachelors Bachelors Skills HTML Javascript PHP MySQL CSS",
+    "entities": [
+        "lWebspan",
+        "CSS"
+    ],
+    "experience": "Experience Web Developer Web4ughana June 2014 to July 2019 Education Bachelors Bachelors Skills HTML Javascript PHP MySQL CSS",
+    "extracted_keywords": [
+        "Web",
+        "Developer",
+        "span",
+        "lWebspan",
+        "span",
+        "lDeveloperspan",
+        "Baltimore",
+        "MD",
+        "Work",
+        "Experience",
+        "Web",
+        "Developer",
+        "Web4ughana",
+        "June",
+        "July",
+        "Education",
+        "Bachelors",
+        "Bachelors",
+        "Skills",
+        "HTML",
+        "Javascript",
+        "PHP",
+        "MySQL",
+        "CSS"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:37:12.989515",
+    "resume_data": "Web Developer span lWebspan span lDeveloperspan Baltimore MD Work Experience Web Developer Web4ughana June 2014 to July 2019 Education Bachelors Bachelors Skills HTML Javascript PHP MySQL CSS",
+    "unique_id": "da70e6e9-14c4-4b96-b6f1-2d0c31ff239e"
+}

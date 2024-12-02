@@ -1,0 +1,41 @@
+{
+    "clean_data": "Network Administrator span lNetworkspan span lAdministratorspan Stafford VA Work Experience Network Administrator Accenture Federal July 2014 to Present Education Bs Strayer UniversityVirginia Skills Customer Service 10 years",
+    "entities": [
+        "lNetworkspan",
+        "lAdministratorspan Stafford VA Work",
+        "Network Administrator",
+        "Skills Customer Service"
+    ],
+    "experience": "Experience Network Administrator Accenture Federal July 2014 to Present Education Bs Strayer UniversityVirginia Skills Customer Service 10 years",
+    "extracted_keywords": [
+        "Network",
+        "Administrator",
+        "span",
+        "lNetworkspan",
+        "span",
+        "lAdministratorspan",
+        "Stafford",
+        "VA",
+        "Work",
+        "Experience",
+        "Network",
+        "Administrator",
+        "Accenture",
+        "Federal",
+        "July",
+        "Present",
+        "Education",
+        "Bs",
+        "Strayer",
+        "UniversityVirginia",
+        "Skills",
+        "Customer",
+        "Service",
+        "years"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T21:00:57.074423",
+    "resume_data": "Network Administrator span lNetworkspan span lAdministratorspan Stafford VA Work Experience Network Administrator Accenture Federal July 2014 to Present Education Bs Strayer UniversityVirginia Skills Customer Service 10 years",
+    "unique_id": "4ca5a161-c054-4642-bf6e-65327bc8ade4"
+}

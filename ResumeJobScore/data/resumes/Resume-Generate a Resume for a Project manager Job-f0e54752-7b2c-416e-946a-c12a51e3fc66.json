@@ -1,0 +1,39 @@
+{
+    "clean_data": "Java Developer span lJavaspan span lDeveloperspan New York NY Work Experience Java Developer Roche January 2015 to Present Independent consultant Education Bachelors Skills Git Javascript PHP",
+    "entities": [
+        "lJavaspan",
+        "Present Independent",
+        "New York"
+    ],
+    "experience": "Experience Java Developer Roche January 2015 to Present Independent consultant Education Bachelors Skills Git Javascript PHP",
+    "extracted_keywords": [
+        "Java",
+        "Developer",
+        "lJavaspan",
+        "span",
+        "lDeveloperspan",
+        "New",
+        "York",
+        "NY",
+        "Work",
+        "Experience",
+        "Java",
+        "Developer",
+        "Roche",
+        "January",
+        "Present",
+        "Independent",
+        "consultant",
+        "Education",
+        "Bachelors",
+        "Skills",
+        "Git",
+        "Javascript",
+        "PHP"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:48:59.764445",
+    "resume_data": "Java Developer span lJavaspan span lDeveloperspan New York NY Work Experience Java Developer Roche January 2015 to Present Independent consultant Education Bachelors Skills Git Javascript PHP",
+    "unique_id": "f0e54752-7b2c-416e-946a-c12a51e3fc66"
+}

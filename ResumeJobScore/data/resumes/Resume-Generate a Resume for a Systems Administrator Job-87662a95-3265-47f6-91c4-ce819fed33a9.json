@@ -1,0 +1,32 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan DallasFort Worth TX Work Experience Systems Administrator contract January 2018 to 2019 Education Bachelors",
+    "entities": [
+        "lAdministratorspan",
+        "lSystemsspan"
+    ],
+    "experience": "Experience Systems Administrator contract January 2018 to 2019 Education Bachelors",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "DallasFort",
+        "Worth",
+        "TX",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "contract",
+        "January",
+        "Education",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:37:47.688498",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan DallasFort Worth TX Work Experience Systems Administrator contract January 2018 to 2019 Education Bachelors",
+    "unique_id": "87662a95-3265-47f6-91c4-ce819fed33a9"
+}

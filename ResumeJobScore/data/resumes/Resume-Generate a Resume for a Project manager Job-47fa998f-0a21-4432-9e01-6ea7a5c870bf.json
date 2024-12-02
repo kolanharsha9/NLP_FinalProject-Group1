@@ -1,0 +1,39 @@
+{
+    "clean_data": "Senior Java Developer Senior span lJavaspan span lDeveloperspan Malvern PA Sponsorship required to work in the US Work Experience Senior Java Developer Sriven Technologies LLC February 2015 to Present Education Masters",
+    "entities": [
+        "lJavaspan",
+        "US",
+        "Present Education Masters"
+    ],
+    "experience": "Experience Senior Java Developer Sriven Technologies LLC February 2015 to Present Education Masters",
+    "extracted_keywords": [
+        "Java",
+        "Developer",
+        "Senior",
+        "span",
+        "lJavaspan",
+        "span",
+        "lDeveloperspan",
+        "Malvern",
+        "PA",
+        "Sponsorship",
+        "US",
+        "Work",
+        "Experience",
+        "Senior",
+        "Java",
+        "Developer",
+        "Sriven",
+        "Technologies",
+        "LLC",
+        "February",
+        "Present",
+        "Education",
+        "Masters"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:42:56.535568",
+    "resume_data": "Senior Java Developer Senior span lJavaspan span lDeveloperspan Malvern PA Sponsorship required to work in the US Work Experience Senior Java Developer Sriven Technologies LLC February 2015 to Present Education Masters",
+    "unique_id": "47fa998f-0a21-4432-9e01-6ea7a5c870bf"
+}

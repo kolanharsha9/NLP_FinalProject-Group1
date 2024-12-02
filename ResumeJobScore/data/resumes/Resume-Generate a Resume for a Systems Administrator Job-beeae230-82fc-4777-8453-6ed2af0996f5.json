@@ -1,0 +1,42 @@
+{
+    "clean_data": "Network Administrator span lNetworkspan span lAdministratorspan Arlington TX Work Experience Network Administrator Avert Network Services Dallas TX May 2006 to November 2009 network admin desktop support",
+    "entities": [
+        "lNetworkspan",
+        "Network Administrator",
+        "TX",
+        "Dallas",
+        "lAdministratorspan",
+        "Arlington"
+    ],
+    "experience": "Experience Network Administrator Avert Network Services Dallas TX May 2006 to November 2009 network admin desktop support",
+    "extracted_keywords": [
+        "Network",
+        "Administrator",
+        "span",
+        "lNetworkspan",
+        "span",
+        "lAdministratorspan",
+        "Arlington",
+        "TX",
+        "Work",
+        "Experience",
+        "Network",
+        "Administrator",
+        "Avert",
+        "Network",
+        "Services",
+        "Dallas",
+        "TX",
+        "May",
+        "November",
+        "network",
+        "admin",
+        "desktop",
+        "support"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:26:58.565662",
+    "resume_data": "Network Administrator span lNetworkspan span lAdministratorspan Arlington TX Work Experience Network Administrator Avert Network Services Dallas TX May 2006 to November 2009 network admin desktop support",
+    "unique_id": "beeae230-82fc-4777-8453-6ed2af0996f5"
+}

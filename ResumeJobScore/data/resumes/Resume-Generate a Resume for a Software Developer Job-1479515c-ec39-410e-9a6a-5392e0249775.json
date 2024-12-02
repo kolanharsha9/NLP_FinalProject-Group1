@@ -1,0 +1,31 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Carrollton TX Work Experience Systems Administrator All My Sons September 2016 to Present Education Associate",
+    "entities": [
+        "lAdministratorspan",
+        "lSystemsspan"
+    ],
+    "experience": "Experience Systems Administrator All My Sons September 2016 to Present Education Associate",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "lAdministratorspan",
+        "Carrollton",
+        "TX",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Sons",
+        "September",
+        "Present",
+        "Education",
+        "Associate"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:11:53.573791",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Carrollton TX Work Experience Systems Administrator All My Sons September 2016 to Present Education Associate",
+    "unique_id": "1479515c-ec39-410e-9a6a-5392e0249775"
+}

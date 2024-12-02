@@ -1,0 +1,37 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Leesburg VA Work Experience Systems Administrator arvato Bertelsmann May 2012 to Present Education University Of Nevada Reno",
+    "entities": [
+        "lAdministratorspan",
+        "Present Education University Of Nevada Reno",
+        "lSystemsspan",
+        "Leesburg VA Work Experience Systems"
+    ],
+    "experience": "Experience Systems Administrator arvato Bertelsmann May 2012 to Present Education University Of Nevada Reno",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Leesburg",
+        "VA",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "arvato",
+        "Bertelsmann",
+        "May",
+        "Present",
+        "Education",
+        "University",
+        "Nevada",
+        "Reno"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T21:06:52.619283",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Leesburg VA Work Experience Systems Administrator arvato Bertelsmann May 2012 to Present Education University Of Nevada Reno",
+    "unique_id": "d8d74273-6f82-4fe2-8f9f-21c2c55844bb"
+}

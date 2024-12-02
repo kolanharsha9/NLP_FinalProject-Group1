@@ -1,0 +1,36 @@
+{
+    "clean_data": "Network Administrator span lNetworkspan span lAdministratorspan Fries VA Work Experience Network Administrator Environmental Protection Agency Guyana May 2010 to Present Education Associate",
+    "entities": [
+        "lAdministratorspan Fries VA Work",
+        "lNetworkspan",
+        "Network Administrator"
+    ],
+    "experience": "Experience Network Administrator Environmental Protection Agency Guyana May 2010 to Present Education Associate",
+    "extracted_keywords": [
+        "Network",
+        "Administrator",
+        "span",
+        "lNetworkspan",
+        "span",
+        "lAdministratorspan",
+        "Fries",
+        "VA",
+        "Work",
+        "Experience",
+        "Network",
+        "Administrator",
+        "Environmental",
+        "Protection",
+        "Agency",
+        "Guyana",
+        "May",
+        "Present",
+        "Education",
+        "Associate"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T21:06:51.558525",
+    "resume_data": "Network Administrator span lNetworkspan span lAdministratorspan Fries VA Work Experience Network Administrator Environmental Protection Agency Guyana May 2010 to Present Education Associate",
+    "unique_id": "fcd7c4c2-33c7-48f7-885e-9176d57ae7cb"
+}

@@ -1,0 +1,37 @@
+{
+    "clean_data": "Python Developer span lPythonspan span lDeveloperspan Philadelphia PA Work Experience Python Developer December 2017 to Present Python Developer 2 Years Education Bachelors in Computer Science Philadelphia PA",
+    "entities": [
+        "lPythonspan",
+        "Present Python"
+    ],
+    "experience": "Experience Python Developer December 2017 to Present Python Developer 2 Years Education Bachelors in Computer Science Philadelphia PA",
+    "extracted_keywords": [
+        "Python",
+        "Developer",
+        "lPythonspan",
+        "span",
+        "lDeveloperspan",
+        "Philadelphia",
+        "PA",
+        "Work",
+        "Experience",
+        "Python",
+        "Developer",
+        "December",
+        "Present",
+        "Python",
+        "Developer",
+        "Years",
+        "Education",
+        "Bachelors",
+        "Computer",
+        "Science",
+        "Philadelphia",
+        "PA"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T23:10:56.697618",
+    "resume_data": "Python Developer span lPythonspan span lDeveloperspan Philadelphia PA Work Experience Python Developer December 2017 to Present Python Developer 2 Years Education Bachelors in Computer Science Philadelphia PA",
+    "unique_id": "0cd58b54-8b72-44fb-ae35-d7204d699efc"
+}

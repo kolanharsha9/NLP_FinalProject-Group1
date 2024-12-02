@@ -1,0 +1,41 @@
+{
+    "clean_data": "Senior front end developer Senior span lfrontspan span lendspan span ldeveloperspan Dallas TX Authorized to work in the US for any employer Work Experience Senior front end developer Rallys services inc August 2014 to Present Education Masters",
+    "entities": [
+        "Rallys services",
+        "Dallas",
+        "US",
+        "Present Education Masters"
+    ],
+    "experience": "Experience Senior front end developer Rallys services inc August 2014 to Present Education Masters",
+    "extracted_keywords": [
+        "end",
+        "developer",
+        "span",
+        "lfrontspan",
+        "span",
+        "lendspan",
+        "span",
+        "ldeveloperspan",
+        "Dallas",
+        "TX",
+        "Authorized",
+        "US",
+        "employer",
+        "Work",
+        "Experience",
+        "end",
+        "developer",
+        "Rallys",
+        "services",
+        "inc",
+        "August",
+        "Present",
+        "Education",
+        "Masters"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T21:24:32.441720",
+    "resume_data": "Senior front end developer Senior span lfrontspan span lendspan span ldeveloperspan Dallas TX Authorized to work in the US for any employer Work Experience Senior front end developer Rallys services inc August 2014 to Present Education Masters",
+    "unique_id": "88844c91-450a-403a-9036-98ad369cc4c5"
+}

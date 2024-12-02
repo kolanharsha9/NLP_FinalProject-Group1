@@ -1,0 +1,30 @@
+{
+    "clean_data": "Software Developer span lSoftwarespan span lDeveloperspan Spring Hill FL Work Experience Software Developer Wex Inc January 2011 to Present Education Bachelors",
+    "entities": [],
+    "experience": "Experience Software Developer Wex Inc January 2011 to Present Education Bachelors",
+    "extracted_keywords": [
+        "Software",
+        "Developer",
+        "lSoftwarespan",
+        "span",
+        "lDeveloperspan",
+        "Spring",
+        "Hill",
+        "FL",
+        "Work",
+        "Experience",
+        "Software",
+        "Developer",
+        "Wex",
+        "Inc",
+        "January",
+        "Present",
+        "Education",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:21:50.492679",
+    "resume_data": "Software Developer span lSoftwarespan span lDeveloperspan Spring Hill FL Work Experience Software Developer Wex Inc January 2011 to Present Education Bachelors",
+    "unique_id": "ac2bf3f4-1b3d-4e5d-9a23-9687d3ac9606"
+}

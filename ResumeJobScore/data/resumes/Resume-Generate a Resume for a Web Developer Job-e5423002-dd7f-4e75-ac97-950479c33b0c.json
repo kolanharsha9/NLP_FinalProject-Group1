@@ -1,0 +1,28 @@
+{
+    "clean_data": "Software Developer span lSoftwarespan span lDeveloperspan Miami FL Work Experience Software Developer Indra August 2004 to Present Education Bachelors",
+    "entities": [],
+    "experience": "Experience Software Developer Indra August 2004 to Present Education Bachelors",
+    "extracted_keywords": [
+        "Software",
+        "Developer",
+        "lSoftwarespan",
+        "span",
+        "lDeveloperspan",
+        "Miami",
+        "FL",
+        "Work",
+        "Experience",
+        "Software",
+        "Developer",
+        "Indra",
+        "August",
+        "Present",
+        "Education",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T23:17:02.869416",
+    "resume_data": "Software Developer span lSoftwarespan span lDeveloperspan Miami FL Work Experience Software Developer Indra August 2004 to Present Education Bachelors",
+    "unique_id": "e5423002-dd7f-4e75-ac97-950479c33b0c"
+}

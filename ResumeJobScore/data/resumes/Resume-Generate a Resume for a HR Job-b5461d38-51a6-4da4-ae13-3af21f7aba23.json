@@ -1,0 +1,33 @@
+{
+    "clean_data": "Education Details June 2012 to May 2015 B A Economics Chennai Tamil Nadu Sdnbvc Hr Skill Details Company Details company Anything IT Solution description Hr",
+    "entities": [],
+    "experience": "Education Details June 2012 to May 2015 B A Economics Chennai Tamil Nadu Sdnbvc Hr Skill Details Company Details company Anything IT Solution description Hr",
+    "extracted_keywords": [
+        "Education",
+        "Details",
+        "June",
+        "May",
+        "B",
+        "A",
+        "Economics",
+        "Chennai",
+        "Tamil",
+        "Nadu",
+        "Sdnbvc",
+        "Hr",
+        "Skill",
+        "Details",
+        "Company",
+        "Details",
+        "company",
+        "IT",
+        "Solution",
+        "description",
+        "Hr"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:01:26.467537",
+    "resume_data": "Education Details June 2012 to May 2015 B A Economics Chennai Tamil Nadu Sdnbvc Hr Skill Details Company Details company Anything IT Solution description Hr",
+    "unique_id": "b5461d38-51a6-4da4-ae13-3af21f7aba23"
+}

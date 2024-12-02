@@ -1,0 +1,41 @@
+{
+    "clean_data": "Network and System Administrator span lNetworkspan and System span lAdministratorspan Honolulu HI Authorized to work in the US for any employer Work Experience Network and System Administrator Pelatron Honolulu HI December 2016 to Present Education High school or equivalent",
+    "entities": [
+        "Work Experience Network and System Administrator",
+        "lNetworkspan",
+        "lAdministratorspan",
+        "US"
+    ],
+    "experience": "Experience Network and System Administrator Pelatron Honolulu HI December 2016 to Present Education High school or equivalent",
+    "extracted_keywords": [
+        "Network",
+        "System",
+        "Administrator",
+        "span",
+        "lNetworkspan",
+        "System",
+        "span",
+        "lAdministratorspan",
+        "Honolulu",
+        "HI",
+        "US",
+        "employer",
+        "Work",
+        "Experience",
+        "Network",
+        "System",
+        "Administrator",
+        "Pelatron",
+        "Honolulu",
+        "HI",
+        "December",
+        "Present",
+        "Education",
+        "school"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:13:22.437563",
+    "resume_data": "Network and System Administrator span lNetworkspan and System span lAdministratorspan Honolulu HI Authorized to work in the US for any employer Work Experience Network and System Administrator Pelatron Honolulu HI December 2016 to Present Education High school or equivalent",
+    "unique_id": "8915d5f6-9347-4bef-ac98-2ec9e3ad190b"
+}

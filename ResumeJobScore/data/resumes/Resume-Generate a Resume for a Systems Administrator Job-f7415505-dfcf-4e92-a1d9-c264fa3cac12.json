@@ -1,0 +1,38 @@
+{
+    "clean_data": "6 developer 6 span ldeveloperspan 6 developer Java and Angular Work Experience 6 developer Java and Angular April 2018 to Present Java developer MI Systems Co March 2015 to April 2018 Education High school",
+    "entities": [
+        "MI Systems",
+        "Java and Angular Work"
+    ],
+    "experience": "Experience 6 developer Java and Angular April 2018 to Present Java developer MI Systems Co March 2015 to April 2018 Education High school",
+    "extracted_keywords": [
+        "developer",
+        "span",
+        "ldeveloperspan",
+        "developer",
+        "Java",
+        "Angular",
+        "Work",
+        "Experience",
+        "developer",
+        "Java",
+        "Angular",
+        "April",
+        "Present",
+        "Java",
+        "developer",
+        "MI",
+        "Systems",
+        "Co",
+        "March",
+        "April",
+        "Education",
+        "High",
+        "school"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:33:09.426358",
+    "resume_data": "6 developer 6 span ldeveloperspan 6 developer Java and Angular Work Experience 6 developer Java and Angular April 2018 to Present Java developer MI Systems Co March 2015 to April 2018 Education High school",
+    "unique_id": "f7415505-dfcf-4e92-a1d9-c264fa3cac12"
+}

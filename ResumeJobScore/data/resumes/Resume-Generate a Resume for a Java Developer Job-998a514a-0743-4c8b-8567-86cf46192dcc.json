@@ -1,0 +1,43 @@
+{
+    "clean_data": "Front End Developer span lFrontspan span lEndspan span lDeveloperspan Philadelphia PA Work Experience Front End Developer Imomentous February 2013 to December 2015 Education Bachelors of science Masters in computer applications Skills HTML 2 years",
+    "entities": [
+        "lFrontspan",
+        "lEndspan",
+        "Front End Developer",
+        "Skills HTML"
+    ],
+    "experience": "Experience Front End Developer Imomentous February 2013 to December 2015 Education Bachelors of science Masters in computer applications Skills HTML 2 years",
+    "extracted_keywords": [
+        "End",
+        "Developer",
+        "lFrontspan",
+        "span",
+        "lEndspan",
+        "span",
+        "lDeveloperspan",
+        "Philadelphia",
+        "PA",
+        "Work",
+        "Experience",
+        "Front",
+        "End",
+        "Developer",
+        "Imomentous",
+        "February",
+        "December",
+        "Education",
+        "Bachelors",
+        "science",
+        "Masters",
+        "computer",
+        "applications",
+        "Skills",
+        "HTML",
+        "years"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:14:55.782764",
+    "resume_data": "Front End Developer span lFrontspan span lEndspan span lDeveloperspan Philadelphia PA Work Experience Front End Developer Imomentous February 2013 to December 2015 Education Bachelors of science Masters in computer applications Skills HTML 2 years",
+    "unique_id": "998a514a-0743-4c8b-8567-86cf46192dcc"
+}

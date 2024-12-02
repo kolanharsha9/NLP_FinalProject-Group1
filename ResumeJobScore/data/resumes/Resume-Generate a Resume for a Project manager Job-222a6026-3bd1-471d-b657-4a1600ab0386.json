@@ -1,0 +1,34 @@
+{
+    "clean_data": "Network Administrator span lNetworkspan span lAdministratorspan San Antonio TX Work Experience Network Administrator M Lhuillier 2009 to 2013 Education Bachelors",
+    "entities": [
+        "lNetworkspan",
+        "lAdministratorspan",
+        "Network Administrator",
+        "San Antonio"
+    ],
+    "experience": "Experience Network Administrator M Lhuillier 2009 to 2013 Education Bachelors",
+    "extracted_keywords": [
+        "Network",
+        "Administrator",
+        "span",
+        "lNetworkspan",
+        "span",
+        "lAdministratorspan",
+        "San",
+        "Antonio",
+        "TX",
+        "Work",
+        "Experience",
+        "Network",
+        "Administrator",
+        "M",
+        "Lhuillier",
+        "Education",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:40:25.505361",
+    "resume_data": "Network Administrator span lNetworkspan span lAdministratorspan San Antonio TX Work Experience Network Administrator M Lhuillier 2009 to 2013 Education Bachelors",
+    "unique_id": "222a6026-3bd1-471d-b657-4a1600ab0386"
+}

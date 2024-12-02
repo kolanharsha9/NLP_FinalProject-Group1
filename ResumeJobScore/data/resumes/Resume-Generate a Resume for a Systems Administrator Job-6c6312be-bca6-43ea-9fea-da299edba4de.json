@@ -1,0 +1,35 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan New Berlin WI Work Experience Systems Administrator Intuit San Diego CA November 2010 to Present",
+    "entities": [
+        "lAdministratorspan",
+        "lSystemsspan",
+        "New Berlin WI Work Experience Systems Administrator Intuit"
+    ],
+    "experience": "Experience Systems Administrator Intuit San Diego CA November 2010 to Present",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "New",
+        "Berlin",
+        "WI",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Intuit",
+        "San",
+        "Diego",
+        "CA",
+        "November",
+        "Present"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:32:22.909860",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan New Berlin WI Work Experience Systems Administrator Intuit San Diego CA November 2010 to Present",
+    "unique_id": "6c6312be-bca6-43ea-9fea-da299edba4de"
+}

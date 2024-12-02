@@ -1,0 +1,39 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Jeddah Work Experience Systems Administrator Education Bachelors in Computer since Faisal school Palo Alto CA November 2008 to Present Bachelors",
+    "entities": [
+        "lAdministratorspan",
+        "Computer",
+        "Palo Alto",
+        "lSystemsspan"
+    ],
+    "experience": "Experience Systems Administrator Education Bachelors in Computer since Faisal school Palo Alto CA November 2008 to Present Bachelors",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Jeddah",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Education",
+        "Bachelors",
+        "Computer",
+        "Faisal",
+        "school",
+        "Palo",
+        "Alto",
+        "CA",
+        "November",
+        "Present",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:59:55.048226",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Jeddah Work Experience Systems Administrator Education Bachelors in Computer since Faisal school Palo Alto CA November 2008 to Present Bachelors",
+    "unique_id": "09a2601e-1240-4a97-ab10-64f05af7777f"
+}

@@ -1,0 +1,36 @@
+{
+    "clean_data": "Network Administrator span lNetworkspan span lAdministratorspan Rochester NY Work Experience Network Administrator United States Marine Corps May 2015 to Present Education Some college",
+    "entities": [
+        "lNetworkspan",
+        "lAdministratorspan",
+        "Network Administrator"
+    ],
+    "experience": "Experience Network Administrator United States Marine Corps May 2015 to Present Education Some college",
+    "extracted_keywords": [
+        "Network",
+        "Administrator",
+        "span",
+        "lNetworkspan",
+        "span",
+        "lAdministratorspan",
+        "Rochester",
+        "NY",
+        "Work",
+        "Experience",
+        "Network",
+        "Administrator",
+        "United",
+        "States",
+        "Marine",
+        "Corps",
+        "May",
+        "Present",
+        "Education",
+        "college"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:28:03.427717",
+    "resume_data": "Network Administrator span lNetworkspan span lAdministratorspan Rochester NY Work Experience Network Administrator United States Marine Corps May 2015 to Present Education Some college",
+    "unique_id": "1525e004-fdd2-4616-8dd2-a20a7776f597"
+}
