@@ -1,0 +1,43 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Syracuse NY Work Experience Systems Administrator ITT Educational Services Inc March 2009 to June 2011 Education Associate ITT Technical Institute Skills Great people person",
+    "entities": [
+        "lAdministratorspan",
+        "ITT Technical Institute",
+        "lSystemsspan",
+        "ITT Educational Services Inc"
+    ],
+    "experience": "Experience Systems Administrator ITT Educational Services Inc March 2009 to June 2011 Education Associate ITT Technical Institute Skills Great people person",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "lAdministratorspan",
+        "Syracuse",
+        "NY",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "ITT",
+        "Educational",
+        "Services",
+        "Inc",
+        "March",
+        "June",
+        "Education",
+        "Associate",
+        "ITT",
+        "Technical",
+        "Institute",
+        "Skills",
+        "Great",
+        "people",
+        "person"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T21:45:48.283820",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Syracuse NY Work Experience Systems Administrator ITT Educational Services Inc March 2009 to June 2011 Education Associate ITT Technical Institute Skills Great people person",
+    "unique_id": "464ef5b7-65c6-4bfc-8d1e-593daac85743"
+}

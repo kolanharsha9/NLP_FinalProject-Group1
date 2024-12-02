@@ -1,0 +1,38 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Methuen MA Work Experience Systems Administrator NEPC LLC July 2012 to Present Education Associate Northern Essex Community College",
+    "entities": [
+        "lAdministratorspan",
+        "lSystemsspan",
+        "Northern Essex Community College"
+    ],
+    "experience": "Experience Systems Administrator NEPC LLC July 2012 to Present Education Associate Northern Essex Community College",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Methuen",
+        "MA",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "NEPC",
+        "LLC",
+        "July",
+        "Present",
+        "Education",
+        "Associate",
+        "Northern",
+        "Essex",
+        "Community",
+        "College"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T19:43:14.044154",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Methuen MA Work Experience Systems Administrator NEPC LLC July 2012 to Present Education Associate Northern Essex Community College",
+    "unique_id": "fe22f5e8-4ee3-4897-af3d-09e750c52462"
+}

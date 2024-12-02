@@ -1,0 +1,39 @@
+{
+    "clean_data": "IT Project Manager span lITspan span lProjectspan span lManagerspan Clarksboro NJ Work Experience IT Project Manager Rhne Poulenc Cranbury NJ September 1987 to December 1989 Education Bachelors",
+    "entities": [
+        "lProjectspan",
+        "lManagerspan Clarksboro NJ"
+    ],
+    "experience": "Experience IT Project Manager Rhne Poulenc Cranbury NJ September 1987 to December 1989 Education Bachelors",
+    "extracted_keywords": [
+        "IT",
+        "Project",
+        "Manager",
+        "span",
+        "lITspan",
+        "span",
+        "lProjectspan",
+        "span",
+        "lManagerspan",
+        "Clarksboro",
+        "NJ",
+        "Work",
+        "Experience",
+        "IT",
+        "Project",
+        "Manager",
+        "Rhne",
+        "Poulenc",
+        "Cranbury",
+        "NJ",
+        "September",
+        "December",
+        "Education",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:45:05.372403",
+    "resume_data": "IT Project Manager span lITspan span lProjectspan span lManagerspan Clarksboro NJ Work Experience IT Project Manager Rhne Poulenc Cranbury NJ September 1987 to December 1989 Education Bachelors",
+    "unique_id": "b58d1ff9-6822-4d3f-b490-c4d4fa421092"
+}

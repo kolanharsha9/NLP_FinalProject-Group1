@@ -1,0 +1,36 @@
+{
+    "clean_data": "ITData Security Support Analyst span lITspanData span lSecurityspan Support span lAnalystspan WinstonSalem NC Work Experience ITData Security Support Analyst Lowes Mooresville NC April 2007 to Present",
+    "entities": [
+        "NC"
+    ],
+    "experience": "Experience ITData Security Support Analyst Lowes Mooresville NC April 2007 to Present",
+    "extracted_keywords": [
+        "ITData",
+        "Security",
+        "Support",
+        "Analyst",
+        "span",
+        "span",
+        "lSecurityspan",
+        "Support",
+        "span",
+        "lAnalystspan",
+        "WinstonSalem",
+        "NC",
+        "Work",
+        "Experience",
+        "ITData",
+        "Security",
+        "Support",
+        "Analyst",
+        "Lowes",
+        "Mooresville",
+        "NC",
+        "April"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:58:06.366039",
+    "resume_data": "ITData Security Support Analyst span lITspanData span lSecurityspan Support span lAnalystspan WinstonSalem NC Work Experience ITData Security Support Analyst Lowes Mooresville NC April 2007 to Present",
+    "unique_id": "16b90a41-269d-4cf1-89fe-b7c7b8770b10"
+}

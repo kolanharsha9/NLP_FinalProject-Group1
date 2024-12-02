@@ -1,0 +1,35 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Dover NH Work Experience Systems Administrator Education Associate Skills Active Directory System Administrator",
+    "entities": [
+        "lAdministratorspan Dover NH Work Experience Systems Administrator",
+        "Skills Active Directory System Administrator",
+        "lSystemsspan"
+    ],
+    "experience": "Experience Systems Administrator Education Associate Skills Active Directory System Administrator",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Dover",
+        "NH",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Education",
+        "Associate",
+        "Skills",
+        "Active",
+        "Directory",
+        "System",
+        "Administrator"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T21:39:29.634080",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Dover NH Work Experience Systems Administrator Education Associate Skills Active Directory System Administrator",
+    "unique_id": "8f839206-98ff-46da-8c73-b59bf918e992"
+}

@@ -1,0 +1,36 @@
+{
+    "clean_data": "Network Administrator span lNetworkspan span lAdministratorspan Staten Island NY Work Experience Network Administrator bramsonort college Brooklyn NY January 2010 to Present",
+    "entities": [
+        "lNetworkspan",
+        "lAdministratorspan",
+        "Network Administrator",
+        "Brooklyn"
+    ],
+    "experience": "Experience Network Administrator bramsonort college Brooklyn NY January 2010 to Present",
+    "extracted_keywords": [
+        "Network",
+        "Administrator",
+        "span",
+        "lNetworkspan",
+        "span",
+        "lAdministratorspan",
+        "Staten",
+        "Island",
+        "NY",
+        "Work",
+        "Experience",
+        "Network",
+        "Administrator",
+        "bramsonort",
+        "college",
+        "Brooklyn",
+        "NY",
+        "January",
+        "Present"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:10:20.717053",
+    "resume_data": "Network Administrator span lNetworkspan span lAdministratorspan Staten Island NY Work Experience Network Administrator bramsonort college Brooklyn NY January 2010 to Present",
+    "unique_id": "57c0915e-f15b-4684-80ba-dd9eddf75851"
+}

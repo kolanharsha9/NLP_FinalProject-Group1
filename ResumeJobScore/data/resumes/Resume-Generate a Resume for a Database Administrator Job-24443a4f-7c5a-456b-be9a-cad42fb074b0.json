@@ -1,0 +1,36 @@
+{
+    "clean_data": "Software Developer span lSoftwarespan span lDeveloperspan Reno NV Authorized to work in the US for any employer Work Experience Software Developer Lindamood Bell Learning Processes April 2016 to Present Education Bachelors",
+    "entities": [
+        "Work Experience Software Developer Lindamood Bell Learning Processes",
+        "US"
+    ],
+    "experience": "Experience Software Developer Lindamood Bell Learning Processes April 2016 to Present Education Bachelors",
+    "extracted_keywords": [
+        "Software",
+        "Developer",
+        "lSoftwarespan",
+        "span",
+        "lDeveloperspan",
+        "Reno",
+        "NV",
+        "US",
+        "employer",
+        "Work",
+        "Experience",
+        "Software",
+        "Developer",
+        "Lindamood",
+        "Bell",
+        "Learning",
+        "Processes",
+        "April",
+        "Present",
+        "Education",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T19:37:03.047731",
+    "resume_data": "Software Developer span lSoftwarespan span lDeveloperspan Reno NV Authorized to work in the US for any employer Work Experience Software Developer Lindamood Bell Learning Processes April 2016 to Present Education Bachelors",
+    "unique_id": "24443a4f-7c5a-456b-be9a-cad42fb074b0"
+}

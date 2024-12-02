@@ -1,0 +1,26 @@
+{
+    "clean_data": "Education Details BBA lovely professional university HR Skill Details Communication Exprience 6 monthsCompany Details company description",
+    "entities": [
+        "BBA"
+    ],
+    "experience": "Education Details BBA lovely professional university HR Skill Details Communication Exprience 6 monthsCompany Details company description",
+    "extracted_keywords": [
+        "Education",
+        "Details",
+        "BBA",
+        "university",
+        "HR",
+        "Skill",
+        "Details",
+        "Communication",
+        "Exprience",
+        "Details",
+        "company",
+        "description"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:01:26.593144",
+    "resume_data": "Education Details BBA lovely professional university HR Skill Details Communication Exprience 6 monthsCompany Details company description",
+    "unique_id": "d3d2fcb9-f937-4167-8fe8-bc1084b96d54"
+}

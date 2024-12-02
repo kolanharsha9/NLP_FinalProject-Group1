@@ -1,0 +1,32 @@
+{
+    "clean_data": "Senior Software Developer Senior span lSoftwarespan span lDeveloperspan Norwalk CA Work Experience Senior Software Developer Safran April 2016 to Present Education Bachelors",
+    "entities": [],
+    "experience": "Experience Senior Software Developer Safran April 2016 to Present Education Bachelors",
+    "extracted_keywords": [
+        "Senior",
+        "Software",
+        "Developer",
+        "Senior",
+        "span",
+        "lSoftwarespan",
+        "span",
+        "lDeveloperspan",
+        "Norwalk",
+        "CA",
+        "Work",
+        "Experience",
+        "Senior",
+        "Software",
+        "Developer",
+        "Safran",
+        "April",
+        "Present",
+        "Education",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T21:47:49.321661",
+    "resume_data": "Senior Software Developer Senior span lSoftwarespan span lDeveloperspan Norwalk CA Work Experience Senior Software Developer Safran April 2016 to Present Education Bachelors",
+    "unique_id": "4f8b6126-d21f-46ca-8171-716d34cf1996"
+}

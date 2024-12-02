@@ -1,0 +1,32 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Newport News VA Work Experience Systems Administrator Education High school or equivalent",
+    "entities": [
+        "lAdministratorspan",
+        "lSystemsspan",
+        "Newport News VA Work"
+    ],
+    "experience": "Experience Systems Administrator Education High school or equivalent",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Newport",
+        "News",
+        "VA",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Education",
+        "High",
+        "school"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T23:09:40.931108",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Newport News VA Work Experience Systems Administrator Education High school or equivalent",
+    "unique_id": "2fb5c194-44c1-4887-a508-376caff683ec"
+}

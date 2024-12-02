@@ -1,0 +1,43 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Rancho Mirage CA Work Experience Systems Administrator IEHIE October 2012 to May 2015 Education Diploma Hesperia High School CertificationsLicenses PACS Administrator June 2005 to Present PARCA",
+    "entities": [
+        "lAdministratorspan",
+        "IEHIE",
+        "lSystemsspan",
+        "Hesperia High School CertificationsLicenses PACS"
+    ],
+    "experience": "Experience Systems Administrator IEHIE October 2012 to May 2015 Education Diploma Hesperia High School CertificationsLicenses PACS Administrator June 2005 to Present PARCA",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Rancho",
+        "Mirage",
+        "CA",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "IEHIE",
+        "October",
+        "May",
+        "Education",
+        "Diploma",
+        "Hesperia",
+        "High",
+        "School",
+        "CertificationsLicenses",
+        "PACS",
+        "Administrator",
+        "June",
+        "PARCA"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T21:35:29.968099",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Rancho Mirage CA Work Experience Systems Administrator IEHIE October 2012 to May 2015 Education Diploma Hesperia High School CertificationsLicenses PACS Administrator June 2005 to Present PARCA",
+    "unique_id": "a15de741-a710-41e0-813e-431e45bbf7c3"
+}

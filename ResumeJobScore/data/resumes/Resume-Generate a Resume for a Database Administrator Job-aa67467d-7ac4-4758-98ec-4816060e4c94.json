@@ -1,0 +1,40 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Jamaica NY Work Experience Systems Administrator Dial Tone USA Inc 2012 to Present Education Bachelors american international University Bangladesh",
+    "entities": [
+        "lAdministratorspan",
+        "Dial Tone USA Inc 2012",
+        "lSystemsspan",
+        "american international University"
+    ],
+    "experience": "Experience Systems Administrator Dial Tone USA Inc 2012 to Present Education Bachelors american international University Bangladesh",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Jamaica",
+        "NY",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Dial",
+        "Tone",
+        "USA",
+        "Inc",
+        "Present",
+        "Education",
+        "Bachelors",
+        "american",
+        "international",
+        "University",
+        "Bangladesh"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T19:38:31.459894",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Jamaica NY Work Experience Systems Administrator Dial Tone USA Inc 2012 to Present Education Bachelors american international University Bangladesh",
+    "unique_id": "aa67467d-7ac4-4758-98ec-4816060e4c94"
+}

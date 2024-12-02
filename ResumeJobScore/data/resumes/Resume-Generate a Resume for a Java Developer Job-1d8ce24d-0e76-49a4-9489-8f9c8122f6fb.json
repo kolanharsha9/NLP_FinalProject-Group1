@@ -1,0 +1,30 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Washington DC Work Experience Systems Administrator Education Bachelors",
+    "entities": [
+        "lAdministratorspan",
+        "Washington DC Work Experience Systems Administrator",
+        "lSystemsspan"
+    ],
+    "experience": "Experience Systems Administrator Education Bachelors",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Washington",
+        "DC",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Education",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:16:24.210816",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Washington DC Work Experience Systems Administrator Education Bachelors",
+    "unique_id": "1d8ce24d-0e76-49a4-9489-8f9c8122f6fb"
+}

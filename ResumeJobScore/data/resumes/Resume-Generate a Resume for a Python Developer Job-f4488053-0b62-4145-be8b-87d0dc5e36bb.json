@@ -1,0 +1,43 @@
+{
+    "clean_data": "Network Administrator span lNetworkspan span lAdministratorspan Kumasi Sponsorship required to work in the US Work Experience Network Administrator His Grace Investment Kumasi August 2014 to December 2016 Education Diploma in Network Engineering National Institute of information Technology",
+    "entities": [
+        "Network Engineering National Institute of information",
+        "lNetworkspan",
+        "US",
+        "Network Administrator"
+    ],
+    "experience": "Experience Network Administrator His Grace Investment Kumasi August 2014 to December 2016 Education Diploma in Network Engineering National Institute of information Technology",
+    "extracted_keywords": [
+        "Network",
+        "Administrator",
+        "span",
+        "lNetworkspan",
+        "span",
+        "lAdministratorspan",
+        "Kumasi",
+        "Sponsorship",
+        "US",
+        "Work",
+        "Experience",
+        "Network",
+        "Administrator",
+        "Grace",
+        "Investment",
+        "Kumasi",
+        "August",
+        "December",
+        "Education",
+        "Diploma",
+        "Network",
+        "Engineering",
+        "National",
+        "Institute",
+        "information",
+        "Technology"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T21:13:31.065514",
+    "resume_data": "Network Administrator span lNetworkspan span lAdministratorspan Kumasi Sponsorship required to work in the US Work Experience Network Administrator His Grace Investment Kumasi August 2014 to December 2016 Education Diploma in Network Engineering National Institute of information Technology",
+    "unique_id": "f4488053-0b62-4145-be8b-87d0dc5e36bb"
+}

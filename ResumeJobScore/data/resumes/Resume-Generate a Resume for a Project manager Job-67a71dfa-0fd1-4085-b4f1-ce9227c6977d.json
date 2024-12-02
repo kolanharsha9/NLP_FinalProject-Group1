@@ -1,0 +1,33 @@
+{
+    "clean_data": "Oracle Database Administrator Oracle span lDatabasespan span lAdministratorspan Rochester NY Work Experience Oracle Database Administrator Wipro 2010 to Present",
+    "entities": [
+        "lAdministratorspan",
+        "Oracle Database Administrator Oracle",
+        "lDatabasespan"
+    ],
+    "experience": "Experience Oracle Database Administrator Wipro 2010 to Present",
+    "extracted_keywords": [
+        "Oracle",
+        "Database",
+        "Administrator",
+        "Oracle",
+        "span",
+        "lDatabasespan",
+        "span",
+        "lAdministratorspan",
+        "Rochester",
+        "NY",
+        "Work",
+        "Experience",
+        "Oracle",
+        "Database",
+        "Administrator",
+        "Wipro",
+        "Present"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:49:10.656340",
+    "resume_data": "Oracle Database Administrator Oracle span lDatabasespan span lAdministratorspan Rochester NY Work Experience Oracle Database Administrator Wipro 2010 to Present",
+    "unique_id": "67a71dfa-0fd1-4085-b4f1-ce9227c6977d"
+}

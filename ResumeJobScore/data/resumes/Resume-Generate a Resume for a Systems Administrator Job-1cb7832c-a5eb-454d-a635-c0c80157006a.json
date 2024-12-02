@@ -1,0 +1,43 @@
+{
+    "clean_data": "Python Developer span lPythonspan span lDeveloperspan Boise ID Work Experience Python Developer python lake Boise ID March 2015 to Present Education Masters in HRM Marymount University Arlington VA August 2010 to July 2012",
+    "entities": [
+        "lPythonspan",
+        "Present Education Masters",
+        "Marymount University",
+        "Boise",
+        "Arlington VA"
+    ],
+    "experience": "Experience Python Developer python lake Boise ID March 2015 to Present Education Masters in HRM Marymount University Arlington VA August 2010 to July 2012",
+    "extracted_keywords": [
+        "Python",
+        "Developer",
+        "lPythonspan",
+        "span",
+        "lDeveloperspan",
+        "Boise",
+        "ID",
+        "Work",
+        "Experience",
+        "Python",
+        "Developer",
+        "lake",
+        "Boise",
+        "ID",
+        "March",
+        "Present",
+        "Education",
+        "Masters",
+        "HRM",
+        "Marymount",
+        "University",
+        "Arlington",
+        "VA",
+        "August",
+        "July"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:30:12.196471",
+    "resume_data": "Python Developer span lPythonspan span lDeveloperspan Boise ID Work Experience Python Developer python lake Boise ID March 2015 to Present Education Masters in HRM Marymount University Arlington VA August 2010 to July 2012",
+    "unique_id": "1cb7832c-a5eb-454d-a635-c0c80157006a"
+}

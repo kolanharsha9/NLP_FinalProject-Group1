@@ -1,0 +1,27 @@
+{
+    "clean_data": "Software Developer span lSoftwarespan span lDeveloperspan Tampa FL Work Experience Software Developer Fintech 2013 to Present Education Bachelors",
+    "entities": [],
+    "experience": "Experience Software Developer Fintech 2013 to Present Education Bachelors",
+    "extracted_keywords": [
+        "Software",
+        "Developer",
+        "lSoftwarespan",
+        "span",
+        "lDeveloperspan",
+        "Tampa",
+        "FL",
+        "Work",
+        "Experience",
+        "Software",
+        "Developer",
+        "Fintech",
+        "Present",
+        "Education",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:57:38.239228",
+    "resume_data": "Software Developer span lSoftwarespan span lDeveloperspan Tampa FL Work Experience Software Developer Fintech 2013 to Present Education Bachelors",
+    "unique_id": "7108124c-f76b-446b-9a34-49bb8fe112e8"
+}

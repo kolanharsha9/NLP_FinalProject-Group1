@@ -1,0 +1,39 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan San Antonio TX Work Experience Systems Administrator Education Bachelors in Information Systems University of Maryland University College",
+    "entities": [
+        "lSystemsspan",
+        "San Antonio",
+        "TX Work Experience Systems Administrator Education Bachelors",
+        "lAdministratorspan",
+        "Information Systems University of Maryland University College"
+    ],
+    "experience": "Experience Systems Administrator Education Bachelors in Information Systems University of Maryland University College",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "San",
+        "Antonio",
+        "TX",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Education",
+        "Bachelors",
+        "Information",
+        "Systems",
+        "University",
+        "Maryland",
+        "University",
+        "College"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:49:00.152918",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan San Antonio TX Work Experience Systems Administrator Education Bachelors in Information Systems University of Maryland University College",
+    "unique_id": "3022d881-a6cd-4d61-90d7-94705d291e9e"
+}

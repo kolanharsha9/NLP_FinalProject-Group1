@@ -1,0 +1,30 @@
+{
+    "clean_data": "Education Details LLB Dibrugarh University Advocate Skill Details Legal Exprience Less than 1 year monthsCompany Details company Legal description Advocate",
+    "entities": [
+        "Advocate",
+        "LLB Dibrugarh University"
+    ],
+    "experience": "Education Details LLB Dibrugarh University Advocate Skill Details Legal Exprience Less than 1 year monthsCompany Details company Legal description Advocate",
+    "extracted_keywords": [
+        "Education",
+        "Details",
+        "LLB",
+        "Dibrugarh",
+        "University",
+        "Advocate",
+        "Skill",
+        "Details",
+        "Legal",
+        "Exprience",
+        "year",
+        "Details",
+        "company",
+        "description",
+        "Advocate"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T19:28:45.401400",
+    "resume_data": "Education Details LLB Dibrugarh University Advocate Skill Details Legal Exprience Less than 1 year monthsCompany Details company Legal description Advocate",
+    "unique_id": "c085f75d-1edb-448d-9f1f-7fb97acfc719"
+}

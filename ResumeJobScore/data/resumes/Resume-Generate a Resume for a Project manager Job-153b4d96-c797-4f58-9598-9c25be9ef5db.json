@@ -1,0 +1,14 @@
+{
+    "clean_data": "Job Seeker",
+    "entities": [],
+    "experience": "",
+    "extracted_keywords": [
+        "Job",
+        "Seeker"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:46:32.716524",
+    "resume_data": "Job Seeker",
+    "unique_id": "153b4d96-c797-4f58-9598-9c25be9ef5db"
+}

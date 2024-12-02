@@ -1,0 +1,41 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Tucson AZ Work Experience Systems Administrator Education Associate in UndecidedGeneral Educafion Pima Community College Tucson AZ August 2019 to Present Associate",
+    "entities": [
+        "lAdministratorspan",
+        "Tucson",
+        "lSystemsspan",
+        "Tucson AZ Work Experience Systems Administrator Education Associate"
+    ],
+    "experience": "Experience Systems Administrator Education Associate in UndecidedGeneral Educafion Pima Community College Tucson AZ August 2019 to Present Associate",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Tucson",
+        "AZ",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Education",
+        "Associate",
+        "UndecidedGeneral",
+        "Educafion",
+        "Pima",
+        "Community",
+        "College",
+        "Tucson",
+        "AZ",
+        "August",
+        "Present",
+        "Associate"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T21:15:43.453986",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Tucson AZ Work Experience Systems Administrator Education Associate in UndecidedGeneral Educafion Pima Community College Tucson AZ August 2019 to Present Associate",
+    "unique_id": "35d7e014-f3a6-4416-ad24-dd4456a74b2d"
+}

@@ -1,0 +1,33 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Cary NC Work Experience Systems Administrator NetApp Inc June 2016 to Present Education Bachelors",
+    "entities": [
+        "lAdministratorspan",
+        "lSystemsspan"
+    ],
+    "experience": "Experience Systems Administrator NetApp Inc June 2016 to Present Education Bachelors",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Cary",
+        "NC",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "NetApp",
+        "Inc",
+        "June",
+        "Present",
+        "Education",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T23:03:09.745481",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Cary NC Work Experience Systems Administrator NetApp Inc June 2016 to Present Education Bachelors",
+    "unique_id": "3fa547ce-c41f-421b-a412-bd02614e0671"
+}

@@ -1,0 +1,36 @@
+{
+    "clean_data": "Web content developer span lWebspan content span ldeveloperspan Occitane France Work Experience Web content developer Pearson Education March 2011 to April 2017 Education Associate",
+    "entities": [
+        "Occitane France Work",
+        "lWebspan"
+    ],
+    "experience": "Experience Web content developer Pearson Education March 2011 to April 2017 Education Associate",
+    "extracted_keywords": [
+        "Web",
+        "content",
+        "developer",
+        "span",
+        "lWebspan",
+        "content",
+        "span",
+        "ldeveloperspan",
+        "Occitane",
+        "France",
+        "Work",
+        "Experience",
+        "Web",
+        "content",
+        "developer",
+        "Pearson",
+        "Education",
+        "March",
+        "April",
+        "Education",
+        "Associate"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:13:53.389985",
+    "resume_data": "Web content developer span lWebspan content span ldeveloperspan Occitane France Work Experience Web content developer Pearson Education March 2011 to April 2017 Education Associate",
+    "unique_id": "5410adc9-19cd-4b02-b0d2-39a3d3e828f3"
+}

@@ -1,0 +1,38 @@
+{
+    "clean_data": "Advanced Network Administrator Advanced span lNetworkspan span lAdministratorspan West Palm Beach FL Work Experience Advanced Network Administrator Mutual of America November 1998 to Present Education Associate",
+    "entities": [
+        "lNetworkspan",
+        "lAdministratorspan"
+    ],
+    "experience": "Experience Advanced Network Administrator Mutual of America November 1998 to Present Education Associate",
+    "extracted_keywords": [
+        "Advanced",
+        "Network",
+        "Administrator",
+        "Advanced",
+        "span",
+        "lNetworkspan",
+        "span",
+        "lAdministratorspan",
+        "West",
+        "Palm",
+        "Beach",
+        "FL",
+        "Work",
+        "Experience",
+        "Advanced",
+        "Network",
+        "Administrator",
+        "Mutual",
+        "America",
+        "November",
+        "Present",
+        "Education",
+        "Associate"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:30:42.621324",
+    "resume_data": "Advanced Network Administrator Advanced span lNetworkspan span lAdministratorspan West Palm Beach FL Work Experience Advanced Network Administrator Mutual of America November 1998 to Present Education Associate",
+    "unique_id": "f9a0290f-0c16-4b19-8a98-7c5479a6b7ff"
+}
