@@ -201,3 +201,49 @@ if st.button("Rank Resumes"):
 
 
 
+
+
+#gives you json for resume and jobdes
+
+import streamlit as st
+from app4 import process_documents, save_to_json
+
+def main():
+    # Streamlit UI components
+    st.title("Resume and Job Description Parser")
+    
+    # API Key input
+    api_key = st.text_input("Enter Gemini API Key")
+    
+    # File uploaders
+    resume_file = st.file_uploader("Upload Resume PDF", type=['pdf'])
+    job_desc_file = st.file_uploader("Upload Job Description", type=['txt'])
+    
+    if st.button("Parse Documents"):
+        # Save uploaded files temporarily
+        with open("temp_resume.pdf", "wb") as f:
+            f.write(resume_file.getbuffer())
+        
+        with open("temp_job_desc.txt", "wb") as f:
+            f.write(job_desc_file.getbuffer())
+        
+        # Process documents
+        parsed_resume, parsed_job_description = process_documents(
+            api_key, 
+            "temp_resume.pdf", 
+            "temp_job_desc.txt"
+        )
+        
+        # Display or save results
+        if parsed_resume:
+            st.json(parsed_resume)
+            save_to_json(parsed_resume, 'parsed_resume.json')
+        
+        if parsed_job_description:
+            st.json(parsed_job_description)
+            save_to_json(parsed_job_description, 'parsed_job_description.json')
+
+if __name__ == "__main__":
+    main()
+
+
