@@ -7,35 +7,197 @@ st.title("Resume and Job Matcher")
 st.sidebar.title("Menu")
 menu_options = ["Home", "About"]
 choice = st.sidebar.selectbox("Select an option", menu_options)
-
-if choice == "Home":
-    st.header("Job Description")
-    job_description = st.text_area("Paste the job description here")
-
-    st.header("Upload Resume")
-    uploaded_file = st.file_uploader("Drag and drop your resume here", type=["pdf", "docx"])
-
-    if uploaded_file is not None:
-        st.write("Uploaded Resume:", uploaded_file.name)
-        st.header("Output Results")
-        st.write("Results will be displayed here after processing.")
-
-elif choice == "About":
-    st.header("About")
-    st.write("This is a basic Streamlit application for matching resumes with job descriptions.")
+# gives you json for resume and jobdes
 
 
-import re
-import numpy as np
-import torch
-from transformers import BertTokenizer, BertModel
-from PyPDF2 import PdfReader
+from resume_job_description_parser import process_documents, save_to_json
+
+
+def main():
+    # Streamlit UI components
+    st.header("Resume and Job Description Parser")
+
+    # API Key input
+    api_key = "AIzaSyDw1PTBcbK09IYvQkUI7Fp39A8M1NMm-Pg"
+
+    # File uploaders
+    resume_file = st.file_uploader("Upload Resume PDF", type=['pdf'])
+    job_desc_file = st.file_uploader("Upload Job Description", type=['pdf'])
+
+    if st.button("Parse Documents"):
+        # Save uploaded files temporarily
+        with open("temp_resume.pdf", "wb") as f:
+            f.write(resume_file.getbuffer())
+
+        with open("temp_job_desc.txt", "wb") as f:
+            f.write(job_desc_file.getbuffer())
+
+        # Process documents
+        parsed_resume, parsed_job_description = process_documents(
+            api_key,
+            "temp_resume.pdf",
+            "temp_job_desc.txt"
+        )
+
+        # Display or save results
+        if parsed_resume:
+            st.json(parsed_resume)
+            save_to_json(parsed_resume, 'parsed_resume.json')
+
+        if parsed_job_description:
+            st.json(parsed_job_description)
+            save_to_json(parsed_job_description, 'parsed_job_description.json')
+
+
+if __name__ == "__main__":
+    main()
+
+# if choice == "Home":
+#     st.header("Job Description")
+#     job_description = st.text_area("Paste the job description here")
+#
+#     st.header("Upload Resume")
+#     uploaded_file = st.file_uploader("Drag and drop your resume here", type=["pdf", "docx"])
+#
+#     if uploaded_file is not None:
+#         st.write("Uploaded Resume:", uploaded_file.name)
+#         st.header("Output Results")
+#         st.write("Results will be displayed here after processing.")
+#
+# elif choice == "About":
+#     st.header("About")
+#     st.write("This is a basic Streamlit application for matching resumes with job descriptions.")
+
 import streamlit as st
-from tqdm import tqdm
+from resume_job_description_parser import process_documents
+from sentence_transformers import SentenceTransformer, util
 
-# Function to extract text from a PDF file
+# Initialize the Sentence Transformer model
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+# Function to calculate weighted similarity
+def calculate_weighted_similarity(resume, job_description, weights):
+    """
+    Calculates a weighted similarity score between resume and job description fields.
+
+    Args:
+        resume (dict): Parsed resume JSON.
+        job_description (dict): Parsed job description JSON.
+        weights (dict): Weights for each section (skills, responsibilities, qualifications).
+
+    Returns:
+        float: Final weighted similarity score.
+    """
+    # Extract relevant sections
+    resume_skills = " ".join(resume.get('skills', []))
+    st.write('resume_skills:',resume_skills)
+    resume_responsibilities = " ".join(
+        [" ".join(exp.get('responsibilities', [])) for exp in resume.get('work_experience', [])]
+    )
+    st.write('resume_responsibilities:',resume_responsibilities)
+    resume_qualifications = " ".join([edu.get('degree', '') for edu in resume.get('education', [])])
+    st.write('resume_qualifications:',resume_qualifications)
+
+    job_skills = " ".join(job_description.get('required_skills', []))
+    st.write('job_skills:',job_skills)
+    job_responsibilities = " ".join(job_description.get('responsibilities', []))
+    st.write('job_responsibilities:',job_responsibilities)
+    job_qualifications = " ".join(job_description.get('qualifications', []))
+    st.write('job_qualifications:',job_qualifications)
+
+    # Generate embeddings
+    resume_embeddings = {
+        'skills': model.encode(resume_skills, convert_to_tensor=True),
+        'responsibilities': model.encode(resume_responsibilities, convert_to_tensor=True),
+        'qualifications': model.encode(resume_qualifications, convert_to_tensor=True)
+    }
+    job_embeddings = {
+        'skills': model.encode(job_skills, convert_to_tensor=True),
+        'responsibilities': model.encode(job_responsibilities, convert_to_tensor=True),
+        'qualifications': model.encode(job_qualifications, convert_to_tensor=True)
+    }
+
+    # Calculate cosine similarities
+    similarities = {
+        field: util.cos_sim(resume_embeddings[field], job_embeddings[field]).item()
+        for field in weights.keys()
+    }
+
+    # Compute weighted average similarity score
+    weighted_similarity = sum(similarities[field] * weights[field] for field in weights)
+    return weighted_similarity
+
+
+# Streamlit UI
+st.title("Resume and Job Description Similarity Checker")
+
+# File upload section
+st.subheader("Upload Resume and Job Description")
+resume_file = st.file_uploader("Upload your Resume (PDF)", type=["pdf"])
+job_description_file = st.file_uploader("Upload the Job Description (PDF)", type=["pdf"])
+
+# Sliders for adjusting weights
+st.subheader("Adjust Weights")
+skills_weight = st.slider("Skills Weight", 0.0, 1.0, 0.5, 0.01)
+responsibilities_weight = st.slider("Responsibilities Weight", 0.0, 1.0, 0.4, 0.01)
+qualifications_weight = st.slider("Qualifications Weight", 0.0, 1.0, 0.1, 0.01)
+
+# Ensure weights sum to 1 with a small tolerance for floating-point errors
+total_weight = skills_weight + responsibilities_weight + qualifications_weight
+tolerance = 1e-6  # Allowable tolerance for floating-point comparison
+if abs(total_weight - 1.0) > tolerance:
+    st.warning(f"Total weight is {total_weight:.2f}. Please adjust the sliders to make the total weight 1.0.")
+else:
+    # Process documents and calculate similarity score
+    if resume_file and job_description_file:
+        # Placeholder API key (replace with actual key)
+        api_key = "AIzaSyDw1PTBcbK09IYvQkUI7Fp39A8M1NMm-Pg"
+
+        with st.spinner("Processing documents..."):
+            # Parse the documents
+            parsed_resume, parsed_job_description = process_documents(api_key, resume_file, job_description_file)
+
+            # Define weights
+            weights = {
+                'skills': skills_weight,
+                'responsibilities': responsibilities_weight,
+                'qualifications': qualifications_weight
+            }
+
+            # Calculate similarity score
+            final_similarity_score = calculate_weighted_similarity(parsed_resume, parsed_job_description, weights)
+
+            # Display the result
+            st.success(f"Final Similarity Score: {final_similarity_score:.2f}")
+
+
+
+import streamlit as st
+import numpy as np
+from transformers import BertTokenizer, BertModel
+import torch
+import PyPDF2
+import re
+from tqdm import tqdm
+from sklearn.metrics.pairwise import cosine_similarity
+from concurrent.futures import ThreadPoolExecutor
+
+# Helper functions
+def embed_texts(texts, model, tokenizer):
+    """Generate embeddings for a list of texts using BERT."""
+    embeddings = []
+    for text in tqdm(texts, desc="Generating embeddings"):
+        tokens = tokenizer(text, return_tensors='pt', padding=True, truncation=True, max_length=512)
+        input_ids = tokens['input_ids']
+        attention_mask = tokens['attention_mask']
+        with torch.no_grad():
+            output = model(input_ids, attention_mask=attention_mask)
+        embeddings.append(output.last_hidden_state[:, 0, :].mean(0).numpy())
+    return np.array(embeddings)
+
 def extract_text_from_pdf(file):
-    reader = PdfReader(file)
+    """Extract text content from a PDF file."""
+    reader = PyPDF2.PdfReader(file)
     text = ''
     for page in reader.pages:
         page_text = page.extract_text()
@@ -43,85 +205,33 @@ def extract_text_from_pdf(file):
             text += page_text
     return text
 
-# Function to clean and preprocess text
 def clean_text(text):
+    """Clean text by lowercasing and removing non-alphabetical characters."""
     text = text.lower()
-    text = re.sub(r'[^a-z\s]', '', text)
+    text = re.sub(r'[^a-z0-9\s]', '', text)
     return text
 
-# Function to get BERT embedding for a text
-def get_bert_embedding(text, tokenizer, model):
-    inputs = tokenizer(text, return_tensors='pt', max_length=512, truncation=True, padding=True)
-    with torch.no_grad():
-        outputs = model(**inputs)
-    return outputs.last_hidden_state.mean(dim=1).squeeze().numpy()
-
-# Function to compute similarity score
-def compute_similarity(job_desc_text, resume_text, tokenizer, model):
-    # Get embeddings for job description and resume
-    job_desc_embedding = get_bert_embedding(job_desc_text, tokenizer, model)
-    resume_embedding = get_bert_embedding(resume_text, tokenizer, model)
-
-    # Compute similarity using cosine similarity
-    similarity = np.dot(job_desc_embedding, resume_embedding) / (
-        np.linalg.norm(job_desc_embedding) * np.linalg.norm(resume_embedding)
-    )
-
-    return similarity
-
-# Integration in the middle of a larger Streamlit script
-st.header('Checking Resume score')
-st.header("Upload Files")
-job_desc_file = st.file_uploader("Upload Job Description (PDF)", type=["pdf"])
-resume_file = st.file_uploader("Upload Resume (PDF)", type=["pdf"])
-
-if st.button("Compute Similarity"):
-    if job_desc_file is not None and resume_file is not None:
-        # Load BERT tokenizer and model
-        st.write("Loading BERT model...")
-        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-        model = BertModel.from_pretrained('bert-base-uncased')
-
-        # Extract and preprocess text
-        st.write("Processing files...")
-        job_desc_text = clean_text(extract_text_from_pdf(job_desc_file))
-        resume_text = clean_text(extract_text_from_pdf(resume_file))
-
-        # Compute similarity score
-        st.write("Computing similarity...")
-        similarity_score = compute_similarity(job_desc_text, resume_text, tokenizer, model)
-
-        # Display result
-        st.success(f"Similarity Score: {similarity_score:.4f}")
-    else:
-        st.error("Please upload both the job description and the resume.")
-
-
-
-
-
-# Helper functions
-def embed_texts(texts, model, tokenizer):
-    embeddings = []
-    for text in tqdm(texts, desc="Generating embeddings"):
-        chunks = []
-        tokens = tokenizer(text, return_tensors='pt', padding=True, truncation=True, max_length=512)
-        input_ids = tokens['input_ids']
-        for i in range(0, input_ids.size(1), 512):
-            chunk = {key: val[:, i:i+512] for key, val in tokens.items()}
-            with torch.no_grad():
-                output = model(**chunk)
-            chunks.append(output.last_hidden_state[:, 0, :].mean(0).numpy())
-        embeddings.append(np.mean(chunks, axis=0))
-    return np.array(embeddings)
-
-
-
 def normalize_vectors(vectors):
+    """Normalize vectors to unit length."""
     return vectors / np.linalg.norm(vectors, axis=1, keepdims=True)
 
+def rank_resumes(job_embedding, resume_embeddings, filenames, resumes):
+    """Rank resumes based on cosine similarity."""
+    similarity_scores = cosine_similarity([job_embedding], resume_embeddings)[0]
+    ranked_indices = np.argsort(similarity_scores)[::-1]
+
+    ranked_results = []
+    for rank, idx in enumerate(ranked_indices, start=1):
+        ranked_results.append({
+            "rank": rank,
+            "file_name": filenames[idx],
+            "similarity_score": similarity_scores[idx] * 100,
+            "content_preview": resumes[idx][:500]  # Provide a snippet of the content
+        })
+    return ranked_results
+
 # Streamlit App
-st.header("Resume Ranking System")
+st.header("Improved Resume Ranking System")
 st.subheader("Upload Job Description and Resumes")
 
 # Upload Job Description
@@ -140,15 +250,16 @@ if st.button("Rank Resumes"):
         if len(uploaded_resumes) > 10:
             st.error("Please upload a maximum of 10 resumes.")
         else:
-            # Extract Job Description
-            job_description = extract_text_from_pdf(uploaded_pdf)
+            try:
+                # Extract Job Description
+                job_description = extract_text_from_pdf(uploaded_pdf)
+                job_description_cleaned = clean_text(job_description)
 
-            # Load Resumes
-            st.write("Processing resumes...")
-            resumes = []
-            filenames = []
-            for resume_file in uploaded_resumes:
-                try:
+                # Load Resumes
+                st.write("Processing resumes...")
+                resumes = []
+                filenames = []
+                for resume_file in uploaded_resumes:
                     if resume_file.name.endswith(".pdf"):
                         content = extract_text_from_pdf(resume_file)
                     elif resume_file.name.endswith(".txt"):
@@ -160,91 +271,39 @@ if st.button("Rank Resumes"):
                     cleaned_content = clean_text(content)
                     resumes.append(cleaned_content)
                     filenames.append(resume_file.name)
-                except Exception as e:
-                    st.error(f"Error processing {resume_file.name}: {str(e)}")
 
-            # Load Pretrained BERT
-            st.write("Loading BERT model...")
-            tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
-            model = BertModel.from_pretrained("bert-base-uncased")
+                # Load Pretrained BERT
+                st.write("Loading BERT model...")
+                tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+                model = BertModel.from_pretrained("bert-base-uncased")
 
-            # Embed Resumes and Job Description
-            st.write("Generating embeddings for resumes...")
-            resume_embeddings = embed_texts(resumes, model, tokenizer)
-            st.write("Generating embedding for job description...")
-            job_desc_embedding = embed_texts([job_description], model, tokenizer)[0]
+                # Generate Embeddings
+                with ThreadPoolExecutor() as executor:
+                    job_desc_embedding = embed_texts([job_description_cleaned], model, tokenizer)[0]
+                    resume_embeddings = embed_texts(resumes, model, tokenizer)
 
-            # Normalize Embeddings
-            resume_embeddings = normalize_vectors(resume_embeddings)
-            job_desc_embedding = job_desc_embedding / np.linalg.norm(job_desc_embedding)
+                # Normalize Embeddings
+                job_desc_embedding = job_desc_embedding / np.linalg.norm(job_desc_embedding)
+                resume_embeddings = normalize_vectors(resume_embeddings)
 
-            # Calculate Similarity Scores
-            similarity_scores = np.dot(resume_embeddings, job_desc_embedding)
+                # Rank Resumes
+                ranked_resumes = rank_resumes(job_desc_embedding, resume_embeddings, filenames, resumes)
 
-            # Rank Resumes by Similarity Scores
-            ranked_indices = np.argsort(similarity_scores)[::-1]
+                # Display Ranked Resumes
+                st.write("Ranked Resumes Based on Similarity Scores:")
+                for resume in ranked_resumes:
+                    st.write(f"### Rank {resume['rank']}")
+                    st.write(f"**File Name:** {resume['file_name']}")
+                    st.write(f"**Similarity Score:** {resume['similarity_score']:.2f}%")
+                    st.write(f"**Resume Content Preview:** {resume['content_preview']}...")
+                    st.write("---")
 
-            # Display Ranked Resumes
-            st.write("Ranked Resumes Based on Similarity Scores:")
-            for rank, idx in enumerate(ranked_indices, start=1):
-                st.write(f"### Rank {rank}")
-                st.write(f"**File Name:** {filenames[idx]}")
-                st.write(f"**Similarity Score:** {similarity_scores[idx] * 100:.2f}%")
-                st.write(f"**Resume Content:** {resumes[idx][:500]}...")
-                st.write("---")
+            except Exception as e:
+                st.error(f"An error occurred: {str(e)}")
     else:
         st.error("Please upload a job description PDF and at least one resume.")
 
 
-
-
-
-#%%
-
-
-
-#gives you json for resume and jobdes
-
-import streamlit as st
-from resume_job_description_parser import process_documents, save_to_json
-
-def main():
-    # Streamlit UI components
-    st.title("Resume and Job Description Parser")
-    
-    # API Key input
-    api_key = st.text_input("Enter Gemini API Key")
-    
-    # File uploaders
-    resume_file = st.file_uploader("Upload Resume PDF", type=['pdf'])
-    job_desc_file = st.file_uploader("Upload Job Description", type=['txt'])
-    
-    if st.button("Parse Documents"):
-        # Save uploaded files temporarily
-        with open("temp_resume.pdf", "wb") as f:
-            f.write(resume_file.getbuffer())
-        
-        with open("temp_job_desc.txt", "wb") as f:
-            f.write(job_desc_file.getbuffer())
-        
-        # Process documents
-        parsed_resume, parsed_job_description = process_documents(
-            api_key, 
-            "temp_resume.pdf", 
-            "temp_job_desc.txt"
-        )
-        
-        # Display or save results
-        if parsed_resume:
-            st.json(parsed_resume)
-            save_to_json(parsed_resume, 'parsed_resume.json')
-        
-        if parsed_job_description:
-            st.json(parsed_job_description)
-            save_to_json(parsed_job_description, 'parsed_job_description.json')
-
-if __name__ == "__main__":
-    main()
 
 
 
