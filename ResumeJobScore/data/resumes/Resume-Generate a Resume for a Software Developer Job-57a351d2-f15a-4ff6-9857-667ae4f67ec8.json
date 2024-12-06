@@ -1,0 +1,33 @@
+{
+    "clean_data": "Network Administrator span lNetworkspan span lAdministratorspan Los Angeles CA Work Experience Network Administrator badrtoos September 2012 to September 2016",
+    "entities": [
+        "Los Angeles",
+        "lNetworkspan",
+        "lAdministratorspan",
+        "Network Administrator"
+    ],
+    "experience": "Experience Network Administrator badrtoos September 2012 to September 2016",
+    "extracted_keywords": [
+        "Network",
+        "Administrator",
+        "span",
+        "lNetworkspan",
+        "span",
+        "lAdministratorspan",
+        "Los",
+        "Angeles",
+        "CA",
+        "Work",
+        "Experience",
+        "Network",
+        "Administrator",
+        "badrtoos",
+        "September",
+        "September"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T21:41:13.751967",
+    "resume_data": "Network Administrator span lNetworkspan span lAdministratorspan Los Angeles CA Work Experience Network Administrator badrtoos September 2012 to September 2016",
+    "unique_id": "57a351d2-f15a-4ff6-9857-667ae4f67ec8"
+}

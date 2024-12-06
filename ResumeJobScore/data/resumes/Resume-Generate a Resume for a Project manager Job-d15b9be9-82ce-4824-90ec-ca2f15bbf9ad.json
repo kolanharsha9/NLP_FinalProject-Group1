@@ -1,0 +1,37 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan JR Systems Administrator Lakeland FL Work Experience Systems Administrator Morgan and Morgan Orlando FL August 2014 to October 2017",
+    "entities": [
+        "Morgan Orlando FL",
+        "lSystemsspan",
+        "lAdministratorspan JR Systems Administrator"
+    ],
+    "experience": "Experience Systems Administrator Morgan and Morgan Orlando FL August 2014 to October 2017",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "JR",
+        "Systems",
+        "Administrator",
+        "Lakeland",
+        "FL",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Morgan",
+        "Morgan",
+        "Orlando",
+        "FL",
+        "August",
+        "October"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:43:32.592416",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan JR Systems Administrator Lakeland FL Work Experience Systems Administrator Morgan and Morgan Orlando FL August 2014 to October 2017",
+    "unique_id": "d15b9be9-82ce-4824-90ec-ca2f15bbf9ad"
+}

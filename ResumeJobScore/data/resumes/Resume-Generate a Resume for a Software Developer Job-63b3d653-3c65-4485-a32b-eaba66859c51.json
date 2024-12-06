@@ -1,0 +1,41 @@
+{
+    "clean_data": "Network Administrator span lNetworkspan span lAdministratorspan Arlington VA Work Experience Network Administrator Passerelles Numeriques Cambodia October 2016 to April 2019 Education Masters Skills Windows server 2012 5 years",
+    "entities": [
+        "lNetworkspan",
+        "Skills Windows",
+        "Network Administrator",
+        "Cambodia",
+        "lAdministratorspan"
+    ],
+    "experience": "Experience Network Administrator Passerelles Numeriques Cambodia October 2016 to April 2019 Education Masters Skills Windows server 2012 5 years",
+    "extracted_keywords": [
+        "Network",
+        "Administrator",
+        "span",
+        "lNetworkspan",
+        "span",
+        "lAdministratorspan",
+        "Arlington",
+        "VA",
+        "Work",
+        "Experience",
+        "Network",
+        "Administrator",
+        "Passerelles",
+        "Numeriques",
+        "Cambodia",
+        "October",
+        "April",
+        "Education",
+        "Masters",
+        "Skills",
+        "Windows",
+        "server",
+        "years"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:20:05.818391",
+    "resume_data": "Network Administrator span lNetworkspan span lAdministratorspan Arlington VA Work Experience Network Administrator Passerelles Numeriques Cambodia October 2016 to April 2019 Education Masters Skills Windows server 2012 5 years",
+    "unique_id": "63b3d653-3c65-4485-a32b-eaba66859c51"
+}

@@ -1,0 +1,31 @@
+{
+    "clean_data": "Education Details BA mumbai University HR Skill Details Hr Operations Exprience Less than 1 year monthsCompany Details company Mumbai Monorail description",
+    "entities": [
+        "Mumbai"
+    ],
+    "experience": "Education Details BA mumbai University HR Skill Details Hr Operations Exprience Less than 1 year monthsCompany Details company Mumbai Monorail description",
+    "extracted_keywords": [
+        "Education",
+        "Details",
+        "BA",
+        "mumbai",
+        "University",
+        "HR",
+        "Skill",
+        "Details",
+        "Hr",
+        "Operations",
+        "Exprience",
+        "year",
+        "Details",
+        "company",
+        "Mumbai",
+        "Monorail",
+        "description"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:00:57.468187",
+    "resume_data": "Education Details BA mumbai University HR Skill Details Hr Operations Exprience Less than 1 year monthsCompany Details company Mumbai Monorail description",
+    "unique_id": "18d86b91-1ca5-431c-9a5b-03fcf9722311"
+}

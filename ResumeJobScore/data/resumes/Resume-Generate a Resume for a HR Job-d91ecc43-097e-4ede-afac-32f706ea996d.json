@@ -1,0 +1,30 @@
+{
+    "clean_data": "Education Details MBA ACN College of engineering mgt HR Skill Details Company Details company HR Assistant description",
+    "entities": [
+        "Skill Details Company Details"
+    ],
+    "experience": "Education Details MBA ACN College of engineering mgt HR Skill Details Company Details company HR Assistant description",
+    "extracted_keywords": [
+        "Education",
+        "Details",
+        "MBA",
+        "ACN",
+        "College",
+        "engineering",
+        "mgt",
+        "HR",
+        "Skill",
+        "Details",
+        "Company",
+        "Details",
+        "company",
+        "HR",
+        "Assistant",
+        "description"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:01:26.510210",
+    "resume_data": "Education Details MBA ACN College of engineering mgt HR Skill Details Company Details company HR Assistant description",
+    "unique_id": "d91ecc43-097e-4ede-afac-32f706ea996d"
+}

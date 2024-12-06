@@ -1,0 +1,38 @@
+{
+    "clean_data": "systems administrator span lsystemsspan span ladministratorspan ghanasunyani Work Experience systems administrator Systems Administrator September 2010 to June 2013 Education HND niit Skills systems administrator 9 years",
+    "entities": [
+        "HND",
+        "lsystemsspan",
+        "Skills systems"
+    ],
+    "experience": "Experience systems administrator Systems Administrator September 2010 to June 2013 Education HND niit Skills systems administrator 9 years",
+    "extracted_keywords": [
+        "systems",
+        "administrator",
+        "span",
+        "lsystemsspan",
+        "span",
+        "ladministratorspan",
+        "ghanasunyani",
+        "Work",
+        "Experience",
+        "systems",
+        "administrator",
+        "Systems",
+        "Administrator",
+        "September",
+        "June",
+        "Education",
+        "HND",
+        "niit",
+        "Skills",
+        "systems",
+        "administrator",
+        "years"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T20:54:01.363259",
+    "resume_data": "systems administrator span lsystemsspan span ladministratorspan ghanasunyani Work Experience systems administrator Systems Administrator September 2010 to June 2013 Education HND niit Skills systems administrator 9 years",
+    "unique_id": "9446f9e1-1a90-4f30-a5b6-58ad25d49441"
+}

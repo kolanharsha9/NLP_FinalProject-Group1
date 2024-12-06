@@ -1,0 +1,40 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Asheboro NC Work Experience Systems Administrator Davidson County Government 2010 to Present Skills Windows Systems Administration 5 years Linux Experience CertificationsLicenses OSCP",
+    "entities": [
+        "lAdministratorspan",
+        "Linux Experience",
+        "Present Skills Windows Systems Administration",
+        "lSystemsspan"
+    ],
+    "experience": "Experience Systems Administrator Davidson County Government 2010 to Present Skills Windows Systems Administration 5 years Linux Experience CertificationsLicenses OSCP",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "lAdministratorspan",
+        "Asheboro",
+        "NC",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Davidson",
+        "County",
+        "Government",
+        "Present",
+        "Skills",
+        "Windows",
+        "Systems",
+        "Administration",
+        "years",
+        "Linux",
+        "Experience",
+        "CertificationsLicenses"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T19:51:26.423577",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Asheboro NC Work Experience Systems Administrator Davidson County Government 2010 to Present Skills Windows Systems Administration 5 years Linux Experience CertificationsLicenses OSCP",
+    "unique_id": "ae47317b-547a-40b0-8d55-3289c68464e2"
+}

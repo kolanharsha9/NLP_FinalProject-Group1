@@ -1,0 +1,36 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Elk Grove CA Work Experience Systems Administrator Skills Active Directory System Administrator Vmware System Admin",
+    "entities": [
+        "lAdministratorspan",
+        "lSystemsspan"
+    ],
+    "experience": "Experience Systems Administrator Skills Active Directory System Administrator Vmware System Admin",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Elk",
+        "Grove",
+        "CA",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Skills",
+        "Active",
+        "Directory",
+        "System",
+        "Administrator",
+        "Vmware",
+        "System",
+        "Admin"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:43:51.615131",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Elk Grove CA Work Experience Systems Administrator Skills Active Directory System Administrator Vmware System Admin",
+    "unique_id": "0ba55809-c33d-4df2-87b0-1295a386bb70"
+}

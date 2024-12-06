@@ -1,0 +1,36 @@
+{
+    "clean_data": "Software Developer span lSoftwarespan span lDeveloperspan Tampa FL Authorized to work in the US for any employer Work Experience Software Developer Tata consultancy services July 2012 to Present Education Bachelors",
+    "entities": [
+        "Work Experience Software Developer Tata",
+        "US"
+    ],
+    "experience": "Experience Software Developer Tata consultancy services July 2012 to Present Education Bachelors",
+    "extracted_keywords": [
+        "Software",
+        "Developer",
+        "lSoftwarespan",
+        "span",
+        "lDeveloperspan",
+        "Tampa",
+        "FL",
+        "Authorized",
+        "US",
+        "employer",
+        "Work",
+        "Experience",
+        "Software",
+        "Developer",
+        "Tata",
+        "consultancy",
+        "services",
+        "July",
+        "Present",
+        "Education",
+        "Bachelors"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T19:55:39.453603",
+    "resume_data": "Software Developer span lSoftwarespan span lDeveloperspan Tampa FL Authorized to work in the US for any employer Work Experience Software Developer Tata consultancy services July 2012 to Present Education Bachelors",
+    "unique_id": "8f477caf-480b-460d-8b01-175f12014ad9"
+}

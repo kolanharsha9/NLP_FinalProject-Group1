@@ -1,0 +1,37 @@
+{
+    "clean_data": "Network Administrator span lNetworkspan span lAdministratorspan Mesa AZ Work Experience Network Administrator Paragon Vision Sciences January 2017 to Present Education Associate",
+    "entities": [
+        "lNetworkspan",
+        "Network Administrator",
+        "Vision Sciences",
+        "Mesa AZ",
+        "lAdministratorspan"
+    ],
+    "experience": "Experience Network Administrator Paragon Vision Sciences January 2017 to Present Education Associate",
+    "extracted_keywords": [
+        "Network",
+        "Administrator",
+        "span",
+        "lNetworkspan",
+        "span",
+        "lAdministratorspan",
+        "Mesa",
+        "AZ",
+        "Work",
+        "Experience",
+        "Network",
+        "Administrator",
+        "Paragon",
+        "Vision",
+        "Sciences",
+        "January",
+        "Present",
+        "Education",
+        "Associate"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T23:04:17.110242",
+    "resume_data": "Network Administrator span lNetworkspan span lAdministratorspan Mesa AZ Work Experience Network Administrator Paragon Vision Sciences January 2017 to Present Education Associate",
+    "unique_id": "495e42e2-9ab7-4332-8a8e-ce33957e1cd5"
+}

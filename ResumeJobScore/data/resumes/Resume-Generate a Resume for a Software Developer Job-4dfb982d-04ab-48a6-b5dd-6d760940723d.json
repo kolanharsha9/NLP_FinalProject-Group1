@@ -1,0 +1,36 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Systems Administrator Port Chester NY Work Experience Systems Administrator Houlihan Lawrence September 2016 to January 2019 Education Associate",
+    "entities": [
+        "lAdministratorspan Systems",
+        "lSystemsspan"
+    ],
+    "experience": "Experience Systems Administrator Houlihan Lawrence September 2016 to January 2019 Education Associate",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Systems",
+        "Administrator",
+        "Port",
+        "Chester",
+        "NY",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Houlihan",
+        "Lawrence",
+        "September",
+        "January",
+        "Education",
+        "Associate"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T22:09:09.581191",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Systems Administrator Port Chester NY Work Experience Systems Administrator Houlihan Lawrence September 2016 to January 2019 Education Associate",
+    "unique_id": "4dfb982d-04ab-48a6-b5dd-6d760940723d"
+}

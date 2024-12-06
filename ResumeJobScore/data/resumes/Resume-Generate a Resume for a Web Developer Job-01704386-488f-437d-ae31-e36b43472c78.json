@@ -1,0 +1,39 @@
+{
+    "clean_data": "Network Administrator span lNetworkspan span lAdministratorspan Work Experience Network Administrator Rio Brands October 1998 to January 2002 In charge of the companies main frame systems as well as troubleshooting all equipment hardwaresoftware Education High school or equivalent",
+    "entities": [
+        "lNetworkspan",
+        "lAdministratorspan",
+        "Network Administrator"
+    ],
+    "experience": "Experience Network Administrator Rio Brands October 1998 to January 2002 In charge of the companies main frame systems as well as troubleshooting all equipment hardwaresoftware Education High school or equivalent",
+    "extracted_keywords": [
+        "Network",
+        "Administrator",
+        "span",
+        "lNetworkspan",
+        "span",
+        "lAdministratorspan",
+        "Work",
+        "Experience",
+        "Network",
+        "Administrator",
+        "Rio",
+        "Brands",
+        "October",
+        "January",
+        "charge",
+        "companies",
+        "frame",
+        "systems",
+        "equipment",
+        "hardwaresoftware",
+        "Education",
+        "High",
+        "school"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T23:05:23.828906",
+    "resume_data": "Network Administrator span lNetworkspan span lAdministratorspan Work Experience Network Administrator Rio Brands October 1998 to January 2002 In charge of the companies main frame systems as well as troubleshooting all equipment hardwaresoftware Education High school or equivalent",
+    "unique_id": "01704386-488f-437d-ae31-e36b43472c78"
+}

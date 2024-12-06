@@ -1,1 +1,2 @@
 from .ResumeProcessor import ResumeProcessor
+from .JobDescriptionProcessor import JobDescriptionProcessor

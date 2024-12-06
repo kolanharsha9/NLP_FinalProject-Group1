@@ -1,0 +1,36 @@
+{
+    "clean_data": "Systems Administrator span lSystemsspan span lAdministratorspan Maple Shade NJ Work Experience Systems Administrator Agilence inc 2014 to Present Education Bachelors Wilmington University",
+    "entities": [
+        "Wilmington University",
+        "lSystemsspan",
+        "lAdministratorspan Maple Shade NJ Work Experience Systems Administrator Agilence inc 2014"
+    ],
+    "experience": "Experience Systems Administrator Agilence inc 2014 to Present Education Bachelors Wilmington University",
+    "extracted_keywords": [
+        "Systems",
+        "Administrator",
+        "span",
+        "lSystemsspan",
+        "span",
+        "lAdministratorspan",
+        "Maple",
+        "Shade",
+        "NJ",
+        "Work",
+        "Experience",
+        "Systems",
+        "Administrator",
+        "Agilence",
+        "inc",
+        "Present",
+        "Education",
+        "Bachelors",
+        "Wilmington",
+        "University"
+    ],
+    "input_field": null,
+    "instruction": "",
+    "processed_at": "2024-11-24T19:44:01.633878",
+    "resume_data": "Systems Administrator span lSystemsspan span lAdministratorspan Maple Shade NJ Work Experience Systems Administrator Agilence inc 2014 to Present Education Bachelors Wilmington University",
+    "unique_id": "41db1c05-5592-4d58-85e5-14b0b5283543"
+}
