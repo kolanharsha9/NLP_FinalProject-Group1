@@ -24,7 +24,7 @@ elif choice == "About":
     st.header("About")
     st.write("This is a basic Streamlit application for matching resumes with job descriptions.")
 
-#%%
+
 import re
 import numpy as np
 import torch
@@ -97,7 +97,7 @@ if st.button("Compute Similarity"):
         st.error("Please upload both the job description and the resume.")
 
 
-#%%
+
 
 
 # Helper functions
@@ -199,14 +199,14 @@ if st.button("Rank Resumes"):
 
 
 
-
+#%%
 
 
 
 #gives you json for resume and jobdes
 
 import streamlit as st
-from app4 import process_documents, save_to_json
+from resume_job_description_parser import process_documents, save_to_json
 
 def main():
     # Streamlit UI components
@@ -245,5 +245,237 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+# %%
+import streamlit as st
+import PyPDF2
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import plotly.graph_objects as go
+from resume_job_description_parser import process_documents
+from PyPDF2 import PdfReader
+# Function to extract text from a PDF
+def extract_text_from_pdf(file):
+    reader = PdfReader(file)
+    text = ''
+    for page in reader.pages:
+        page_text = page.extract_text()
+        if page_text:
+            text += page_text
+    return text
+
+# Function to generate a word cloud based on TF-IDF
+def generate_word_cloud(tfidf_matrix, feature_names, document_index, title):
+    scores = tfidf_matrix[document_index].toarray().flatten()
+    word_scores = {feature_names[i]: scores[i] for i in range(len(scores))}
+    wordcloud = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(word_scores)
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.imshow(wordcloud, interpolation="bilinear")
+    ax.axis('off')
+    ax.set_title(title, fontsize=16)
+    st.pyplot(fig)
+
+# Function to generate a Sankey diagram
+def generate_sankey(tfidf_matrix, feature_names):
+    # Extract TF-IDF scores for both documents
+    resume_scores = tfidf_matrix[0].toarray().flatten()
+    job_description_scores = tfidf_matrix[1].toarray().flatten()
+
+    # Filter terms that appear in both documents
+    common_terms = [
+        (term, resume_scores[idx], job_description_scores[idx])
+        for idx, term in enumerate(feature_names)
+        if resume_scores[idx] > 0 and job_description_scores[idx] > 0
+    ]
+
+    # Prepare data for Sankey diagram
+    source = []  # Resume
+    target = []  # Job Description
+    values = []  # Strength of connection
+
+    for term, resume_score, job_desc_score in common_terms:
+        source.append(f"Resume: {term}")
+        target.append(f"Job Desc: {term}")
+        values.append(min(resume_score, job_desc_score))  # Use minimum score as strength
+
+    # Map unique labels to indices
+    all_labels = list(set(source + target))
+    label_to_idx = {label: idx for idx, label in enumerate(all_labels)}
+
+    # Map data to indices for Sankey diagram
+    sankey_source = [label_to_idx[label] for label in source]
+    sankey_target = [label_to_idx[label] for label in target]
+
+    # Create Sankey diagram
+    fig = go.Figure(data=[go.Sankey(
+        node=dict(
+            pad=15,
+            thickness=20,
+            line=dict(color="black", width=0.5),
+            label=all_labels
+        ),
+        link=dict(
+            source=sankey_source,
+            target=sankey_target,
+            value=values
+        )
+    )])
+
+    fig.update_layout(title_text="Semantic Flow of Key Terms Between Resume and Job Description", font_size=10)
+
+    # Display the Sankey diagram
+    st.plotly_chart(fig)
+
+# Function to generate a bar chart comparing TF-IDF scores
+def generate_bar_chart(tfidf_matrix, feature_names):
+    # Extract TF-IDF scores for both documents
+    resume_scores = tfidf_matrix[0].toarray().flatten()
+    job_description_scores = tfidf_matrix[1].toarray().flatten()
+
+    # Create a DataFrame for visualization
+    df = pd.DataFrame({
+        'Word': feature_names,
+        'Resume': resume_scores,
+        'Job Description': job_description_scores
+    })
+
+    # Sort by importance in the job description
+    df = df.sort_values(by='Job Description', ascending=False)
+
+    # Plotting the bar chart
+    x = np.arange(len(df['Word']))  # Word indices
+    width = 0.4  # Bar width
+
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    # Resume bar
+    ax.bar(x - width / 2, df['Resume'], width, label='Resume', color='blue')
+
+    # Job Description bar
+    ax.bar(x + width / 2, df['Job Description'], width, label='Job Description', color='green')
+
+    # Formatting
+    ax.set_xticks(x)
+    ax.set_xticklabels(df['Word'], rotation=45, ha='right')
+    ax.set_xlabel("Top Words", fontsize=12)
+    ax.set_ylabel("TF-IDF Scores", fontsize=12)
+    ax.set_title("Word Importance Comparison: Resume vs Job Description", fontsize=14)
+    ax.legend()
+
+    plt.tight_layout()
+
+    # Display the plot in Streamlit
+    st.pyplot(fig)
+
+# Function to generate a similarity heatmap
+def calculate_similarity(text1, text2):
+    vectorizer = TfidfVectorizer(stop_words="english")
+    tfidf_matrix = vectorizer.fit_transform([text1, text2])
+    similarity = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])[0][0]
+    return similarity
+def generate_heatmap(resume_text, job_description_text):
+    api_key = "AIzaSyDw1PTBcbK09IYvQkUI7Fp39A8M1NMm-Pg"
+
+    # Process documents using the Gemini API
+    parsed_resume, parsed_job_description = process_documents(api_key, resume_file, job_description_file)
+
+    if parsed_resume is None or parsed_job_description is None:
+        st.error("Failed to parse the documents. Please check the files and try again.")
+    else:
+        # Extract skills and experiences from the parsed JSON
+        resume_skills = " ".join(parsed_resume.get("skills", []))
+        st.write(resume_skills)
+        job_description_skills = " ".join(parsed_job_description.get("required_skills", []))
+        st.write(job_description_skills)
+
+        resume_experience = " ".join(
+            [
+                " ".join(exp.get("responsibilities", []))
+                for exp in parsed_resume.get("work_experience", [])
+            ]
+        )
+        st.write(resume_experience)
+        job_description_experience = " ".join(
+            parsed_job_description.get("responsibilities", [])
+            + parsed_job_description.get("qualifications", [])
+            + parsed_job_description.get("preferred_qualifications", [])
+        )
+        st.write(job_description_experience)
+
+        # Calculate similarity scores for skills and experience
+        similarity_scores = {
+            "Skills": calculate_similarity(resume_skills, job_description_skills),
+            "Experience": calculate_similarity(resume_experience, job_description_experience),
+        }
+
+        # Prepare data for heatmap
+        heatmap_data = [list(similarity_scores.values())]
+        heatmap_labels = list(similarity_scores.keys())
+
+        # Plot the heatmap
+        plt.figure(figsize=(8, 4))
+        sns.heatmap(
+            heatmap_data,
+            annot=True,
+            cmap="YlGnBu",
+            xticklabels=heatmap_labels,
+            yticklabels=["Similarity"],
+        )
+        plt.title("Similarity Scores for Resume and Job Description")
+        plt.xlabel("Sections")
+        plt.ylabel("")
+        plt.tight_layout()
+
+        # Display the heatmap in Streamlit
+        st.pyplot(plt)
+
+# Streamlit app
+st.header("Resume and Job Description Analysis")
+# Upload files
+resume_file = st.file_uploader("Upload Resume PDF", type="pdf")
+job_description_file = st.file_uploader("Upload Job Description PDF", type="pdf")
+
+# Check if both files are uploaded
+if resume_file and job_description_file:
+    # Extract text from uploaded files
+    try:
+        resume_text = extract_text_from_pdf(resume_file)
+        job_description_text = extract_text_from_pdf(job_description_file)
+
+        # Generate TF-IDF matrix
+        documents = [resume_text, job_description_text]
+        vectorizer = TfidfVectorizer(stop_words="english", max_features=50)
+        tfidf_matrix = vectorizer.fit_transform(documents)
+        feature_names = vectorizer.get_feature_names_out()
+
+        # Graph type selection
+        graph_type = st.selectbox(
+            "Select the type of graph:",
+            ["Word Cloud", "Sankey Diagram", "Bar Chart", "Similarity Heatmap"],
+        )
+
+        # Generate the selected graph
+        if graph_type == "Word Cloud":
+            generate_word_cloud(tfidf_matrix, feature_names, 0, "Resume Word Cloud")
+            generate_word_cloud(tfidf_matrix, feature_names, 1, "Job Description Word Cloud")
+        elif graph_type == "Sankey Diagram":
+            generate_sankey(tfidf_matrix, feature_names)
+        elif graph_type == "Bar Chart":
+            generate_bar_chart(tfidf_matrix, feature_names)
+        elif graph_type == "Similarity Heatmap":
+            generate_heatmap(resume_text, job_description_text)
+
+    except Exception as e:
+        st.error(f"An error occurred while processing the files: {str(e)}")
+else:
+    st.info("Please upload both a resume and a job description to proceed.")
 
 
