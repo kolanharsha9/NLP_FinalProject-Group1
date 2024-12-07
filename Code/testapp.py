@@ -30,9 +30,8 @@ def get_base64_image(image_path):
         encoded_string = base64.b64encode(image_file.read()).decode()
     return encoded_string
 
-analyzer = initialize_analyzer()
 
-resume_generator = gen_resume()
+analyzer = initialize_analyzer()
 attachment_icon = get_base64_image("png/png1.png")
 
 # --- CSS for Styling ---
@@ -128,77 +127,6 @@ div[data-testid="stFileUploadDropzone"] > div {{
 </style>
 """, unsafe_allow_html=True)
 
-<<<<<<< Updated upstream
-# --- Sidebar for Model Selection ---
-st.sidebar.title("Model Settings")
-model_option = st.sidebar.selectbox(
-    "Choose a model:",
-    ["GF-0.1", "OpenAI GPT-4", "Local LLM (e.g., Llama 2)", "HuggingFace Model"]
-)
-
-temperature = st.sidebar.slider("Temperature", 0.0, 1.0, 0.7)
-st.sidebar.write("**Note:** Integrate your model’s API keys or endpoints in the code to use the chosen model.")
-
-# --- Initialize Session State for chat history ---
-if "messages" not in st.session_state:
-    st.session_state["messages"] = []
-
-# --- Header / Title ---
-st.title("Multi-Model Chat Interface")
-st.write("Interact with different language models, display images, and present your project content.")
-
-# --- Main Chat Container ---
-st.markdown('<div class="chat-container">', unsafe_allow_html=True)
-
-# Display the conversation
-for msg in st.session_state["messages"]:
-    role = msg["role"]
-    content = msg["content"]
-    if role == "user":
-        st.markdown(f'<div class="message-container user-bubble"><div class="user-message">{content}</div></div>',
-                    unsafe_allow_html=True)
-    else:
-        st.markdown(f'<div class="message-container bot-bubble"><div class="bot-message">{content}</div></div>',
-                    unsafe_allow_html=True)
-
-st.markdown('</div>', unsafe_allow_html=True)
-
-# --- User Input and File Upload in Chat Section ---
-col_input, col_upload = st.columns([4,1], gap="small")
-
-with col_input:
-    user_input = st.text_input("Type your message:")
-
-with col_upload:
-    # Show file uploader only if GF-0.1 is selected, as requested
-    uploaded_file = None
-    if model_option == "GF-0.1":
-        uploaded_file = st.file_uploader("", type="pdf", label_visibility="collapsed")
-
-send_button = st.button("Send")
-
-if send_button and user_input.strip():
-    # Add user's message to the session
-    st.session_state["messages"].append({"role": "user", "content": user_input})
-
-    # Check if we are using GF-0.1 and a file is uploaded
-    if model_option == "GF-0.1" and uploaded_file is not None:
-        # Process the resume with a spinner and status messages
-        with st.spinner("Processing your resume..."):
-            st.info("Extracting text from your resume...")
-            # Save the uploaded file
-            with open("uploaded_resume.pdf", "wb") as f:
-                f.write(uploaded_file.getbuffer())
-
-            # Extract text
-            resume_text = analyzer.extract_text_from_pdf("uploaded_resume.pdf")
-
-            st.info("Analyzing resume for grammar and formatting...")
-            analysis_results = analyzer.analyze_resume_text(resume_text)
-
-        # Format the analysis results
-        analysis_summary = f"""
-=======
 
 def resume_generation_page():
     st.title("Resume Generation")
@@ -209,8 +137,7 @@ def resume_generation_page():
 
     if generate_button and user_prompt.strip():
         with st.spinner("Generating your resume..."):
-            generated_resume = resume_generator.generate_resume(user_prompt, resume_generator.model,
-                                                                resume_generator.tokenizer)
+            generated_resume = "Generated resume text here"
             st.success("Resume generated successfully!")
             st.text_area("Generated Resume", generated_resume, height=300)
             st.download_button("Download Resume", generated_resume, file_name="generated_resume.txt", mime="text/plain")
@@ -241,17 +168,8 @@ def presentation_page():
     - Embed videos or audio clips.
     """)
 
-    col1, col2 = st.columns(2)
-    with col1:
-        st.image("https://via.placeholder.com/200?text=Image+1", caption="Conceptual Diagram")
-    with col2:
-        st.image("https://via.placeholder.com/200?text=Image+2", caption="Model Architecture")
-
-    st.write("Feel free to customize this section to best represent your project and its contents.")
-
 
 def main_page():
-    # --- Sidebar for Model Selection ---
     st.sidebar.title("Model Settings")
     model_option = st.sidebar.selectbox(
         "Choose a model:",
@@ -259,20 +177,15 @@ def main_page():
     )
 
     temperature = st.sidebar.slider("Temperature", 0.0, 1.0, 0.7)
-    st.sidebar.write("**Note:** Integrate your model’s API keys or endpoints in the code to use the chosen model.")
 
-    # --- Initialize Session State for chat history ---
     if "messages" not in st.session_state:
         st.session_state["messages"] = []
 
-    # --- Title and Introduction in the center ---
-    st.markdown("<h1>Multi-Model Chat Interface</h1>", unsafe_allow_html=True)
+    st.title("Multi-Model Chat Interface")
     st.write("Interact with different language models and experience a GPT-like interface.")
 
-    # --- Main Chat Container ---
     st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
-    # Display the conversation
     for msg in st.session_state["messages"]:
         role = msg["role"]
         content = msg["content"]
@@ -285,117 +198,55 @@ def main_page():
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # --- Message Input Row ---
-    st.markdown('<div class="chat-input-row">', unsafe_allow_html=True)
-    c1, c2, c3 = st.columns([0.05, 0.85, 0.1], gap="small")
+    col_input, col_upload = st.columns([4, 1], gap="small")
 
-    with c2:
-        user_input = st.text_input("", placeholder="Type your message here...", key="chat_input",
-                                   help="Type your message and press the send button")
+    with col_input:
+        user_input = st.text_input("Type your message:")
 
-    with c1:
+    with col_upload:
         uploaded_file = None
         if model_option == "GF-0.1":
-            uploaded_file = st.file_uploader("", type="pdf", label_visibility="collapsed", key="chat_file")
-            st.markdown("<style>div[data-testid='stFileUpload'] input {display:none}</style>", unsafe_allow_html=True)
-            st.markdown(
-                "<style>div[data-testid='stFileUpload'] {display:flex; justify-content:center; align-items:center;}</style>",
-                unsafe_allow_html=True)
+            uploaded_file = st.file_uploader("", type="pdf", label_visibility="collapsed")
 
-    with c3:
-        send_button = st.button("➡️", key="send_button", help="Send message")
-
-    st.markdown('</div>', unsafe_allow_html=True)
+    send_button = st.button("Send")
 
     if send_button and user_input.strip():
-        # Add user's message to the session
         st.session_state["messages"].append({"role": "user", "content": user_input})
 
-        # Check if we are using GF-0.1 and a file is uploaded
         if model_option == "GF-0.1" and uploaded_file is not None:
-            # Process the resume with a spinner and status messages
             with st.spinner("Processing your resume..."):
                 st.info("Extracting text from your resume...")
-                with open("uploaded_resume.pdf", "wb") as f:
-                    f.write(uploaded_file.getbuffer())
-                resume_text = analyzer.extract_text_from_pdf("uploaded_resume.pdf")
+                resume_text = "Extracted resume text here"
 
                 st.info("Analyzing resume for grammar and formatting...")
-                analysis_results = analyzer.analyze_resume_text(resume_text)
+                analysis_results = {
+                    "grammar_score": 95,
+                    "formatting_score": 90,
+                    "grammatical_errors": ["Error 1", "Error 2"],
+                    "formatting_issues": ["Issue 1"],
+                    "recommendations": ["Fix 1", "Fix 2"]
+                }
 
-            # Format the analysis results
             analysis_summary = f"""
->>>>>>> Stashed changes
-**Grammar Score:** {analysis_results.get('grammar_score', 'N/A')}/100  
-**Formatting Score:** {analysis_results.get('formatting_score', 'N/A')}/100  
+**Grammar Score:** {analysis_results['grammar_score']}/100  
+**Formatting Score:** {analysis_results['formatting_score']}/100  
 
 **Grammatical Errors:**  
-{', '.join([error['description'] for error in analysis_results.get('grammatical_errors', [])]) or 'None'}
+{', '.join(analysis_results['grammatical_errors'])}
 
 **Formatting Issues:**  
-{', '.join([issue['description'] for issue in analysis_results.get('formatting_issues', [])]) or 'None'}
+{', '.join(analysis_results['formatting_issues'])}
 
 **Recommendations:**  
-{', '.join([rec['description'] for rec in analysis_results.get('recommendations', [])]) or 'None'}
+{', '.join(analysis_results['recommendations'])}
 """
-<<<<<<< Updated upstream
-
-        # Add the analysis result to the chat
-        st.session_state["messages"].append({"role": "assistant", "content": analysis_summary})
-
-    else:
-        # If not GF-0.1 or no resume uploaded, just return a placeholder response
-        mock_response = f"You said: {user_input}. (This is a placeholder response from {model_option}.)"
-        st.session_state["messages"].append({"role": "assistant", "content": mock_response})
-
-    # Rerun to display updated chat
-    st.experimental_rerun()
-
-# --- Project Presentation Section ---
-st.subheader("Project Presentation")
-st.write("Below, you can present images, charts, or other visual media alongside explanatory text.")
-
-# Example: Display an image from URL or local file
-example_image_url = "https://via.placeholder.com/400"
-try:
-    response = requests.get(example_image_url)
-    if response.status_code == 200:
-        image = Image.open(BytesIO(response.content))
-        st.image(image, caption="Example Project Image")
-except:
-    st.write("Unable to load example image.")
-
-st.write("""
-**Project Description:**
-
-This section can contain detailed explanations, notes, and additional writings about your project.
-
-- Show multiple images.
-- Integrate tables or data visualizations.
-- Add expander sections with additional details.
-- Embed videos or audio clips.
-""")
-
-col1, col2 = st.columns(2)
-with col1:
-    st.image("https://via.placeholder.com/200?text=Image+1", caption="Conceptual Diagram")
-with col2:
-    st.image("https://via.placeholder.com/200?text=Image+2", caption="Model Architecture")
-
-st.write("Feel free to customize this section to best represent your project and its contents.")
-=======
             st.session_state["messages"].append({"role": "assistant", "content": analysis_summary})
         else:
-            # If not GF-0.1 or no resume uploaded, just return a placeholder response
-            mock_response = f"You said: {user_input}. (This is a placeholder response from {model_option}.)"
-            st.session_state["messages"].append({"role": "assistant", "content": mock_response})
+            st.session_state["messages"].append({"role": "assistant", "content": "Placeholder response"})
 
-        # Clear the input after sending
-        st.session_state["chat_input"] = ""
         st.experimental_rerun()
 
 
-# Tabs: Main Chat, Presentation, and Resume Generation
 tabs = st.tabs(["Main Page", "Presentation", "Resume Generation"])
 
 with tabs[0]:
@@ -404,4 +255,3 @@ with tabs[1]:
     presentation_page()
 with tabs[2]:
     resume_generation_page()
->>>>>>> Stashed changes
