@@ -145,37 +145,169 @@ def resume_generation_page():
 
 
 def presentation_page():
-    st.title("Project Presentation")
-    st.write("Below, you can present images, charts, or other visual media alongside explanatory text.")
+    st.title("Resume Matching Intelligence: Revolutionizing Recruitment")
 
-    # Example: Display an image from URL or local file
-    example_image_url = "https://via.placeholder.com/400"
-    try:
-        response = requests.get(example_image_url)
-        if response.status_code == 200:
-            image = Image.open(BytesIO(response.content))
-            st.image(image, caption="Example Project Image")
-    except:
-        st.write("Unable to load example image.")
+    # Introduction Section
+    st.header("1. Introduction: Bridging the Gap Between Candidates and Opportunities")
 
-    st.write("""
-    **Project Description:**
+    # Placeholder image for overview
+    st.image("https://via.placeholder.com/800x400?text=Resume+Matching+Overview",
+             caption="Recruitment Process Overview")
 
-    This section can contain detailed explanations, notes, and additional writings about your project.
-
-    - Show multiple images.
-    - Integrate tables or data visualizations.
-    - Add expander sections with additional details.
-    - Embed videos or audio clips.
+    st.markdown("""
+    **Key Objectives:**
+    - Automate resume screening
+    - Enhance recruitment efficiency
+    - Provide data-driven candidate evaluation
     """)
 
-    col1, col2 = st.columns(2)
-    with col1:
-        st.image("https://via.placeholder.com/200?text=Image+1", caption="Conceptual Diagram")
-    with col2:
-        st.image("https://via.placeholder.com/200?text=Image+2", caption="Model Architecture")
+    # Technical Foundations Section
+    st.header("2. Technical Foundations")
+    st.subheader("Core Components of Resume Matching System")
 
-    st.write("Feel free to customize this section to best represent your project and its contents.")
+    # Technical Architecture Image
+    st.image("https://via.placeholder.com/800x400?text=Technical+Architecture+Diagram",
+             caption="Technical Architecture")
+
+    st.markdown("""
+    #### Key Technical Aspects:
+    - Natural Language Processing (NLP)
+    - Machine Learning Algorithms
+    - Text Similarity Analysis
+    """)
+
+    # Grammar and Formatting Analysis
+    st.header("3. Grammar and Formatting Analysis")
+    st.subheader("Evaluating Professional Document Quality")
+
+    # Create columns for visualization
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("""
+        #### Evaluation Criteria:
+        - Grammatical Accuracy
+        - Formatting Consistency
+        - Professional Presentation
+        """)
+
+    with col2:
+        st.markdown("""
+        **Scoring Breakdown:**
+        - Spelling: 30%
+        - Punctuation: 25%
+        - Structure: 25%
+        - Clarity: 20%
+        """)
+
+    # Grammar Scoring Visualization
+    st.image("https://via.placeholder.com/600x300?text=Grammar+Scoring+Visualization",
+             caption="Grammar and Formatting Scoring")
+
+    # Similarity Scoring Section
+    st.header("4. Similarity Scoring Mechanism")
+    st.subheader("Quantifying Resume-Job Description Alignment")
+
+    # Similarity Score Explanation
+    st.code("""
+Similarity Score Ranges:
+Exact Match:         90-100%
+High Relevance:      70-89%
+Moderate Match:      50-69%
+Low Relevance:       30-49%
+Minimal Correlation: 0-29%
+    """)
+
+    # Similarity Score Visualization
+    st.image("https://via.placeholder.com/800x400?text=Similarity+Score+Distribution",
+             caption="Resume-Job Description Similarity Scores")
+
+    # Resume Generation Strategy
+    st.header("5. Resume Generation Strategy")
+    st.subheader("Intelligent Resume Crafting for Specific Roles")
+
+    st.markdown("""
+    #### Adaptive Generation Techniques:
+    - Role-specific Template Selection
+    - Skill Emphasis Optimization
+    - Contextual Keyword Injection
+    """)
+
+    # Resume Generation Workflow
+    st.image("https://via.placeholder.com/800x400?text=Resume+Generation+Workflow",
+             caption="Resume Generation Process")
+
+    # Resume Ranking Algorithm
+    st.header("6. Resume Ranking Algorithm")
+    st.subheader("Data-Driven Candidate Prioritization")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("""
+        #### Ranking Factors:
+        - Skill Match Percentage
+        - Professional Experience
+        - Educational Background
+        - Additional Certifications
+        """)
+
+    with col2:
+        st.markdown("""
+        **Ranking Process:**
+        1. Initial Screening
+        2. Skill Mapping
+        3. Experience Evaluation
+        4. Final Ranking
+        """)
+
+    # Ranking Algorithm Visualization
+    st.image("https://via.placeholder.com/800x400?text=Resume+Ranking+Algorithm",
+             caption="Candidate Ranking Mechanism")
+
+    # Technology Stack
+    st.header("7. Technology Stack")
+    st.subheader("Tools and Frameworks")
+
+    st.markdown("""
+    - **Programming:** Python
+    - **NLP Libraries:** NLTK, SpaCy
+    - **ML Frameworks:** scikit-learn, TensorFlow
+    - **Data Processing:** Pandas, NumPy
+    """)
+
+    # Technology Stack Visualization
+    st.image("https://via.placeholder.com/800x400?text=Technology+Stack+Visualization",
+             caption="Technology Ecosystem")
+
+    # Future Enhancements
+    st.header("8. Future Enhancements")
+    st.subheader("Continuous Improvement Roadmap")
+
+    st.markdown("""
+    - Advanced Machine Learning Models
+    - Real-time Job Market Analysis
+    - Predictive Performance Indicators
+    """)
+
+    # Future Roadmap Visualization
+    st.image("https://via.placeholder.com/800x400?text=Future+Enhancement+Roadmap",
+             caption="Future Development Roadmap")
+
+    # Conclusion
+    st.header("9. Conclusion")
+    st.subheader("Transforming Recruitment Through Technology")
+
+    st.markdown("""
+    **Key Takeaways:**
+    - Objective Candidate Evaluation
+    - Increased Recruitment Efficiency
+    - Data-Driven Decision Making
+    """)
+
+    # Conclusion Visualization
+    st.image("https://via.placeholder.com/800x400?text=Recruitment+Transformation",
+             caption="Recruitment Transformation")
 
 
 def main_page():
