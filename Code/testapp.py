@@ -3,6 +3,7 @@ from PIL import Image
 import requests
 from io import BytesIO
 from models.ModelForGrammaticalAndFormating.model import BedrockResumeAnalyzer
+from job_recommendation.w2v_fast import SemanticJobRecommender
 
 # Set page layout
 st.set_page_config(page_title="Chat Interface Demo", page_icon="💬", layout="wide")
@@ -81,120 +82,161 @@ model_option = st.sidebar.selectbox(
 )
 
 temperature = st.sidebar.slider("Temperature", 0.0, 1.0, 0.7)
-st.sidebar.write("**Note:** Integrate your model’s API keys or endpoints in the code to use the chosen model.")
+st.sidebar.write("**Note:** Integrate your model's API keys or endpoints in the code to use the chosen model.")
 
 # --- Initialize Session State for chat history ---
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
-# --- Header / Title ---
-st.title("Multi-Model Chat Interface")
-st.write("Interact with different language models, display images, and present your project content.")
+# Create tabs
+tab1, tab2, tab3, tab4 = st.tabs(["Chat Interface", "Model Settings", "Project Presentation", "Job Recommendations"])
 
-# --- Main Chat Container ---
-st.markdown('<div class="chat-container">', unsafe_allow_html=True)
+with tab1:
+    # --- Header / Title ---
+    st.title("Multi-Model Chat Interface")
+    st.write("Interact with different language models, display images, and present your project content.")
 
-# Display the conversation
-for msg in st.session_state["messages"]:
-    role = msg["role"]
-    content = msg["content"]
-    if role == "user":
-        st.markdown(f'<div class="message-container user-bubble"><div class="user-message">{content}</div></div>',
-                    unsafe_allow_html=True)
-    else:
-        st.markdown(f'<div class="message-container bot-bubble"><div class="bot-message">{content}</div></div>',
-                    unsafe_allow_html=True)
+    # --- Main Chat Container ---
+    st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
-st.markdown('</div>', unsafe_allow_html=True)
+    # Display the conversation
+    for msg in st.session_state["messages"]:
+        role = msg["role"]
+        content = msg["content"]
+        if role == "user":
+            st.markdown(f'<div class="message-container user-bubble"><div class="user-message">{content}</div></div>',
+                        unsafe_allow_html=True)
+        else:
+            st.markdown(f'<div class="message-container bot-bubble"><div class="bot-message">{content}</div></div>',
+                        unsafe_allow_html=True)
 
-# --- User Input and File Upload in Chat Section ---
-col_input, col_upload = st.columns([4,1], gap="small")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-with col_input:
-    user_input = st.text_input("Type your message:")
+    # --- User Input and File Upload in Chat Section ---
+    col_input, col_upload = st.columns([4,1], gap="small")
 
-with col_upload:
-    # Show file uploader only if GF-0.1 is selected, as requested
-    uploaded_file = None
-    if model_option == "GF-0.1":
-        uploaded_file = st.file_uploader("", type="pdf", label_visibility="collapsed")
+    with col_input:
+        user_input = st.text_input("Type your message:")
 
-send_button = st.button("Send")
+    with col_upload:
+        # Show file uploader only if GF-0.1 is selected, as requested
+        uploaded_file = None
+        if model_option == "GF-0.1":
+            uploaded_file = st.file_uploader("", type="pdf", label_visibility="collapsed")
 
-if send_button and user_input.strip():
-    # Add user's message to the session
-    st.session_state["messages"].append({"role": "user", "content": user_input})
+    send_button = st.button("Send")
 
-    # Check if we are using GF-0.1 and a file is uploaded
-    if model_option == "GF-0.1" and uploaded_file is not None:
-        # Process the resume with a spinner and status messages
-        with st.spinner("Processing your resume..."):
-            st.info("Extracting text from your resume...")
-            # Save the uploaded file
-            with open("uploaded_resume.pdf", "wb") as f:
-                f.write(uploaded_file.getbuffer())
+    if send_button and user_input.strip():
+        # Add user's message to the session
+        st.session_state["messages"].append({"role": "user", "content": user_input})
 
-            # Extract text
-            resume_text = analyzer.extract_text_from_pdf("uploaded_resume.pdf")
+        # Check if we are using GF-0.1 and a file is uploaded
+        if model_option == "GF-0.1" and uploaded_file is not None:
+            # Process the resume with a spinner and status messages
+            with st.spinner("Processing your resume..."):
+                st.info("Extracting text from your resume...")
+                # Save the uploaded file
+                with open("uploaded_resume.pdf", "wb") as f:
+                    f.write(uploaded_file.getbuffer())
 
-            st.info("Analyzing resume for grammar and formatting...")
-            analysis_results = analyzer.analyze_resume_text(resume_text)
+                # Extract text
+                resume_text = analyzer.extract_text_from_pdf("uploaded_resume.pdf")
 
-        # Format the analysis results
-        analysis_summary = f"""
-**Grammar Score:** {analysis_results.get('grammar_score', 'N/A')}/100  
-**Formatting Score:** {analysis_results.get('formatting_score', 'N/A')}/100  
+                st.info("Analyzing resume for grammar and formatting...")
+                analysis_results = analyzer.analyze_resume_text(resume_text)
 
-**Grammatical Errors:**  
-{', '.join([error['description'] for error in analysis_results.get('grammatical_errors', [])]) or 'None'}
+            # Format the analysis results
+            analysis_summary = f"""
+    **Grammar Score:** {analysis_results.get('grammar_score', 'N/A')}/100  
+    **Formatting Score:** {analysis_results.get('formatting_score', 'N/A')}/100  
 
-**Formatting Issues:**  
-{', '.join([issue['description'] for issue in analysis_results.get('formatting_issues', [])]) or 'None'}
+    **Grammatical Errors:**  
+    {', '.join([error['description'] for error in analysis_results.get('grammatical_errors', [])]) or 'None'}
 
-**Recommendations:**  
-{', '.join([rec['description'] for rec in analysis_results.get('recommendations', [])]) or 'None'}
-"""
+    **Formatting Issues:**  
+    {', '.join([issue['description'] for issue in analysis_results.get('formatting_issues', [])]) or 'None'}
 
-        # Add the analysis result to the chat
-        st.session_state["messages"].append({"role": "assistant", "content": analysis_summary})
+    **Recommendations:**  
+    {', '.join([rec['description'] for rec in analysis_results.get('recommendations', [])]) or 'None'}
+    """
 
-    else:
-        # If not GF-0.1 or no resume uploaded, just return a placeholder response
-        mock_response = f"You said: {user_input}. (This is a placeholder response from {model_option}.)"
-        st.session_state["messages"].append({"role": "assistant", "content": mock_response})
+            # Add the analysis result to the chat
+            st.session_state["messages"].append({"role": "assistant", "content": analysis_summary})
 
-    # Rerun to display updated chat
-    st.experimental_rerun()
+        else:
+            # If not GF-0.1 or no resume uploaded, just return a placeholder response
+            mock_response = f"You said: {user_input}. (This is a placeholder response from {model_option}.)"
+            st.session_state["messages"].append({"role": "assistant", "content": mock_response})
 
-# --- Project Presentation Section ---
-st.subheader("Project Presentation")
-st.write("Below, you can present images, charts, or other visual media alongside explanatory text.")
+        # Rerun to display updated chat
+        st.experimental_rerun()
 
-# Example: Display an image from URL or local file
-example_image_url = "https://via.placeholder.com/400"
-try:
-    response = requests.get(example_image_url)
-    if response.status_code == 200:
-        image = Image.open(BytesIO(response.content))
-        st.image(image, caption="Example Project Image")
-except:
-    st.write("Unable to load example image.")
+with tab2:
+    st.header("Model Settings")
+    st.write("Configure your model parameters and API settings.")
+    # Existing model settings from the sidebar can be replicated here if needed
 
-st.write("""
-**Project Description:**
+with tab3:
+    # --- Project Presentation Section ---
+    st.subheader("Project Presentation")
+    st.write("Below, you can present images, charts, or other visual media alongside explanatory text.")
 
-This section can contain detailed explanations, notes, and additional writings about your project.
+    # Example: Display an image from URL or local file
+    example_image_url = "https://via.placeholder.com/400"
+    try:
+        response = requests.get(example_image_url)
+        if response.status_code == 200:
+            image = Image.open(BytesIO(response.content))
+            st.image(image, caption="Example Project Image")
+    except:
+        st.write("Unable to load example image.")
 
-- Show multiple images.
-- Integrate tables or data visualizations.
-- Add expander sections with additional details.
-- Embed videos or audio clips.
-""")
+    st.write("""
+    **Project Description:**
 
-col1, col2 = st.columns(2)
-with col1:
-    st.image("https://via.placeholder.com/200?text=Image+1", caption="Conceptual Diagram")
-with col2:
-    st.image("https://via.placeholder.com/200?text=Image+2", caption="Model Architecture")
+    This section can contain detailed explanations, notes, and additional writings about your project.
 
-st.write("Feel free to customize this section to best represent your project and its contents.")
+    - Show multiple images.
+    - Integrate tables or data visualizations.
+    - Add expander sections with additional details.
+    - Embed videos or audio clips.
+    """)
+
+    col1, col2 = st.columns(2)
+    with col1:
+        st.image("https://via.placeholder.com/200?text=Image+1", caption="Conceptual Diagram")
+    with col2:
+        st.image("https://via.placeholder.com/200?text=Image+2", caption="Model Architecture")
+
+    st.write("Feel free to customize this section to best represent your project and its contents.")
+
+with tab4:  # Job Recommendations tab
+    st.header("Job Recommendation System 💼")
+    
+    # File uploader for resume
+    uploaded_resume = st.file_uploader("Upload Your Resume (PDF)", type="pdf")
+    
+    if uploaded_resume is not None:
+        # Save the uploaded PDF
+        with open("resume.pdf", "wb") as f:
+            f.write(uploaded_resume.getbuffer())
+        
+        # Create recommender instance
+        recommender = SemanticJobRecommender()
+        
+        # Extract resume text
+        resume_text = recommender.read_pdf_resume("resume.pdf")
+        
+        if resume_text.strip():
+            # Generate recommendations
+            recommended_jobs = recommender.recommend_jobs(resume_text)
+            
+            st.subheader("Job Recommendations")
+            
+            for i, job in enumerate(recommended_jobs, 1):
+                with st.expander(f"{i}. {job['title']}"):
+                    st.write(f"**Job ID:** {job['job_id']}")
+                    st.write(f"**Similarity Score:** {job['similarity_score']:.2%}")
+                    st.write(f"**Skills Required:** {', '.join(job['skills_required'])}")
+                    st.write(f"**Experience Required:** {job.get('experience_required', {}).get('min_years', 'N/A')} years")
+                    st.write(f"**Qualifications:** {job['qualifications']}")
