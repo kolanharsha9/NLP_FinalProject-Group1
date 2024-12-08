@@ -4,6 +4,7 @@ import requests
 from io import BytesIO
 import base64
 from ranking_resume_streamlit import embed_texts,extract_text_from_pdf,clean_text,normalize_vectors,rank_resumes
+from models.resume_train_preprocess_test import gen_resume
 
 import numpy as np
 from transformers import BertTokenizer, BertModel
@@ -13,7 +14,6 @@ import re
 from tqdm import tqdm
 from sklearn.metrics.pairwise import cosine_similarity
 from concurrent.futures import ThreadPoolExecutor
-
 from sklearn.feature_extraction.text import TfidfVectorizer
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
@@ -105,9 +105,21 @@ def main_page():
 
             # Display the result
             st.success(f"Final Similarity Score: {final_similarity_score:.2f}")
+resume_generator = gen_resume()
 
+def resume_generation_page():
+    st.title("Resume Generation")
+    st.write("Generate a professional resume using our AI-powered tool.")
+    user_prompt = st.text_area("Enter your details (e.g., name, experience, skills):", key="resume_gen_prompt")
 
+    generate_button = st.button("Generate Resume")
 
+    if generate_button and user_prompt.strip():
+        with st.spinner("Generating your resume..."):
+            generated_resume = resume_generator.generate_resume(user_prompt, resume_generator.model, resume_generator.tokenizer)
+            st.success("Resume generated successfully!")
+            st.text_area("Generated Resume", generated_resume, height=300)
+            st.download_button("Download Resume", generated_resume, file_name="generated_resume.txt", mime="text/plain")
 
 
 def job_recommendation():
@@ -274,3 +286,5 @@ with tabs[2]:
     resume_ranking()
 with tabs[3]:
     visualization()
+with tabs[4]:
+    resume_generation_page()
