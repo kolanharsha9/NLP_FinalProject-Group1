@@ -25,7 +25,6 @@ from resume_job_description_parser import process_documents, extract_pdf_text, c
 from sentence_transformers import SentenceTransformer, util
 from similarity_score_with_weights import calculate_weighted_similarity
 from models.skill_gap import analyze_skill_gap 
-
 from job_recommendation.w2v_fast import SemanticJobRecommender
 @st.cache_data
 def parse_documents_once(api_key, resume_file, job_description_text):
@@ -106,11 +105,10 @@ def main_page():
 
             # Display the result
             st.success(f"Final Similarity Score: {final_similarity_score:.2f}")
-        
-        st.header('Skill Gap Analysis')
-        if st.button("Analyze Skill Gap"):
-            skill_gap_analysis = analyze_skill_gap(parsed_resume, parsed_job_description)
-            st.write(skill_gap_analysis)
+            st.header('Skill Gap Analysis')
+            if st.button("Analyze Skill Gap"):
+                skill_gap_analysis = analyze_skill_gap(parsed_resume, parsed_job_description)
+                st.write(skill_gap_analysis)
             
 resume_generator = gen_resume()
 
@@ -282,8 +280,7 @@ def visualization():
         else:
             st.error("Please upload a resume and enter job description text.")
 
-
-tabs = st.tabs(["Main Page", "Job Recommendation", "Ranking Resume", "Visualization", "Resume Generation"])
+tabs = st.tabs(["Main Page", "Resume Generation", "Ranking Resume", "visualization","resume_generation_page"])
 
 with tabs[0]:
     main_page()
