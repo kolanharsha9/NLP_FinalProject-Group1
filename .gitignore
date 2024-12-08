@@ -1,0 +1,4 @@
+
+*.pyc
+Code/models/__pycache__/resume_train_preprocess_test.cpython-312.pyc
+Code/models/ModelForGrammaticalAndFormating/__pycache__/model.cpython-312.pyc
