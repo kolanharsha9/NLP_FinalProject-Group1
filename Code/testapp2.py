@@ -464,7 +464,7 @@ def ResumeGFScore():
 
         st.session_state["trigger_rerun"] = not st.session_state["trigger_rerun"]
 
-tabs = st.tabs(["Main Page", "Resume Generation", "Ranking Resume", "visualization","ResumeGFScore","resume_generation_page"])
+tabs = st.tabs(["Main Page", "Job Recommedation", "Ranking Resume", "Visualization","ResumeGFScore","Resume Generation Preview"])
 
 with tabs[0]:
     main_page()
