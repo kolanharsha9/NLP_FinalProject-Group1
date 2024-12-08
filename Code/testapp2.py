@@ -3,9 +3,9 @@ from PIL import Image
 import requests
 from io import BytesIO
 import base64
+from models.ModelForGrammaticalAndFormating.model import BedrockResumeAnalyzer
 from ranking_resume_streamlit import embed_texts,extract_text_from_pdf,clean_text,normalize_vectors,rank_resumes
 from models.resume_train_preprocess_test import gen_resume
-
 import numpy as np
 from transformers import BertTokenizer, BertModel
 import torch
@@ -26,6 +26,7 @@ from sentence_transformers import SentenceTransformer, util
 from similarity_score_with_weights import calculate_weighted_similarity
 from models.skill_gap import analyze_skill_gap 
 from job_recommendation.w2v_fast import SemanticJobRecommender
+
 @st.cache_data
 def parse_documents_once(api_key, resume_file, job_description_text):
     """
@@ -280,7 +281,190 @@ def visualization():
         else:
             st.error("Please upload a resume and enter job description text.")
 
-tabs = st.tabs(["Main Page", "Resume Generation", "Ranking Resume", "visualization","resume_generation_page"])
+# AWS credentials (Replace these with secure methods in production)
+AWS_ACCESS_KEY_ID = "ASIATP2NJQDCYS4B2AR6"
+AWS_SECRET_ACCESS_KEY = "t+xAk085Nnm5Mb7SteZyZIccqv5wUl+hUyjDsnMH"
+AWS_SESSION_TOKEN = "IQoJb3JpZ2luX2VjEJT//////////wEaCXVzLWVhc3QtMSJHMEUCIQCyhFs2NB8H8vC0n25TjJDRCucyaSrITZK+b6TrkDcSpgIgIyY1O6+4ltQUwMoeUQzbEygDH67ye80F3gXMprQ0StQqmgMITRABGgwyNDAxNDM0MDExNTciDG2pGLzlqEu4cAnjQSr3AuOgmGQ1XgHd5c6MMlptMdV5ggX76b7kTonkNmmOblG8gQaW0KSdNMHqh82FvGLc05L8vRIdOKeN0djeNe/KREkZnxScMT3bg7o/Pzg8HxL/5WkkaU3EjWQKUbtNcOGpfYUqyBwJYnPDDOc2tW56Z2KJZWDdUbh+OVfTz/I7DqfTDJ1CbljkQezhBvHRB6bHmT8VpK/idZXWgii8ksxAWbyNlR7rebds+VEnjcc509J8riTeXQhBj7FQUYFRXlmGmE2XA4E9ORVfY61pD9rKqSBY/VBL/AKForTmpM/my5fwZt9ZWREj7jjJt96Gfakx+lfmqKmQT4oTGM7rsaCvn1AvF3GoBWcuLNQe0lI8vMu460CsDfjdMo1EF1Gj0HHTD88ribWC5PGSoh0iGnAUl1JqkwHa+Q72X7VsNUZQorZI3j2LL+Fl0Auitid8uIV8qfksVopmPf90gPkAV86gDJZhAagArkYRd5TnC7FBYbAyLqk752c6mDCAyNK6BjqmAdLA/HDqkjou0PQg8XAT2sh+y9Oj++j5YVX1BxfuApABsf1tDGDrPyWyPAq5OPM849b8SonsbrkvgEaKGJpPLYGbWlR+PHeNw6sHcE042AJ/7ZImjdQIhNhyH6ztvhjf1XNRa6kT8DO73YFbjW5e1hF3U4Ldmvo+35Z0MCPM1+jji8IN/k/eoCmcCu2TpB1spsOlXNOm1Zmtfgno4oxs0MgCyuq3kIc="
+REGION_NAME = 'us-east-1'
+
+@st.cache_resource
+def initialize_analyzer():
+    return BedrockResumeAnalyzer(
+        aws_access_key_id=AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+        aws_session_token=AWS_SESSION_TOKEN,
+        region_name=REGION_NAME,
+    )
+
+analyzer = initialize_analyzer()
+
+def ResumeGFScore():
+    # Initialize messages
+    if "messages" not in st.session_state:
+        st.session_state["messages"] = []
+
+    if "trigger_rerun" not in st.session_state:
+        st.session_state["trigger_rerun"] = False
+
+    # Page heading
+    st.markdown("<h1 style='text-align: center; margin-top: 2em;'>What can I help with?</h1>", unsafe_allow_html=True)
+
+    # Display chat messages
+    st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
+    for msg in st.session_state["messages"]:
+        role = msg["role"]
+        content = msg["content"]
+        if role == "user":
+            st.markdown(
+                f'<div class="message-container user-bubble"><div class="user-message">{content}</div></div>',
+                unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                f'<div class="message-container bot-bubble"><div class="bot-message">{content}</div></div>',
+                unsafe_allow_html=True
+            )
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # CSS styling
+    st.markdown("""
+        <style>
+
+        .user-message, .bot-message {
+            background-color: #E2E2E2;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: #DCF8C6;
+        }
+
+        .bot-message {
+            background-color: #E2E2E2;
+        }
+
+        .chat-input-row {
+            max-width: 800px;
+            width: 100%;
+            margin: 1em auto 0 auto;
+            display: flex;
+            align-items: center;
+            background-color: #EFEFEF;
+            border-radius: 30px;
+            padding: 0em 1em;
+            gap: 0.5em;
+            box-sizing: border-box;
+        }
+
+        .chat-text-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 0.5em;
+            font-size: 16px;
+            background-color: transparent;
+        }
+
+        .chat-text-input::placeholder {
+            color: #C0C0C0;
+        }
+
+        .chat-submit-btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 0.5em;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            width: 40px;
+            flex-shrink: 0;
+        }
+
+        .chat-submit-btn:hover {
+            background-color: #0056b3;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+    # Chat input row
+    st.markdown('<div class="chat-input-row">', unsafe_allow_html=True)
+
+    # File uploader for PDF resumes
+    uploaded_file = st.file_uploader(
+        "",
+        type="pdf",
+        label_visibility="collapsed",
+        key="chat_file"
+    )
+
+    # Text input for user's message
+    user_input = st.text_input(
+        "",
+        placeholder="Type your message here...",
+        label_visibility="collapsed",
+        key="chat_input",
+        help="Type your message and press the send button"
+    )
+
+    # Send button
+    send_clicked = st.button("➤", key="send_button", help="Send message")
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # Handle logic after send is clicked
+    if send_clicked:
+        user_message = user_input.strip()
+        file_provided = (uploaded_file is not None)
+
+        if file_provided:
+            # Process the resume
+            with st.spinner("Processing your resume..."):
+                st.info("Extracting text from your resume...")
+
+                # Save uploaded file
+                with open("uploaded_resume.pdf", "wb") as f:
+                    f.write(uploaded_file.getbuffer())
+                resume_text = analyzer.extract_text_from_pdf("uploaded_resume.pdf")
+
+                st.info("Analyzing resume for grammar and formatting...")
+                analysis_results = analyzer.analyze_resume_text(resume_text)
+
+                analysis_summary = f"""
+    **Grammar Score:** {analysis_results.get('grammar_score', 'N/A')}/100  
+    **Formatting Score:** {analysis_results.get('formatting_score', 'N/A')}/100
+
+    **Grammatical Errors:**  
+    {', '.join([err['description'] for err in analysis_results.get('grammatical_errors', [])]) or 'None'}
+
+    **Formatting Issues:**  
+    {', '.join([issue['description'] for issue in analysis_results.get('formatting_issues', [])]) or 'None'}
+
+    **Recommendations:**  
+    {', '.join([rec['description'] for rec in analysis_results.get('recommendations', [])]) or 'None'}
+    """
+                st.session_state["messages"].append({"role": "assistant", "content": analysis_summary})
+
+        if user_message:
+            st.session_state["messages"].append({"role": "user", "content": user_message})
+            # If no PDF attached, provide a placeholder response
+            if not file_provided:
+                mock_response = f"You said: {user_message}. (This is a placeholder response.)"
+                st.session_state["messages"].append({"role": "assistant", "content": mock_response})
+
+        if not file_provided and not user_message:
+            st.error("Please upload a PDF or type a message.")
+
+        st.session_state["trigger_rerun"] = not st.session_state["trigger_rerun"]
+
+tabs = st.tabs(["Main Page", "Resume Generation", "Ranking Resume", "visualization","ResumeGFScore","resume_generation_page"])
 
 with tabs[0]:
     main_page()
