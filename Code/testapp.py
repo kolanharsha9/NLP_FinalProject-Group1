@@ -5,8 +5,29 @@ from io import BytesIO
 import base64
 from models.ModelForGrammaticalAndFormating.model import BedrockResumeAnalyzer
 from models.resume_train_preprocess_test import gen_resume
+<<<<<<< Updated upstream
 from job_recommendation.w2v_fast import SemanticJobRecommender
 
+=======
+from ranking_resume_streamlit import embed_texts,extract_text_from_pdf,clean_text,normalize_vectors,rank_resumes
+import streamlit as st
+import numpy as np
+from transformers import BertTokenizer, BertModel
+import torch
+import PyPDF2
+import re
+from tqdm import tqdm
+from sklearn.metrics.pairwise import cosine_similarity
+from concurrent.futures import ThreadPoolExecutor
+import streamlit as st
+from sklearn.feature_extraction.text import TfidfVectorizer
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+import pandas as pd
+import seaborn as sns
+from io import StringIO
+from visualization import generate_word_cloud,generate_sankey,generate_bar_chart,generate_heatmap,process_documents
+>>>>>>> Stashed changes
 # Set page layout
 st.set_page_config(page_title="Chat Interface Demo", page_icon="💬", layout="wide")
 
@@ -567,6 +588,7 @@ with tab3:
 
     st.write("Feel free to customize this section to best represent your project and its contents.")
 
+<<<<<<< Updated upstream
 with tab4:  # Job Recommendations tab
     st.header("Job Recommendation System 💼")
     
@@ -597,3 +619,173 @@ with tab4:  # Job Recommendations tab
                     st.write(f"**Skills Required:** {', '.join(job['skills_required'])}")
                     st.write(f"**Experience Required:** {job.get('experience_required', {}).get('min_years', 'N/A')} years")
                     st.write(f"**Qualifications:** {job['qualifications']}")
+=======
+def resume_ranking():
+    # Streamlit App
+    st.header("Resume Ranking System")
+    st.subheader("Upload Job Description and Resumes")
+
+    # Upload Job Description
+    uploaded_pdf = st.file_uploader("Upload Job Description (PDF)", type="pdf")
+
+    # Upload Resumes
+    uploaded_resumes = st.file_uploader(
+        "Upload Resumes (PDF or Text Files, Max 10)",
+        type=["pdf", "txt"],
+        accept_multiple_files=True
+    )
+
+    # Parameters
+    if st.button("Rank Resumes"):
+        if uploaded_pdf and uploaded_resumes:
+            if len(uploaded_resumes) > 10:
+                st.error("Please upload a maximum of 10 resumes.")
+            else:
+                try:
+                    # Extract Job Description
+                    job_description = extract_text_from_pdf(uploaded_pdf)
+                    job_description_cleaned = clean_text(job_description)
+
+                    # Load Resumes
+                    st.write("Processing resumes...")
+                    resumes = []
+                    filenames = []
+                    for resume_file in uploaded_resumes:
+                        if resume_file.name.endswith(".pdf"):
+                            content = extract_text_from_pdf(resume_file)
+                        elif resume_file.name.endswith(".txt"):
+                            content = resume_file.read().decode("utf-8")
+                        else:
+                            st.error(f"Unsupported file type: {resume_file.name}")
+                            continue
+
+                        cleaned_content = clean_text(content)
+                        resumes.append(cleaned_content)
+                        filenames.append(resume_file.name)
+
+                    # Load Pretrained BERT
+                    st.write("Loading BERT model...")
+                    tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+                    model = BertModel.from_pretrained("bert-base-uncased")
+
+                    # Generate Embeddings
+                    with ThreadPoolExecutor() as executor:
+                        job_desc_embedding = embed_texts([job_description_cleaned], model, tokenizer)[0]
+                        resume_embeddings = embed_texts(resumes, model, tokenizer)
+
+                    # Normalize Embeddings
+                    job_desc_embedding = job_desc_embedding / np.linalg.norm(job_desc_embedding)
+                    resume_embeddings = normalize_vectors(resume_embeddings)
+
+                    # Rank Resumes
+                    ranked_resumes = rank_resumes(job_desc_embedding, resume_embeddings, filenames, resumes)
+
+                    # Display Ranked Resumes
+                    st.write("Ranked Resumes Based on Similarity Scores:")
+                    for resume in ranked_resumes:
+                        st.write(f"### Rank {resume['rank']}")
+                        st.write(f"**File Name:** {resume['file_name']}")
+                        st.write(f"**Similarity Score:** {resume['similarity_score']:.2f}%")
+                        st.write(f"**Resume Content Preview:** {resume['content_preview']}...")
+                        st.write("---")
+
+                except Exception as e:
+                    st.error(f"An error occurred: {str(e)}")
+        else:
+            st.error("Please upload a job description PDF and at least one resume.")
+
+def visualization():
+    # Streamlit UI
+    st.title("Resume and Job Description Analyzer")
+
+    # Resume Upload Section
+    st.header("Upload Resume")
+    resume_file = st.file_uploader("Upload your resume (PDF only)", type="pdf")
+
+    # Job Description Text Area
+    st.header("Enter Job Description")
+    job_description_text = st.text_area("Paste job description text here", "")
+
+    # Visualization Dropdown
+    st.header("Select Visualization")
+    visualization = st.selectbox(
+        "Choose a visualization:",
+        ["Word Cloud", "Sankey Diagram", "Bar Chart", "Heatmap"]
+    )
+
+    
+    if resume_file and job_description_text.strip():
+        resume_text = extract_text_from_pdf(resume_file)
+            
+            
+        documents = [resume_text, job_description_text]
+        vectorizer = TfidfVectorizer(stop_words="english", max_features=50)
+        tfidf_matrix = vectorizer.fit_transform(documents)
+        feature_names = vectorizer.get_feature_names_out()
+            
+            
+        if visualization == "Word Cloud":
+            st.subheader("Word Clouds")
+            generate_word_cloud(tfidf_matrix, feature_names, 0, "Resume Word Cloud")
+            generate_word_cloud(tfidf_matrix, feature_names, 1, "Job Description Word Cloud")
+        elif visualization == "Sankey Diagram":
+            st.subheader("Sankey Diagram")
+            generate_sankey(tfidf_matrix, feature_names)
+        elif visualization == "Bar Chart":
+            st.subheader("Bar Chart")
+            generate_bar_chart(tfidf_matrix, feature_names)
+        elif visualization == "Heatmap":
+            st.subheader("Heatmap")
+            api_key = "AIzaSyDw1PTBcbK09IYvQkUI7Fp39A8M1NMm-Pg"  # Replace with your actual API key
+            parsed_resume, parsed_job_description = process_documents(api_key, resume_file, StringIO(job_description_text))
+            generate_heatmap(parsed_resume, parsed_job_description)
+        else:
+            st.error("Please upload a resume and enter job description text.")
+
+
+tabs = st.tabs(["Main Page", "Resume Generation", "Ranking Resume", "visualization"])
+
+with tabs[0]:
+    main_page()
+with tabs[1]:
+    resume_generation_page()
+with tabs[2]:
+    resume_ranking()
+with tabs[3]:
+    visualization()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> Stashed changes
