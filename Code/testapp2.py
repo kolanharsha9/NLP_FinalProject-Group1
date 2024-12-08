@@ -24,7 +24,8 @@ from visualization import generate_word_cloud,generate_sankey,generate_bar_chart
 from resume_job_description_parser import process_documents, extract_pdf_text, clean_text
 from sentence_transformers import SentenceTransformer, util
 from similarity_score_with_weights import calculate_weighted_similarity
-from models.skill_gap import analyze_skill_gap
+from models.skill_gap import analyze_skill_gap 
+
 from job_recommendation.w2v_fast import SemanticJobRecommender
 @st.cache_data
 def parse_documents_once(api_key, resume_file, job_description_text):
