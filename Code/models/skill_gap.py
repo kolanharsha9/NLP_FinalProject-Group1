@@ -8,18 +8,22 @@ spacy.cli.download("en_core_web_md")
 nlp = spacy.load("en_core_web_md")
 
 def analyze_skill_gap(resume_json, job_description_json):
-    resume_data = json.loads(resume_json)
-    job_description_data = json.loads(job_description_json)
-    resume_skills = set(resume_data.get("skills", []))
-    job_skills = set(job_description_data.get("skills", []))
-    missing_skills = job_skills - resume_skills
-
-    resume_experience = resume_data.get("work_experience", [])
-    resume_education = resume_data.get("education", [])
-   
-    job_experience = job_description_data.get("work_experience", [])
-    job_education = job_description_data.get("education", [])
     
+    # Parse the JSON data
+    resume_data = resume_json
+    job_description_data =job_description_json
+
+    resume_skills = resume_data.get("skills", [])
+    job_skills = job_description_data.get("required_skills", [])
+
+    missing_skills = [skill for skill in job_skills if skill not in resume_skills]
+
+    resume_experience = [exp["responsibilities"] for exp in resume_data.get("work_experience", [])]
+    resume_experience = [item for sublist in resume_experience for item in sublist]  # Flatten the list
+    resume_education = resume_data.get("education", [])
+    job_experience = job_description_data.get("responsibilities", [])
+    job_education = job_description_data.get("qualifications", [])
+
     experience_gap = []
     for job_exp in job_experience:
         job_exp_doc = nlp(job_exp)
@@ -28,8 +32,8 @@ def analyze_skill_gap(resume_json, job_description_json):
 
     education_gap = []
     for job_edu in job_education:
-        job_edu_doc = nlp(f"{job_edu['degree']} from {job_edu['institution']}")
-        if not any(job_edu_doc.similarity(nlp(f"{edu['degree']} from {edu['institution']}")) > 0.8 for edu in resume_education):
+        job_edu_doc = nlp(job_edu)
+        if not any(job_edu_doc.similarity(nlp(edu["degree"])) > 0.8 for edu in resume_education):
             education_gap.append(job_edu)
 
     feedback = ""
@@ -41,16 +45,14 @@ def analyze_skill_gap(resume_json, job_description_json):
     if experience_gap:
         feedback += f"The following work experience is missing from your resume: {', '.join(experience_gap)}\n"
     else:
-        feedback += "Your resume matches all the required work experience for the job.\n"
-    
-    if education_gap:
-        education_gap_str = [f"{edu['degree']} from {edu['institution']}" for edu in education_gap]
-        feedback += f"The following education qualifications are missing from your resume: {', '.join(education_gap_str)}\n"
-    else:
-        feedback += "Your resume matches all the required education qualifications for the job.\n"
-    
-    return feedback
+        feedback += "Your resume matches all the required work experiences for the job.\n"
 
+    if education_gap:
+        feedback += f"The following educational qualifications are missing from your resume: {', '.join(education_gap)}\n"
+    else:
+        feedback += "Your resume matches all the required educational qualifications for the job.\n"
+
+    return feedback
 # resume_json = '''
 # {
 #     "skills": [
