@@ -274,7 +274,7 @@ def visualization():
         else:
             st.error("Please upload a resume and enter job description text.")
 
-
+tabs = st.tabs(["Main Page", "Resume Generation", "Ranking Resume", "visualization","resume_generation_page"])
 
 with tabs[0]:
     main_page()
