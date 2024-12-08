@@ -470,7 +470,7 @@ with tabs[2]:
     resume_ranking()
 with tabs[3]:
     visualization()
-with tabs[5]:
-    ResumeGFScore()
 with tabs[4]:
+    ResumeGFScore()
+with tabs[5]:
     resume_generation_page()
