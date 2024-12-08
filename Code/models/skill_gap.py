@@ -1,165 +1,143 @@
 #%%
-import torch
-import os
-import torch.nn as nn
-from torch.utils.data import Dataset, DataLoader
-from sklearn.preprocessing import LabelEncoder
-from sklearn.model_selection import train_test_split
-from tensorflow.keras.preprocessing.text import Tokenizer
-from torch.nn.utils.rnn import pad_sequence
-import numpy as np
 import json
-from sklearn.metrics import precision_score, recall_score, f1_score,  cohen_kappa_score
-from sklearn.metrics import precision_recall_fscore_support
+import spacy
 
+# spaCy model
+import spacy.cli
+spacy.cli.download("en_core_web_md")
+nlp = spacy.load("en_core_web_md")
 
-#%%
-base_dir= os.path.abspath('../..')
-resume_dir = os.path.join(base_dir,'assests','data','resume_data.json')
-job_dir = os.path.join(base_dir,'assests','data','jobs_data.json')
+def analyze_skill_gap(resume_json, job_description_json):
+    resume_data = json.loads(resume_json)
+    job_description_data = json.loads(job_description_json)
+    resume_skills = set(resume_data.get("skills", []))
+    job_skills = set(job_description_data.get("skills", []))
+    missing_skills = job_skills - resume_skills
 
-with open(job_dir, "r") as f:
-    job_descriptions = json.load(f)
+    resume_experience = resume_data.get("work_experience", [])
+    resume_education = resume_data.get("education", [])
+   
+    job_experience = job_description_data.get("work_experience", [])
+    job_education = job_description_data.get("education", [])
+    
+    experience_gap = []
+    for job_exp in job_experience:
+        job_exp_doc = nlp(job_exp)
+        if not any(job_exp_doc.similarity(nlp(exp)) > 0.8 for exp in resume_experience):
+            experience_gap.append(job_exp)
 
+    education_gap = []
+    for job_edu in job_education:
+        job_edu_doc = nlp(f"{job_edu['degree']} from {job_edu['institution']}")
+        if not any(job_edu_doc.similarity(nlp(f"{edu['degree']} from {edu['institution']}")) > 0.8 for edu in resume_education):
+            education_gap.append(job_edu)
 
-with open(resume_dir, "r") as f:
-    resumes = json.load(f)
-#%%
+    feedback = ""
+    if missing_skills:
+        feedback += f"The following skills are missing from your resume: {', '.join(missing_skills)}\n"
+    else:
+        feedback += "Your resume matches all the required skills for the job.\n"
+    
+    if experience_gap:
+        feedback += f"The following work experience is missing from your resume: {', '.join(experience_gap)}\n"
+    else:
+        feedback += "Your resume matches all the required work experience for the job.\n"
+    
+    if education_gap:
+        education_gap_str = [f"{edu['degree']} from {edu['institution']}" for edu in education_gap]
+        feedback += f"The following education qualifications are missing from your resume: {', '.join(education_gap_str)}\n"
+    else:
+        feedback += "Your resume matches all the required education qualifications for the job.\n"
+    
+    return feedback
 
-job_skills = [" ".join(job["skills_required"]) for job in job_descriptions]
-resume_skills = [" ".join(resume["skills"]["technical_skills"]) for resume in resumes]
-#%%
+# resume_json = '''
+# {
+#     "skills": [
+#         "Python",
+#         "MachineLearning",
+#         "UtilizingChatGPTandotherAItools",
+#         "Blender3DTool",
+#         "Modelling",
+#         "Composting",
+#         "3Ddesigningandmodelling",
+#         "3DAnimation"
+#     ],
+#     "work_experience": [
+#         "2 years testing experience"
+#     ],
+#     "projects": [
+#         {
+#             "name": "AUTOMATICPERSONALITYRECOGNITIONINVIDEOINTERVIEWSUSINGCNN",
+#             "description": "Developed an end-to-end interviewing model to perform automatic personality recognition (APR) during interviews.\\nThrought the input of interview video, this model will do screening process based on 5 personality traits.(OCEAN model)\\nImplemented by using visual and audio subnetworks in this project.\\nThe dataset used is First Impression V2, it consist of 10000 video files along with annotation files.",
+#             "technologies": []
+#         },
+#         {
+#             "name": "INTELLIGENTWASTESEGREGATIONTECHNIQUEUSINGCNN",
+#             "description": "Developed a waste segregation model that can classify the waste into 9 different classes.\\nUsed a Deep Learning algorithm (VGG-16).\\nUsed MSW dataset and added our own images from google images to the dataset.",
+#             "technologies": []
+#         },
+#         {
+#             "name": "VISION",
+#             "description": "Developed an application with smart assistance for blind people.\\nUsed COCO dataset and ssdmobilenetv2model for detecting objects.\\nThis application will detect objects around the victim and gives audio output of the object detected.\\nDeveloped the application using android studio. ashik.shaik.ali@gmail.com +1(571)-413-4739",
+#             "technologies": []
+#         },
+#         {
+#             "name": "AUDIOTRANSMISSIONTHROUGHLASER",
+#             "description": "Developed a device that transmits audio through LASER.\\nThis works under the principle of intensity modulation and demodulation.\\nSolar plate is used as demodulator.",
+#             "technologies": []
+#         }
+#     ],
+#     "education": [
+#         {
+#             "institution": "GeorgeMasonUniversity",
+#             "degree": "MS",
+#             "graduation_year": "2024-25"
+#         },
+#         {
+#             "institution": "VardhamanCollegeofEngineering",
+#             "degree": "B-Tech",
+#             "graduation_year": "2019-23"
+#         },
+#         {
+#             "institution": "SriNalandaJuniorCollege",
+#             "degree": "XII",
+#             "graduation_year": "2017-19"
+#         },
+#         {
+#             "institution": "ReginaCarmeliConventHighSchool",
+#             "degree": "X",
+#             "graduation_year": "2005-17"
+#         }
+#     ]
+# }
+# '''
 
-tokenizer = Tokenizer()
-tokenizer.fit_on_texts(job_skills + resume_skills)
-job_sequences = tokenizer.texts_to_sequences(job_skills)
-resume_sequences = tokenizer.texts_to_sequences(resume_skills)
+# job_description_json = '''
+# {
+#     "skills": [
+#         "Python",
+#         "MachineLearning",
+#         "DeepLearning",
+#         "DataAnalysis",
+#         "TensorFlow",
+#         "Keras",
+#         "NLP"
+#     ],
+#     "work_experience": [
+#         "2+ years of experience in Machine Learning",
+#         "Experience with TensorFlow and Keras"
+#     ],
+#     "education": [
+#         {
+#             "institution": "Any accredited university",
+#             "degree": "MS",
+#             "graduation_year": "Any"
+#         }
+#     ]
+# }
+# '''
 
-max_length = max(max(len(seq) for seq in job_sequences), max(len(seq) for seq in resume_sequences))
-job_padded = pad_sequence([torch.tensor(seq) for seq in job_sequences], batch_first=True, padding_value=0)
-resume_padded = pad_sequence([torch.tensor(seq) for seq in resume_sequences], batch_first=True, padding_value=0)
-#%%
-from sklearn.preprocessing import LabelEncoder
-
-
-job_titles = [job["title"] for job in job_descriptions]
-resume_titles = [resume["job_title"] for resume in resumes]
-
-
-all_titles = job_titles + resume_titles
-label_encoder = LabelEncoder()
-label_encoder.fit(all_titles)
-
-
-job_labels = label_encoder.transform(job_titles)
-resume_labels = label_encoder.transform(resume_titles)
-
-#%%
-
-labels = np.concatenate((job_labels, resume_labels))
-
-class SkillGapDataset(Dataset):
-    def __init__(self, job_data, resume_data, labels):
-        self.job_data = torch.tensor(job_data, dtype=torch.long)
-        self.resume_data = torch.tensor(resume_data, dtype=torch.long)
-        self.labels = torch.tensor(labels, dtype=torch.long)  
-
-    def __len__(self):
-        return len(self.labels)
-
-    def __getitem__(self, idx):
-        return self.job_data[idx], self.resume_data[idx], self.labels[idx]
-
-#%%
-
-class SkillGapModel(nn.Module):
-    def __init__(self, vocab_size, embedding_dim, hidden_dim, max_length):
-        super(SkillGapModel, self).__init__()
-        self.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=0)
-        self.lstm = nn.LSTM(embedding_dim, hidden_dim, batch_first=True)
-        #
-        self.fc = nn.Linear(2 * hidden_dim, len(label_encoder.classes_))  
-        self.softmax = nn.Softmax(dim=1)
-
-    def forward(self, job_input, resume_input):
-        job_embedded = self.embedding(job_input)
-        resume_embedded = self.embedding(resume_input)
-
-        _, (job_hidden, _) = self.lstm(job_embedded)
-        _, (resume_hidden, _) = self.lstm(resume_embedded)
-
-        merged = torch.cat((job_hidden.squeeze(0), resume_hidden.squeeze(0)), dim=1)
-        output = self.fc(merged)
-        return self.softmax(output)  
-#%%
-
-vocab_size = len(tokenizer.word_index) + 1
-embedding_dim = 64
-hidden_dim = 128
-
-
-model = SkillGapModel(vocab_size, embedding_dim, hidden_dim, max_length)
-criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-#%%
-# Training Loop
-
-min_samples = min(len(job_padded), len(resume_padded), len(labels))
-
-job_padded = job_padded[:min_samples]
-resume_padded = resume_padded[:min_samples]
-labels = labels[:min_samples]
-
-job_train, job_test, resume_train, resume_test, label_train, label_test = train_test_split(
-    job_padded, resume_padded, labels, test_size=0.2, random_state=42
-)
-
-
-train_dataset = SkillGapDataset(job_train, resume_train, label_train)
-test_dataset = SkillGapDataset(job_test, resume_test, label_test)
-
-train_loader = DataLoader(train_dataset, batch_size=2, shuffle=True)
-test_loader = DataLoader(test_dataset, batch_size=2, shuffle=False)
-epochs =20
-
-for epoch in range(epochs):
-    model.train()
-    total_loss = 0
-    for job_input, resume_input, label in train_loader:
-        optimizer.zero_grad()
-        outputs = model(job_input, resume_input)
-        loss = criterion(outputs.squeeze(), label.long())  
-        optimizer.step()
-        total_loss += loss.item()
-    print(f"Epoch {epoch+1}/{epochs}, Loss: {total_loss:.4f}")
-    model_save_path = "skill_gap_model.pth"
-    torch.save(model.state_dict(), model_save_path)
-    print(f"Model saved to {model_save_path}")
-#%%
-from sklearn.metrics import classification_report
-model.eval()
-total_test_loss = 0
-correct = 0
-
-
-
-all_labels = []
-all_predictions = []
-
-with torch.no_grad():
-    for job_input, resume_input, label in test_loader:
-        outputs = model(job_input, resume_input)
-        _, predicted = torch.max(outputs, dim=1) 
-
-        all_labels.extend(label.cpu().numpy())
-        all_predictions.extend(predicted.cpu().numpy())
-
-
-print(classification_report(all_labels, all_predictions, target_names=label_encoder.classes_))
-
-# Cohen's kappa
-kappa = cohen_kappa_score(all_labels, all_predictions)
-print(f"Cohen's Kappa: {kappa:.4f}")
-
+# feedback = analyze_skill_gap(resume_json, job_description_json)
+# print(feedback)
 # %%
-
