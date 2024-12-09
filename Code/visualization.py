@@ -10,6 +10,18 @@ import plotly.graph_objects as go
 from resume_job_description_parser import process_documents
 from PyPDF2 import PdfReader
 import streamlit as st
+import matplotlib.pyplot as plt
+import streamlit as st
+import matplotlib.pyplot as plt
+from matplotlib_venn import venn2
+from PyPDF2 import PdfReader
+from resume_job_description_parser import process_documents
+from io import BytesIO
+
+from matplotlib_venn import venn2
+from PyPDF2 import PdfReader
+from resume_job_description_parser import process_documents
+from matplotlib_venn import venn2
 # Function to extract text from a PDF
 def extract_text_from_pdf(file_path):
     reader = PdfReader(file_path)
@@ -19,6 +31,11 @@ def extract_text_from_pdf(file_path):
         if page_text:
             text += page_text
     return text
+def extract_text_from_txt(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        text = file.read()
+    return text
+
 
 # Function to generate a word cloud based on TF-IDF
 def generate_word_cloud(tfidf_matrix, feature_names, document_index, title):
@@ -30,13 +47,14 @@ def generate_word_cloud(tfidf_matrix, feature_names, document_index, title):
     ax.imshow(wordcloud, interpolation="bilinear")
     ax.axis('off')
     ax.set_title(title, fontsize=16)
-    
+
     # Render in Streamlit
     st.pyplot(fig)
 
 
 # Function to generate a Sankey diagram
 import plotly.graph_objects as go
+
 
 def generate_sankey(tfidf_matrix, feature_names):
     resume_scores = tfidf_matrix[0].toarray().flatten()
@@ -67,7 +85,7 @@ def generate_sankey(tfidf_matrix, feature_names):
     )])
 
     fig.update_layout(title_text="Semantic Flow of Key Terms Between Resume and Job Description", font_size=10)
-    
+
     # Render in Streamlit
     st.plotly_chart(fig)
 
@@ -75,6 +93,7 @@ def generate_sankey(tfidf_matrix, feature_names):
 # Function to generate a bar chart comparing TF-IDF scores
 import pandas as pd
 import numpy as np
+
 
 def generate_bar_chart(tfidf_matrix, feature_names):
     resume_scores = tfidf_matrix[0].toarray().flatten()
@@ -100,7 +119,7 @@ def generate_bar_chart(tfidf_matrix, feature_names):
     ax.set_title("Word Importance Comparison: Resume vs Job Description")
     ax.legend()
     plt.tight_layout()
-    
+
     # Render in Streamlit
     st.pyplot(fig)
 
@@ -108,11 +127,13 @@ def generate_bar_chart(tfidf_matrix, feature_names):
 import seaborn as sns
 from sklearn.metrics.pairwise import cosine_similarity
 
+
 def calculate_similarity(text1, text2):
     vectorizer = TfidfVectorizer(stop_words="english")
     tfidf_matrix = vectorizer.fit_transform([text1, text2])
     similarity = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])[0][0]
     return similarity
+
 
 def generate_heatmap(parsed_resume, parsed_job_description):
     resume_skills = " ".join(parsed_resume.get("skills", []))
@@ -144,19 +165,69 @@ def generate_heatmap(parsed_resume, parsed_job_description):
     ax.set_title("Similarity Scores for Resume and Job Description")
     ax.set_xlabel("Sections")
     plt.tight_layout()
-    
+
     # Render in Streamlit
+    st.pyplot(fig)
+import streamlit as st
+from matplotlib_venn import venn2
+import matplotlib.pyplot as plt
+
+def generate_skill_venn(parsed_resume, parsed_job_description):
+    """
+    Generates a Venn diagram to visualize the skill alignment between a resume and a job description.
+
+    Args:
+        parsed_resume (dict): Parsed resume data containing "skills" as a key.
+        parsed_job_description (dict): Parsed job description data containing "required_skills" as a key.
+
+    Returns:
+        None: Displays the Venn diagram in Streamlit.
+    """
+
+    def find_matching_skills(resume_skills, job_skills):
+        matched_resume_skills = set()
+        matched_job_skills = set()
+        for resume_skill in resume_skills:
+            for job_skill in job_skills:
+                if job_skill.lower() in resume_skill.lower() or resume_skill.lower() in job_skill.lower():
+                    matched_resume_skills.add(resume_skill)
+                    matched_job_skills.add(job_skill)
+        return matched_resume_skills, matched_job_skills
+
+    # Extract skills from parsed data
+    resume_skills = parsed_resume.get("skills", [])
+    st.write('Resume skills: ',resume_skills)
+    job_skills = parsed_job_description.get("required_skills", [])
+    st.write('Job skills: ', job_skills)
+
+    # Find matching skills
+    matched_resume_skills, matched_job_skills = find_matching_skills(resume_skills, job_skills)
+
+    # Determine unique and common skills
+    only_resume_skills = set(resume_skills) - matched_resume_skills
+    only_job_skills = set(job_skills) - matched_job_skills
+    common_skills = matched_resume_skills
+    st.write('Common skills: ',common_skills)
+
+    # Generate Venn diagram
+    fig, ax = plt.subplots()
+    venn = venn2([common_skills.union(only_resume_skills), common_skills.union(only_job_skills)],
+                 ("Resume Skills", "Job Skills"))
+
+    plt.title("Skill Alignment Between Resume and Job Description")
+
+    # Display in Streamlit
     st.pyplot(fig)
 
 
-# Main script
-if __name__ == "__main__":
-    resume_file_path = 'processed_resume/HarshavardanaReddyKolan_Resume.pdf'
-    job_description_file_path = 'Processed_jd/Job-Description_DataScientist.pdf'
 
+# Main script
+if __name__ == "_main_":
+    resume_file_path = 'processed_resume/HarshavardanaReddyKolan_Resume.pdf'
+    job_description_file_path = 'Processed_jd/Data_scientist.txt'
 
     resume_text = extract_text_from_pdf(resume_file_path)
-    job_description_text = extract_text_from_pdf(job_description_file_path)
+    job_description_text = extract_text_from_txt(job_description_file_path)
 
     documents = [resume_text, job_description_text]
     vectorizer = TfidfVectorizer(stop_words="english", max_features=50)
@@ -172,4 +243,4 @@ if __name__ == "__main__":
     api_key = "AIzaSyDw1PTBcbK09IYvQkUI7Fp39A8M1NMm-Pg"
     parsed_resume, parsed_job_description = process_documents(api_key, resume_file_path, job_description_file_path)
     generate_heatmap(parsed_resume, parsed_job_description)
-
+    generate_skill_venn(parsed_resume, parsed_job_description)

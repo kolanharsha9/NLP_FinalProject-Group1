@@ -20,7 +20,7 @@ from wordcloud import WordCloud
 import pandas as pd
 import seaborn as sns
 from io import StringIO
-from visualization import generate_word_cloud,generate_sankey,generate_bar_chart,process_documents, generate_heatmap
+from visualization import generate_word_cloud,generate_sankey,generate_bar_chart,process_documents, generate_heatmap, generate_skill_venn
 from resume_job_description_parser import process_documents, extract_pdf_text, clean_text
 from sentence_transformers import SentenceTransformer, util
 from similarity_score_with_weights import calculate_weighted_similarity
@@ -114,7 +114,7 @@ def main_page():
             st.header("Select Visualization")
     visualization1 = st.selectbox(
         "Choose a visualization:",
-        ["Word Cloud", "Sankey Diagram", "Bar Chart", "Heatmap"]
+        ["Word Cloud", "Venn Diagram", "Bar Chart", "Heatmap"]
     )
 
     
@@ -132,9 +132,9 @@ def main_page():
             st.subheader("Word Clouds")
             generate_word_cloud(tfidf_matrix, feature_names, 0, "Resume Word Cloud")
             generate_word_cloud(tfidf_matrix, feature_names, 1, "Job Description Word Cloud")
-        elif visualization1 == "Sankey Diagram":
-            st.subheader("Sankey Diagram")
-            generate_sankey(tfidf_matrix, feature_names)
+        elif visualization1 == "Venn Diagram":
+            st.subheader("Venn Diagram")
+            generate_skill_venn(parsed_resume, parsed_job_description)
         elif visualization1 == "Bar Chart":
             st.subheader("Bar Chart")
             generate_bar_chart(tfidf_matrix, feature_names)
@@ -302,7 +302,7 @@ def visualization():
     st.header("Select Visualization")
     visualization = st.selectbox(
         "Choose a visualization:",
-        ["Word Cloud", "Sankey Diagram", "Bar Chart", "Heatmap"]
+        ["Word Cloud", "Venn", "Bar Chart", "Heatmap"]
     )
 
     
@@ -320,7 +320,7 @@ def visualization():
             st.subheader("Word Clouds")
             generate_word_cloud(tfidf_matrix, feature_names, 0, "Resume Word Cloud")
             generate_word_cloud(tfidf_matrix, feature_names, 1, "Job Description Word Cloud")
-        elif visualization == "Sankey Diagram":
+        elif visualization == "Venn":
             st.subheader("Sankey Diagram")
             generate_sankey(tfidf_matrix, feature_names)
         elif visualization == "Bar Chart":
@@ -357,7 +357,7 @@ def ResumeGFScore():
         st.session_state["trigger_rerun"] = False
 
     # Page heading
-    st.markdown("<h1 style='text-align: center; margin-top: 2em;'>What can I help with?</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; margin-top: 2em;'>Grammar and Format Check</h1>", unsafe_allow_html=True)
 
     # Display chat messages
     st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
