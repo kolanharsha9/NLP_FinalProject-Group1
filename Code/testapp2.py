@@ -20,7 +20,7 @@ from wordcloud import WordCloud
 import pandas as pd
 import seaborn as sns
 from io import StringIO
-from visualization import generate_word_cloud,generate_sankey,generate_bar_chart,generate_heatmap,process_documents
+from visualization import generate_word_cloud,generate_sankey,generate_bar_chart,process_documents
 from resume_job_description_parser import process_documents, extract_pdf_text, clean_text
 from sentence_transformers import SentenceTransformer, util
 from similarity_score_with_weights import calculate_weighted_similarity
@@ -160,12 +160,12 @@ def job_recommendation():
                     st.write(f"**Qualifications:** {job['qualifications']}")
                     
 def resume_ranking():
-    # Streamlit App
-    st.header("Resume Ranking System")
-    st.subheader("Upload Job Description and Resumes")
+    st.title("Resume Ranking System")
 
-    # Upload Job Description
-    uploaded_pdf = st.file_uploader("Upload Job Description (PDF)", type="pdf")
+    st.header("Provide Job Description and Upload Resumes")
+
+    # Input Job Description
+    job_description_text = st.text_area("Paste Job Description", "")
 
     # Upload Resumes
     uploaded_resumes = st.file_uploader(
@@ -174,18 +174,16 @@ def resume_ranking():
         accept_multiple_files=True
     )
 
-    # Parameters
     if st.button("Rank Resumes"):
-        if uploaded_pdf and uploaded_resumes:
+        if job_description_text.strip() and uploaded_resumes:
             if len(uploaded_resumes) > 10:
                 st.error("Please upload a maximum of 10 resumes.")
             else:
                 try:
-                    # Extract Job Description
-                    job_description = extract_text_from_pdf(uploaded_pdf)
-                    job_description_cleaned = clean_text(job_description)
+                    # Clean Job Description
+                    job_description_cleaned = clean_text(job_description_text)
 
-                    # Load Resumes
+                    # Process Resumes
                     st.write("Processing resumes...")
                     resumes = []
                     filenames = []
@@ -202,15 +200,14 @@ def resume_ranking():
                         resumes.append(cleaned_content)
                         filenames.append(resume_file.name)
 
-                    # Load Pretrained BERT
-                    st.write("Loading BERT model...")
-                    tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
-                    model = BertModel.from_pretrained("bert-base-uncased")
+                    # Load Sentence-BERT
+                    st.write("Loading Sentence-BERT model...")
+                    model = SentenceTransformer("paraphrase-MiniLM-L6-v2")
 
                     # Generate Embeddings
                     with ThreadPoolExecutor() as executor:
-                        job_desc_embedding = embed_texts([job_description_cleaned], model, tokenizer)[0]
-                        resume_embeddings = embed_texts(resumes, model, tokenizer)
+                        job_desc_embedding = embed_texts([job_description_cleaned], model)[0]
+                        resume_embeddings = embed_texts(resumes, model)
 
                     # Normalize Embeddings
                     job_desc_embedding = job_desc_embedding / np.linalg.norm(job_desc_embedding)
@@ -228,10 +225,22 @@ def resume_ranking():
                         st.write(f"**Resume Content Preview:** {resume['content_preview']}...")
                         st.write("---")
 
+                    # Download Option
+                    st.write("Download Results")
+                    results_df = pd.DataFrame(ranked_resumes)
+                    results_csv = results_df.to_csv(index=False).encode('utf-8')
+                    st.download_button(
+                        label="Download CSV",
+                        data=results_csv,
+                        file_name="ranked_resumes.csv",
+                        mime="text/csv",
+                    )
+
                 except Exception as e:
                     st.error(f"An error occurred: {str(e)}")
         else:
-            st.error("Please upload a job description PDF and at least one resume.")
+            st.error("Please provide a job description and upload at least one resume.")
+
 
 def visualization():
     # Streamlit UI
@@ -249,7 +258,7 @@ def visualization():
     st.header("Select Visualization")
     visualization = st.selectbox(
         "Choose a visualization:",
-        ["Word Cloud", "Sankey Diagram", "Bar Chart", "Heatmap"]
+        ["Word Cloud", "Sankey Diagram", "Bar Chart"]
     )
 
     
@@ -273,11 +282,7 @@ def visualization():
         elif visualization == "Bar Chart":
             st.subheader("Bar Chart")
             generate_bar_chart(tfidf_matrix, feature_names)
-        elif visualization == "Heatmap":
-            st.subheader("Heatmap")
-            api_key = "AIzaSyDw1PTBcbK09IYvQkUI7Fp39A8M1NMm-Pg"  # Replace with your actual API key
-            parsed_resume, parsed_job_description = process_documents(api_key, resume_file, StringIO(job_description_text))
-            generate_heatmap(parsed_resume, parsed_job_description)
+        
         else:
             st.error("Please upload a resume and enter job description text.")
 
