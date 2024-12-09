@@ -40,17 +40,17 @@ def analyze_skill_gap(resume_json, job_description_json):
     if missing_skills:
         feedback += f"The following skills are missing from your resume: {', '.join(missing_skills)}\n"
     else:
-        feedback += "Your resume matches all the required skills for the job.\n"
+        feedback += "\nYour resume matches all the required skills for the job.\n"
     
     if experience_gap:
-        feedback += f"The following work experience is missing from your resume: {', '.join(experience_gap)}\n"
+        feedback += f"\nThe following work experience is missing from your resume: {', '.join(experience_gap)}\n"
     else:
-        feedback += "Your resume matches all the required work experiences for the job.\n"
+        feedback += "\nYour resume matches all the required work experiences for the job.\n"
 
     if education_gap:
-        feedback += f"The following educational qualifications are missing from your resume: {', '.join(education_gap)}\n"
+        feedback += f"\nThe following educational qualifications are missing from your resume: {', '.join(education_gap)}\n"
     else:
-        feedback += "Your resume matches all the required educational qualifications for the job.\n"
+        feedback += "\nYour resume matches all the required educational qualifications for the job.\n"
 
     return feedback
 # resume_json = '''

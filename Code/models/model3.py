@@ -7,6 +7,8 @@ from transformers import BartTokenizer, BartForConditionalGeneration, TrainingAr
 from transformers import DataCollatorForSeq2Seq
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from collections import Counter
+from datasets import DatasetDict, Dataset
 
 #%% Step 1: Load Dataset
 dataset = load_dataset("InferencePrince555/Resume-Dataset")
@@ -22,6 +24,25 @@ def clean_text(text):
 
 dataset = dataset.map(lambda x: {"Resume_test": clean_text(x["Resume_test"])})
 
+#%%
+
+# def resample_dataset(dataset, target_count):
+#     instruction_counts = Counter(dataset['train']['instruction'])
+#     instruction_datasets = {instruction: [] for instruction in instruction_counts}
+#     for example in dataset['train']:
+#         instruction_datasets[example['instruction']].append(example)
+#     resampled_data = []
+#     for examples in instruction_datasets.values():
+#         if len(examples) < target_count:
+#             resampled_data.extend(examples * (target_count // len(examples)) + examples[:target_count % len(examples)])
+#         else:
+#             resampled_data.extend(examples)
+#     resampled_dataset = Dataset.from_dict({key: [example[key] for example in resampled_data] for key in resampled_data[0]})
+    
+#     return DatasetDict({'train': resampled_dataset})
+# target_count = 1500
+# dataset = resample_dataset(dataset, target_count)
+
 #%% Initializing model
 model_name = "facebook/bart-base"
 tokenizer = BartTokenizer.from_pretrained(model_name)
@@ -30,7 +51,7 @@ tokenizer = BartTokenizer.from_pretrained(model_name)
 
 def extract_sections(text, headers):
     sections = {}
-    header_pattern = r'(' + '|'.join(re.escape(header) for header in headers) + r')'
+    header_pattern = r'\b(' + '|'.join(re.escape(header) for header in headers) + r')\b'
     parts = re.split(header_pattern, text)
     current_section = None
     for part in parts:
@@ -57,7 +78,7 @@ def preprocess_resume(text, headers):
     return highlighted_text
 
 section_headers = [
-    "Professional Summary", "Summary","SKILL SET", "Objective", "Experience", "Work History",
+    "Professional Summary", "Summary","SKILL SET", "Objective", "Experience","EXPERIENCE", "Work History",
     "Education", "Hobbies","SOFTWARE SKILLS","Education Details","Training attended","TECHNICAL EXPERTISE","Technical Expertise",  "SKILLS","CORE COMPETENCIES", "Skills", "Certifications", "Projects", "Accomplishments",
     "Affiliations","TECHNICALSKILLS","TECHNICAL PROFICIENCIES","Additional Information SKILLS","SUMMARY OF SKILLS","Technical Summary","Computer skills","Key Skills","TECHNICAL STRENGTHS","Technical Skill Set",  "KEY COMPETENCIES","PERSONAL SKILLS","IT SKILLS","Skill Set","Areas of expertise","AREA OF EXPERTISE", "Interests", "Languages", "References", "Technical Skills"
 ]
@@ -90,75 +111,9 @@ def preprocess_data(examples):
 
 # Apply preprocessing and data split
 # tokenized_dataset = dataset["train"].map(preprocess_data, batched=True)
-train_test_split = dataset.train_test_split(test_size=0.1)
+train_test_split = dataset['train'].train_test_split(test_size=0.1)
 tokenized_train = train_test_split["train"].map(preprocess_data, batched=True)
 tokenized_test = train_test_split["test"].map(preprocess_data, batched=True)
-
-#%%
-
-# test oversampling
-from collections import Counter
-from imblearn.over_sampling import RandomOverSampler
-import pandas as pd
-from datasets import Dataset
-
-def make_unique(column_names):
-    seen = set()
-    result = []
-    for col in column_names:
-        new_col = col
-        count = 1
-        while new_col in seen:
-            new_col = f"{col}_{count}"
-            count += 1
-        seen.add(new_col)
-        result.append(new_col)
-    return result
-
-# Convert the dataset to a pandas DataFrame for easier manipulation
-df = pd.DataFrame(dataset["train"])
-
-# Check for duplicate columns
-print("Columns before renaming:")
-print(df.columns)
-
-# Rename duplicate columns
-df.columns = make_unique(df.columns)
-
-# Check for duplicate columns after renaming
-print("Columns after renaming:")
-print(df.columns)
-
-# Count the occurrences of each instruction
-instruction_counts = Counter(df["instruction"])
-
-# Identify the minority instructions
-print("Instruction counts before oversampling:")
-print(instruction_counts)
-
-# Prepare the data for oversampling
-X = df.drop(columns=["Resume_test"])
-y = df["instruction"]
-
-# Apply RandomOverSampler
-ros = RandomOverSampler(random_state=42)
-X_resampled, y_resampled = ros.fit_resample(X, y)
-
-# Convert the resampled data back to a DataFrame
-df_resampled = pd.concat([X_resampled, y_resampled], axis=1)
-
-# Ensure there are no duplicate columns after resampling
-df_resampled.columns = make_unique(df_resampled.columns)
-
-# Convert the DataFrame back to the original dataset format
-oversampled_dataset = Dataset.from_pandas(df_resampled)
-
-# Verify the new instruction counts
-new_instruction_counts = Counter(df_resampled["instruction"])
-print("Instruction counts after oversampling:")
-print(new_instruction_counts)
-#%%
-dataset = oversampled_dataset
 
 
 #%% Load Model
@@ -180,6 +135,7 @@ data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
 #     save_total_limit=2
 # )
 
+
 training_args = TrainingArguments(
     output_dir="./resume_generator_bart",
     evaluation_strategy="steps",
@@ -187,7 +143,7 @@ training_args = TrainingArguments(
     learning_rate=5e-4,
     per_device_train_batch_size=8,
     per_device_eval_batch_size=8,
-    num_train_epochs=1,
+    num_train_epochs=20,
     save_strategy="steps",
     save_steps=500,
     logging_dir="./logs",
@@ -196,6 +152,7 @@ training_args = TrainingArguments(
     fp16=True,  
     gradient_accumulation_steps=4  
 )
+
 
 
 # Initializing Trainer
@@ -212,8 +169,7 @@ trainer = Trainer(
 trainer.train()
 
 #%% Saving the Model
-trainer.save_model('/home/ubuntu/Project/NLP_FinalProject-Group1/Code/models_bart1')
-
+trainer.save_model('../models_bart2')
 
 #%% Generate and and eval
 def generate_resume(instruction, model, tokenizer, max_length=1024):
@@ -249,142 +205,179 @@ def format_resume(text, sections):
 
 #%%
 #%%
-import sacrebleu
-from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
-model_path = "/home/ubuntu/Project/NLP_FinalProject-Group1/Code/models_bart" 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# import sacrebleu
+# from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
+# from datasets import load_metric
+# model_path = "../models_bart2" 
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
-model = AutoModelForSeq2SeqLM.from_pretrained(model_path).to(device)
-tokenizer = AutoTokenizer.from_pretrained(model_path)
-def calculate_bleu(reference, hypothesis):
-    """Calculate BLEU score between reference and hypothesis."""
-    reference = [reference]
-    hypothesis = [hypothesis]
-    bleu = sacrebleu.corpus_bleu(hypothesis, [reference])
-    return bleu.score
-bleu_scores = []
-for example in tokenized_test.shuffle(seed=42).select(range(500)):
-    reference_resume = example["Resume_test"]
-    instruction = example["instruction"]
-    generated_resume = generate_resume(instruction, model, tokenizer)
-    bleu_score = calculate_bleu(reference_resume, generated_resume)
-    bleu_scores.append(bleu_score)
+# model = AutoModelForSeq2SeqLM.from_pretrained(model_path).to(device)
+# tokenizer = AutoTokenizer.from_pretrained(model_path)
+# def calculate_bleu(reference, hypothesis):
+#     """Calculate BLEU score between reference and hypothesis."""
+#     reference = [reference]
+#     hypothesis = [hypothesis]
+#     bleu = sacrebleu.corpus_bleu(hypothesis, [reference])
+#     return bleu.score
+# bleu_scores = []
+# for example in tokenized_test.shuffle(seed=42).select(range(10)):
+#     reference_resume = example["Resume_test"]
+#     instruction = example["instruction"]
+#     generated_resume = generate_resume(instruction, model, tokenizer)
+#     bleu_score = calculate_bleu(reference_resume, generated_resume)
+#     bleu_scores.append(bleu_score)
 
-average_bleu_score = sum(bleu_scores) / len(bleu_scores)
-print(f"Average BLEU score on the test dataset: {average_bleu_score}")
+# average_bleu_score = sum(bleu_scores) / len(bleu_scores)
+# print(f"Average BLEU score on the test dataset: {average_bleu_score}")
+
+
+# # Load the ROUGE metric
+# rouge = load_metric("rouge")
+
+# def calculate_rouge(reference, hypothesis):
+#     """Calculate ROUGE score between reference and hypothesis."""
+#     scores = rouge.compute(predictions=[hypothesis], references=[reference])
+#     return scores
+
+# rouge_scores = []
+# for example in tokenized_test.shuffle(seed=42).select(range(10)):
+#     reference_resume = example["Resume_test"]
+#     instruction = example["instruction"]
+#     generated_resume = generate_resume(instruction, model, tokenizer)
+#     rouge_score = calculate_rouge(reference_resume, generated_resume)
+#     rouge_scores.append(rouge_score)
+
+# # Calculate average ROUGE scores
+# average_rouge_score = {
+#     "rouge1": sum(score["rouge1"].mid.fmeasure for score in rouge_scores) / len(rouge_scores),
+#     "rouge2": sum(score["rouge2"].mid.fmeasure for score in rouge_scores) / len(rouge_scores),
+#     "rougeL": sum(score["rougeL"].mid.fmeasure for score in rouge_scores) / len(rouge_scores),
+# }
+
+# print(f"Average ROUGE-1 score on the test dataset: {average_rouge_score['rouge1']}")
+# print(f"Average ROUGE-2 score on the test dataset: {average_rouge_score['rouge2']}")
+# print(f"Average ROUGE-L score on the test dataset: {average_rouge_score['rougeL']}")
 
 
 #%% Step 11: Generate and clean a resume ctesst
-instruction = "Generate a professional resume for a Accountant job."
+instruction = "Generate a Resume for a Systems Administrator Job"
 generated_resume = generate_resume(instruction, model, tokenizer)
 # Display the cleaned resume
 print("Cleaned Resume:")
 print(generated_resume)
 
 
-# # %%
-# import re
-# import torch
-# from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-# from datasets import load_dataset
-# from collections import Counter
+# %%
+import re
+import torch
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from datasets import load_dataset
+from collections import Counter
+from datasets import DatasetDict
 
-# # Set device
-# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# Set device
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# # Load the model and tokenizer
-# model_path = "/home/ubuntu/Project/NLP_FinalProject-Group1/Code/models_bart"  # Replace with your saved model path
-# model = AutoModelForSeq2SeqLM.from_pretrained(model_path).to(device)
-# tokenizer = AutoTokenizer.from_pretrained(model_path)
+# Load the model and tokenizer
+model_path = "../models_bart"  # Replace with your saved model path
+model = AutoModelForSeq2SeqLM.from_pretrained(model_path).to(device)
+tokenizer = AutoTokenizer.from_pretrained(model_path)
 
-# def generate_resume(instruction, model, tokenizer, max_length=1024):
-#     """Generate a resume given an instruction."""
-#     # Tokenize the input instruction
-#     inputs = tokenizer(
-#         f"generate_resume: {instruction}",
-#         return_tensors="pt",
-#         max_length=max_length,
-#         truncation=True,
-#     )
+def generate_resume(instruction, model, tokenizer, max_length=1024):
+    """Generate a resume given an instruction."""
+    # Tokenize the input instruction
+    inputs = tokenizer(
+        f"generate_resume: {instruction}",
+        return_tensors="pt",
+        max_length=max_length,
+        truncation=True,
+    )
 
-#     # Move inputs to the same device as the model
-#     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-#     inputs = {key: value.to(device) for key, value in inputs.items()}
+    # Move inputs to the same device as the model
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    inputs = {key: value.to(device) for key, value in inputs.items()}
 
-#     # Generate text with controlled randomness and repetition penalties
+    # Generate text with controlled randomness and repetition penalties
+    outputs = model.generate(
+        inputs["input_ids"],
+        max_length=1024,
+        do_sample=True,
+        top_k=50,                 # Use top-k sampling
+        top_p=0.9, 
+        temperature=.7,            # Add controlled randomness
+        repetition_penalty=5.0,     # Higher penalty for repetition
+        num_beams=6,                # Use beam search for diversity
+        no_repeat_ngram_size=5,     # Penalize repeated n-grams
+        early_stopping=True         # Stop when EOS token is reached
+    )
 #     outputs = model.generate(
-#         inputs["input_ids"],
-#         max_length=1024,
-#         do_sample=True,
-#         top_k=50,                 # Use top-k sampling
-#         top_p=0.9, 
-#         temperature=.7,            # Add controlled randomness
-#         repetition_penalty=5.0,     # Higher penalty for repetition
-#         num_beams=6,                # Use beam search for diversity
-#         no_repeat_ngram_size=7,     # Penalize repeated n-grams
-#         early_stopping=True         # Stop when EOS token is reached
-#     )
-# #     outputs = model.generate(
-# #     inputs["input_ids"],
-# #     max_length=512,
-# #     num_beams=5,
-# #     no_repeat_ngram_size=3,
-# #     early_stopping=True
-# # )
+#     inputs["input_ids"],
+#     max_length=512,
+#     num_beams=5,
+#     no_repeat_ngram_size=3,
+#     early_stopping=True
+# )
 
-#     # Decode and return output
-#     return tokenizer.decode(outputs[0], skip_special_tokens=True)
+    # Decode and return output
+    return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-# def clean_resume(text):
-#     """Apply additional cleaning and formatting for better readability."""
-#     # Remove duplicate lines
-#     lines = text.split("\n")
-#     seen = set()
-#     cleaned_lines = []
-#     for line in lines:
-#         if line not in seen:
-#             seen.add(line)
-#             cleaned_lines.append(line)
+def clean_resume(text):
+    """Apply additional cleaning and formatting for better readability."""
+    # Remove duplicate lines
+    lines = text.split("\n")
+    seen = set()
+    cleaned_lines = []
+    for line in lines:
+        if line not in seen:
+            seen.add(line)
+            cleaned_lines.append(line)
 
-#     text = "\n".join(cleaned_lines)
+    text = "\n".join(cleaned_lines)
 
-#     # Remove excessive whitespace
-#     text = re.sub(r"\s+", " ", text)
+    # Remove excessive whitespace
+    text = re.sub(r"\s+", " ", text)
 
-#     # Capitalize sections for better readability
-#     sections = ["Professional Summary", "Work Experience", "Education", "Skills"]
-#     for section in sections:
-#         text = re.sub(section, f"\n{section.upper()}\n", text, flags=re.IGNORECASE)
+    # Capitalize sections for better readability
+    sections = ["Professional Summary", "Work Experience", "Education", "Skills"]
+    for section in sections:
+        text = re.sub(section, f"\n{section.upper()}\n", text, flags=re.IGNORECASE)
 
-#     # Add bullet points for lists
-#     text = re.sub(r"(?<!\n)-\s*", "\n- ", text)
+    # Add bullet points for lists
+    text = re.sub(r"(?<!\n)-\s*", "\n- ", text)
 
-#     return text.strip()
-# # %%
-# def format_resume(text, sections):
-#     """Format the resume text based on section headers."""
-#     # Capitalize and format sections for better readability
-#     # text = re.sub(r"(?i)([A-Z][A-Z\s]*):", r"\n\1\n", text)
-#     for section in sections:
-#         text = re.sub(rf"(?i)({section}):", rf"\n{section.upper()}:", text)
-#     # Add bullet points for lists
-#     text = re.sub(r"(?<!\n)-\s*", "\n- ", text)
+    return text.strip()
+# %%
+def format_resume(text, sections):
+    """Format the resume text based on section headers."""
+    # Capitalize and format sections for better readability
+    # text = re.sub(r"(?i)([A-Z][A-Z\s]*):", r"\n\1\n", text)
+    for section in sections:
+        text = re.sub(rf"(?i)\b({section})\b:", rf"\n{section.upper()}:", text)
+    # Add bullet points for lists
+    text = re.sub(r"(?<!\n)-\s*", "\n- ", text)
     
-#     return text.strip()
+    return text.strip()
 
-# # %%
-# instruction = "Generate a Resume for a Sales Job"
-# generated_resume = generate_resume(instruction, model, tokenizer)
-# #%%
-# cleaned_resume = format_resume(generated_resume,section_headers)
+# %%
+
+instruction = "Generate a Resume for a Accountant Job"
+generated_resume = generate_resume(instruction, model, tokenizer)
+#%%
+section_headers = [
+    "Professional Summary", "Summary","SKILL SET", "Objective", "Experience","EXPERIENCE", "Work History",
+    "Education", "Hobbies","SOFTWARE SKILLS","Education Details","Training attended","TECHNICAL EXPERTISE","Technical Expertise",  "SKILLS","CORE COMPETENCIES", "Skills", "Certifications", "Projects", "Accomplishments",
+    "Affiliations","TECHNICALSKILLS","TECHNICAL PROFICIENCIES","Additional Information SKILLS","SUMMARY OF SKILLS","Technical Summary","Computer skills","Key Skills","TECHNICAL STRENGTHS","Technical Skill Set",  "KEY COMPETENCIES","PERSONAL SKILLS","IT SKILLS","Skill Set","Areas of expertise","AREA OF EXPERTISE", "Interests", "Languages", "References", "Technical Skills"
+]
+
+cleaned_resume = format_resume(generated_resume,section_headers)
 
 
-# # Display the cleaned resume
-# print("Cleaned Resume:")
-# print(cleaned_resume)
-# # %%
-# # Check the count of instructions in the dataset
-# instruction_counts = Counter(dataset['train']['instruction'])
+# Display the cleaned resume
+print("Cleaned Resume:")
+print(cleaned_resume)
+# %%
+# Check the count of instructions in the dataset
+instruction_counts = Counter(dataset['train']['instruction'])
 
 # # Display the count of each instruction type
 # print("Instruction counts:")

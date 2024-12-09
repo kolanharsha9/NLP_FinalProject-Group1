@@ -117,14 +117,16 @@ def resume_generation_page():
     st.title("Resume Generation")
     st.write("Generate a professional resume using our AI-powered tool.")
     user_prompt = st.text_area("Enter your details (e.g., name, experience, skills):", key="resume_gen_prompt")
-
+    model_options = ["models_bart", "models_bart1"]
+    selected_model = st.selectbox("Select a Model", model_options)
     generate_button = st.button("Generate Resume")
 
     if generate_button and user_prompt.strip():
         with st.spinner("Generating your resume..."):
-            generated_resume = resume_generator.generate_resume(user_prompt, resume_generator.model, resume_generator.tokenizer)
+            generated_resume = resume_generator.generate_resume(user_prompt, selected_model)
             st.success("Resume generated successfully!")
-            st.text_area("Generated Resume", generated_resume, height=300)
+            # st.text_area("Generated Resume", generated_resume, height=300)
+            st.markdown(f"<pre>{generated_resume}</pre>", unsafe_allow_html=True)
             st.download_button("Download Resume", generated_resume, file_name="generated_resume.txt", mime="text/plain")
 
 
