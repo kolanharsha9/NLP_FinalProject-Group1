@@ -333,12 +333,11 @@ def visualization():
             st.error("Please upload a resume and enter job description text.")
 
 # AWS credentials (Replace these with secure methods in production)
-AWS_ACCESS_KEY_ID = "ASIATP2NJQDCYS4B2AR6"
-AWS_SECRET_ACCESS_KEY = "t+xAk085Nnm5Mb7SteZyZIccqv5wUl+hUyjDsnMH"
-AWS_SESSION_TOKEN = "IQoJb3JpZ2luX2VjEJT//////////wEaCXVzLWVhc3QtMSJHMEUCIQCyhFs2NB8H8vC0n25TjJDRCucyaSrITZK+b6TrkDcSpgIgIyY1O6+4ltQUwMoeUQzbEygDH67ye80F3gXMprQ0StQqmgMITRABGgwyNDAxNDM0MDExNTciDG2pGLzlqEu4cAnjQSr3AuOgmGQ1XgHd5c6MMlptMdV5ggX76b7kTonkNmmOblG8gQaW0KSdNMHqh82FvGLc05L8vRIdOKeN0djeNe/KREkZnxScMT3bg7o/Pzg8HxL/5WkkaU3EjWQKUbtNcOGpfYUqyBwJYnPDDOc2tW56Z2KJZWDdUbh+OVfTz/I7DqfTDJ1CbljkQezhBvHRB6bHmT8VpK/idZXWgii8ksxAWbyNlR7rebds+VEnjcc509J8riTeXQhBj7FQUYFRXlmGmE2XA4E9ORVfY61pD9rKqSBY/VBL/AKForTmpM/my5fwZt9ZWREj7jjJt96Gfakx+lfmqKmQT4oTGM7rsaCvn1AvF3GoBWcuLNQe0lI8vMu460CsDfjdMo1EF1Gj0HHTD88ribWC5PGSoh0iGnAUl1JqkwHa+Q72X7VsNUZQorZI3j2LL+Fl0Auitid8uIV8qfksVopmPf90gPkAV86gDJZhAagArkYRd5TnC7FBYbAyLqk752c6mDCAyNK6BjqmAdLA/HDqkjou0PQg8XAT2sh+y9Oj++j5YVX1BxfuApABsf1tDGDrPyWyPAq5OPM849b8SonsbrkvgEaKGJpPLYGbWlR+PHeNw6sHcE042AJ/7ZImjdQIhNhyH6ztvhjf1XNRa6kT8DO73YFbjW5e1hF3U4Ldmvo+35Z0MCPM1+jji8IN/k/eoCmcCu2TpB1spsOlXNOm1Zmtfgno4oxs0MgCyuq3kIc="
+AWS_ACCESS_KEY_ID = "ASIATP2NJQDC2JBWHOKK"
+AWS_SECRET_ACCESS_KEY = "7j14BN9yNjpmXVy4lbAW2gpbWQCsbNXCEeA/lSzv"
+AWS_SESSION_TOKEN = "IQoJb3JpZ2luX2VjEML//////////wEaCXVzLWVhc3QtMSJIMEYCIQCtQqUvD93Zt1Q4y0nwaS7VMiFuZk47TjGttftX8Dp4BwIhAL3ANtXu/vTtoXXj6Vq2tgMYSZIMrL44t2EixJIwWzMgKpoDCHsQARoMMjQwMTQzNDAxMTU3IgxRw7ot3wG2cSa37wsq9wJ9xb67rycN9rEJiSgi/sC42ijZ8sIgdIEPxyOP4AVB/+pBQcuhngKY9OAk3n8NDzDuPDFhAt9kH14fVZVe63ZvwMA7HvZyhdjH/Kanw5ukqBs0EPgfu27ClReQ2pBTmy4QDIbZ7okqG5E6cXQtvnfWjo/hQ9iQpaZmMSupDQqOjSN3gazhMEKKUBf4HJpoalNNuuB7RG5lwf4oP9RhOwzsLIsT6GUkN7IjDYvovzSkD05Iy5/VhpRcMpN9BaGkppR+9rncPavRtHdQZBksxHgp0e9Xv5GFdjHm/+HU6wqjnVgd+DSGO/+9E0YJ0he68e4YBkVP6WrI9fRrE9OAEMOvNhdqO3qFXFOdl5nonjt0xZtnJIYYoCJ4pnTVZemtIUWH1XDx2ip47KpHEuINeDnlhpLMmVmBtn0nFhKx8Tudq4c2G2RoBZbqGhrPv0W9KEdh6appgrV+WuVQSZ6Kxms3ZhFcRWTSJEVydf8mY9wUtO1Nps+Hj/4wrN3cugY6pQGlv1cxF+0hsO2ISUb9vK3e/qIW1ctzHI2X3qrvUi2+gU3SkWNWRk6atBk1RbCNAR6WkJU+QDkp8u7YWJ/T57mGVgnquWd0boTqmwWRSE9cKsV0uelabYfFNZza9hi7qGIcZc12NbgURcpe9xJh9EQ5oElR5+Rjrsskp+ro6T5aFLFYojZTSqsN86rDVjhrxTFOjWpDi/edZxabh+TFtSrNQwXvUzA="
 REGION_NAME = 'us-east-1'
 
-@st.cache_resource
 def initialize_analyzer():
     return BedrockResumeAnalyzer(
         aws_access_key_id=AWS_ACCESS_KEY_ID,
@@ -448,17 +447,17 @@ def ResumeGFScore():
     # Chat input row
     st.markdown('<div class="chat-input-row">', unsafe_allow_html=True)
 
-    # File uploader for PDF resumes
+    # File uploader for PDF resumes (provide a label and then collapse it)
     uploaded_file = st.file_uploader(
-        "",
+        "Upload your resume",
         type="pdf",
         label_visibility="collapsed",
         key="chat_file"
     )
 
-    # Text input for user's message
+    # Text input for user's message (provide a label and then collapse it)
     user_input = st.text_input(
-        "",
+        "User Message",
         placeholder="Type your message here...",
         label_visibility="collapsed",
         key="chat_input",
@@ -470,50 +469,84 @@ def ResumeGFScore():
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # Handle logic after send is clicked
     if send_clicked:
         user_message = user_input.strip()
         file_provided = (uploaded_file is not None)
 
+        # If a file is provided, analyze it and append the result
         if file_provided:
-            # Process the resume
             with st.spinner("Processing your resume..."):
-                st.info("Extracting text from your resume...")
-
-                # Save uploaded file
                 with open("uploaded_resume.pdf", "wb") as f:
                     f.write(uploaded_file.getbuffer())
                 resume_text = analyzer.extract_text_from_pdf("uploaded_resume.pdf")
-
-                st.info("Analyzing resume for grammar and formatting...")
                 analysis_results = analyzer.analyze_resume_text(resume_text)
 
+    #             analysis_summary = f"""
+    # Grammar Score: {analysis_results.get('grammar_score', 'N/A')}/100  
+    # Formatting Score: {analysis_results.get('formatting_score', 'N/A')}/100
+
+    # Grammatical Errors:  
+    # {', '.join([err['description'] for err in analysis_results.get('grammatical_errors', [])]) or 'None'}
+
+    # Formatting Issues:  
+    # {', '.join([issue['description'] for issue in analysis_results.get('formatting_issues', [])]) or 'None'}
+
+    # Recommendations:  
+    # {', '.join([rec['description'] for rec in analysis_results.get('recommendations', [])]) or 'None'}
+    # """
+    #             st.session_state["messages"].append({"role": "assistant", "content": analysis_summary})
+
+    #     # Only if no file is provided, use the user_message logic
+    #     elif user_message:
+    #         st.session_state["messages"].append({"role": "user", "content": user_message})
+    #         mock_response = f"You said: {user_message}. (This is a placeholder response.)"
+    #         st.session_state["messages"].append({"role": "assistant", "content": mock_response})
+
+    #     # If neither file nor message is provided, show an error
+    #     if not file_provided and not user_message:
+    #         st.error("Please upload a PDF or type a message.")
                 analysis_summary = f"""
-    **Grammar Score:** {analysis_results.get('grammar_score', 'N/A')}/100  
-    **Formatting Score:** {analysis_results.get('formatting_score', 'N/A')}/100
+            Grammar Score: {analysis_results.get('grammar_score', 'N/A')}/100  
+            Formatting Score: {analysis_results.get('formatting_score', 'N/A')}/100
 
-    **Grammatical Errors:**  
-    {', '.join([err['description'] for err in analysis_results.get('grammatical_errors', [])]) or 'None'}
+            Grammatical Errors:  
+            {', '.join([err['description'] for err in analysis_results.get('grammatical_errors', [])]) or 'None'}
 
-    **Formatting Issues:**  
-    {', '.join([issue['description'] for issue in analysis_results.get('formatting_issues', [])]) or 'None'}
+            Formatting Issues:  
+            {', '.join([issue['description'] for issue in analysis_results.get('formatting_issues', [])]) or 'None'}
 
-    **Recommendations:**  
-    {', '.join([rec['description'] for rec in analysis_results.get('recommendations', [])]) or 'None'}
-    """
-                st.session_state["messages"].append({"role": "assistant", "content": analysis_summary})
+            Recommendations:  
+            {', '.join([rec['description'] for rec in analysis_results.get('recommendations', [])]) or 'None'}
+            """
+                st.text_area("Analysis Summary", analysis_summary, height=300)
 
-        if user_message:
-            st.session_state["messages"].append({"role": "user", "content": user_message})
-            # If no PDF attached, provide a placeholder response
-            if not file_provided:
-                mock_response = f"You said: {user_message}. (This is a placeholder response.)"
-                st.session_state["messages"].append({"role": "assistant", "content": mock_response})
+        # Only if no file is provided, use the user_message logic
+        elif user_message:
+            st.text_area("User Message", user_message, height=100)
+            mock_response = f"You said: {user_message}. (This is a placeholder response.)"
+            st.text_area("Response", mock_response, height=100)
 
+        # If neither file nor message is provided, show an error
         if not file_provided and not user_message:
             st.error("Please upload a PDF or type a message.")
+    
 
-        st.session_state["trigger_rerun"] = not st.session_state["trigger_rerun"]
+    # Now display messages after all logic is done
+    st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
+    for msg in st.session_state["messages"]:
+        role = msg["role"]
+        content = msg["content"]
+        if role == "user":
+            st.markdown(
+                f'<div class="message-container user-bubble"><div class="user-message">{content}</div></div>',
+                unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                f'<div class="message-container bot-bubble"><div class="bot-message">{content}</div></div>',
+                unsafe_allow_html=True
+            )
+    st.markdown("</div>", unsafe_allow_html=True)
 
 tabs = st.tabs(["Main Page", "Job Recommedation", "Ranking Resume","ResumeGFScore","Resume Generation Preview"])
 
