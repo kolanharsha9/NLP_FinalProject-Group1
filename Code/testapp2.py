@@ -20,7 +20,7 @@ from wordcloud import WordCloud
 import pandas as pd
 import seaborn as sns
 from io import StringIO
-from visualization import generate_word_cloud,generate_sankey,generate_bar_chart,process_documents
+from visualization import generate_word_cloud,generate_sankey,generate_bar_chart,process_documents, generate_heatmap
 from resume_job_description_parser import process_documents, extract_pdf_text, clean_text
 from sentence_transformers import SentenceTransformer, util
 from similarity_score_with_weights import calculate_weighted_similarity
@@ -110,6 +110,39 @@ def main_page():
             if st.button("Analyze Skill Gap"):
                 skill_gap_analysis = analyze_skill_gap(parsed_resume, parsed_job_description)
                 st.write(skill_gap_analysis)
+                
+            st.header("Select Visualization")
+    visualization1 = st.selectbox(
+        "Choose a visualization:",
+        ["Word Cloud", "Sankey Diagram", "Bar Chart", "Heatmap"]
+    )
+
+    
+    if resume_file and job_description_text.strip():
+        resume_text = extract_text_from_pdf(resume_file)
+            
+            
+        documents = [resume_text, job_description_text]
+        vectorizer = TfidfVectorizer(stop_words="english", max_features=50)
+        tfidf_matrix = vectorizer.fit_transform(documents)
+        feature_names = vectorizer.get_feature_names_out()
+            
+            
+        if visualization1 == "Word Cloud":
+            st.subheader("Word Clouds")
+            generate_word_cloud(tfidf_matrix, feature_names, 0, "Resume Word Cloud")
+            generate_word_cloud(tfidf_matrix, feature_names, 1, "Job Description Word Cloud")
+        elif visualization1 == "Sankey Diagram":
+            st.subheader("Sankey Diagram")
+            generate_sankey(tfidf_matrix, feature_names)
+        elif visualization1 == "Bar Chart":
+            st.subheader("Bar Chart")
+            generate_bar_chart(tfidf_matrix, feature_names)
+        elif visualization1 == "Heatmap":
+            st.subheader("Heatmap")
+            generate_heatmap(parsed_resume, parsed_job_description)
+        else:
+            st.error("Please upload a resume and enter job description text.")
             
 resume_generator = gen_resume()
 
@@ -117,14 +150,16 @@ def resume_generation_page():
     st.title("Resume Generation")
     st.write("Generate a professional resume using our AI-powered tool.")
     user_prompt = st.text_area("Enter your details (e.g., name, experience, skills):", key="resume_gen_prompt")
-
+    model_options = ["models_bart", "models_bart1"]
+    selected_model = st.selectbox("Select a Model", model_options)
     generate_button = st.button("Generate Resume")
 
     if generate_button and user_prompt.strip():
         with st.spinner("Generating your resume..."):
-            generated_resume = resume_generator.generate_resume(user_prompt, resume_generator.model, resume_generator.tokenizer)
+            generated_resume = resume_generator.generate_resume(user_prompt, selected_model)
             st.success("Resume generated successfully!")
-            st.text_area("Generated Resume", generated_resume, height=300)
+            # st.text_area("Generated Resume", generated_resume, height=300)
+            st.markdown(f"<pre>{generated_resume}</pre>", unsafe_allow_html=True)
             st.download_button("Download Resume", generated_resume, file_name="generated_resume.txt", mime="text/plain")
 
 
@@ -241,6 +276,15 @@ def resume_ranking():
         else:
             st.error("Please provide a job description and upload at least one resume.")
 
+def clean_text(text):
+    return " ".join(text.split()).strip()
+
+def embed_texts(texts, model):
+    return model.encode(texts, batch_size=8, show_progress_bar=True)
+
+def normalize_vectors(vectors):
+    return np.array([v / np.linalg.norm(v) for v in vectors])
+
 
 def visualization():
     # Streamlit UI
@@ -258,7 +302,7 @@ def visualization():
     st.header("Select Visualization")
     visualization = st.selectbox(
         "Choose a visualization:",
-        ["Word Cloud", "Sankey Diagram", "Bar Chart"]
+        ["Word Cloud", "Sankey Diagram", "Bar Chart", "Heatmap"]
     )
 
     
@@ -282,7 +326,9 @@ def visualization():
         elif visualization == "Bar Chart":
             st.subheader("Bar Chart")
             generate_bar_chart(tfidf_matrix, feature_names)
-        
+        elif visualization == "Heatmap":
+            st.subheader("Heatmap")
+            generate_heatmap(tfidf_matrix, feature_names)
         else:
             st.error("Please upload a resume and enter job description text.")
 
@@ -469,7 +515,7 @@ def ResumeGFScore():
 
         st.session_state["trigger_rerun"] = not st.session_state["trigger_rerun"]
 
-tabs = st.tabs(["Main Page", "Job Recommedation", "Ranking Resume", "Visualization","ResumeGFScore","Resume Generation Preview"])
+tabs = st.tabs(["Main Page", "Job Recommedation", "Ranking Resume","ResumeGFScore","Resume Generation Preview"])
 
 with tabs[0]:
     main_page()
@@ -478,8 +524,6 @@ with tabs[1]:
 with tabs[2]:
     resume_ranking()
 with tabs[3]:
-    visualization()
-with tabs[4]:
     ResumeGFScore()
-with tabs[5]:
+with tabs[4]:
     resume_generation_page()

@@ -107,31 +107,43 @@ from datasets import load_dataset
 
 class gen_resume: 
     
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model_path = "models_bart"  
-    model = AutoModelForSeq2SeqLM.from_pretrained(model_path).to(device)
-    tokenizer = AutoTokenizer.from_pretrained(model_path)
+    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # # model_path = "models_bart1"  
+    # model = AutoModelForSeq2SeqLM.from_pretrained(model_path).to(device)
+    # tokenizer = AutoTokenizer.from_pretrained(model_path)
 
-    def generate_resume(self, instruction, model, tokenizer, max_length=1024):
+    def generate_resume(self, instruction, model_path, max_length=1024):
         """Generate a resume given an instruction."""
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        model = AutoModelForSeq2SeqLM.from_pretrained(model_path).to(device)
+        tokenizer = AutoTokenizer.from_pretrained(model_path)
+
         inputs = tokenizer(
             f"generate_resume: {instruction}",
             return_tensors="pt",
             max_length=max_length,
             truncation=True,
         )
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        # inputs = tokenizer(
+        #     f"generate_resume: {instruction}",
+        #     return_tensors="pt",
+        #     max_length=max_length,
+        #     truncation=True,
+        # )
+        # model = AutoModelForSeq2SeqLM.from_pretrained(model_path).to(device)
+        # tokenizer = AutoTokenizer.from_pretrained(model_path)
+        # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         inputs = {key: value.to(device) for key, value in inputs.items()}
         outputs = model.generate(
             inputs["input_ids"],
-            max_length=700,
+            max_length=1024,
             do_sample=True,
             top_k=50,                 
             top_p=0.9, 
             temperature=.7,            
             repetition_penalty=5.0,     
             num_beams=6,                
-            no_repeat_ngram_size=7,     
+            no_repeat_ngram_size=5,     
             early_stopping=True         
         )
         return tokenizer.decode(outputs[0], skip_special_tokens=True)
@@ -153,10 +165,33 @@ class gen_resume:
         text = re.sub(r"(?<!\n)-\s*", "\n- ", text)
         return text.strip()
     
+    # def format_resume(self, text, sections):
+    #     """Format the resume text based on section headers."""
+    #     for section in sections:
+    #         text = re.sub(rf"(?i)({section})\s*:", rf"\n{section.upper()}:", text)
+    #     text = re.sub(r"(?<!\n)-\s*", "\n- ", text)
+    #     return text.strip()
+    
+    def format_resume(text, sections):
+        """Format the resume text based on section headers."""
+        # Capitalize and format sections for better readability
+        # text = re.sub(r"(?i)([A-Z][A-Z\s]*):", r"\n\1\n", text)
+        for section in sections:
+            text = re.sub(rf"(?i)\b({section})\b:", rf"\n{section.upper()}:", text)
+        # Add bullet points for lists
+        text = re.sub(r"(?<!\n)-\s*", "\n- ", text)
+        
+        return text.strip()
+    
     def main(self, instruction):
+        section_headers = [
+    "Professional Summary", "Summary","SKILL SET", "Objective", "Experience", "Work History",
+    "Education", "Hobbies","SOFTWARE SKILLS","Education Details","Training attended","TECHNICAL EXPERTISE","Technical Expertise",  "SKILLS","CORE COMPETENCIES", "Skills", "Certifications", "Projects", "Accomplishments",
+    "Affiliations","TECHNICALSKILLS","TECHNICAL PROFICIENCIES","Additional Information SKILLS","SUMMARY OF SKILLS","Technical Summary","Computer skills","Key Skills","TECHNICAL STRENGTHS","Technical Skill Set",  "KEY COMPETENCIES","PERSONAL SKILLS","IT SKILLS","Skill Set","Areas of expertise","AREA OF EXPERTISE", "Interests", "Languages", "References", "Technical Skills"
+]
     # instruction = "Generate a resume for a software engineer job."
         generated_resume = self.generate_resume(instruction, self.model, self.tokenizer)
-        cleaned_resume = self.clean_resume(generated_resume)
+        cleaned_resume = self.format_resume(generated_resume, section_headers)
         # print("Cleaned Resume:")
         # print(cleaned_resume)
         return cleaned_resume
