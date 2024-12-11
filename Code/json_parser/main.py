@@ -16,7 +16,7 @@ def test_parsers():
     jobs_file = os.path.join(base_dir, 'data', 'job_descriptions.csv')
     
     # Create output directory if it doesn't exist
-    output_dir = os.path.join(base_dir, 'output')
+    output_dir = os.path.join(base_dir, 'job_recommendation')
     os.makedirs(output_dir, exist_ok=True)
     
    
