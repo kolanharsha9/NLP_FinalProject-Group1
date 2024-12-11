@@ -1,9 +1,9 @@
 import json
 from pathlib import Path
 from datasets import load_dataset
-from dataextractor.parsers.ParseResumeToJson import ParseResume  # Ensure this path is correct
+from DataExtractorProject.dataextractor.parsers.ParseResumeToJson import ParseResume
 
-# Directory to save processed JSON files
+
 SAVE_DIRECTORY = "Data/Processed/Resumes"
 
 class ResumeProcessor:
@@ -64,6 +64,6 @@ class ResumeProcessor:
         file_name = f"Resume-{instruction}-{resume_dictionary['unique_id']}.json"
         save_directory_name = Path(SAVE_DIRECTORY) / file_name
         json_object = json.dumps(resume_dictionary, sort_keys=True, indent=4)
-        save_directory_name.parent.mkdir(parents=True, exist_ok=True)  # Ensure directory exists
+        save_directory_name.parent.mkdir(parents=True, exist_ok=True)
         with open(save_directory_name, "w") as outfile:
             outfile.write(json_object)
