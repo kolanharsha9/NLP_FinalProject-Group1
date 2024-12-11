@@ -1,10 +1,10 @@
 import os
 import kagglehub
 from dataextractor.utils.Utils import find_path, read_json
-from dataextractor.ResumeProcessor import ResumeProcessor  # Ensure this path is correct
-from dataextractor.JobDescriptionProcessor import JobDescriptionProcessor  # Ensure this path is correct
+from dataextractor.ResumeProcessor import ResumeProcessor
+from dataextractor.JobDescriptionProcessor import JobDescriptionProcessor
 
-# Set the paths for processed resumes and job descriptions
+
 cwd = find_path("JsonConverter")
 PROCESSED_RESUMES_PATH = os.path.join(cwd, "Data", "Processed", "Resumes/")
 PROCESSED_JOB_DESC_PATH = os.path.join(cwd, "Data", "Processed", "JobDescription/")
@@ -69,14 +69,14 @@ def download_job_description_dataset():
 if __name__ == "__main__":
     # Process resumes
     print("Processing resumes...")
-    # resume_processor = ResumeProcessor("InferencePrince555/Resume-Dataset")
-    # resume_success = resume_processor.process()
+    resume_processor = ResumeProcessor("InferencePrince555/Resume-Dataset")
+    resume_success = resume_processor.process()
 
-    # if resume_success:
-    #     print("Resumes processed successfully.")
-    #     # display_processed_resumes()
-    # else:
-    #     print("Resume processing failed.")
+    if resume_success:
+        print("Resumes processed successfully.")
+        # display_processed_resumes()
+    else:
+        print("Resume processing failed.")
 
     # Process job descriptions
     print("\nProcessing job descriptions...")
