@@ -61,6 +61,28 @@ def detect_and_read_file(file_path):
             print(f"Fallback reading failed: {fallback_error}")
             return ""
 
+
+def clean_text(text):
+    """
+    Clean and normalize text by removing unnecessary whitespace and symbols.
+
+    :param text: Raw text to clean
+    :return: Cleaned text
+    """
+    try:
+        # Normalize line breaks and whitespace
+        text = text.replace('\r', '').replace('\n', '\n').strip()
+
+        # Remove non-ASCII characters (optional)
+        text = ''.join(char for char in text if ord(char) < 128)
+
+        # Remove excessive spaces
+        text = ' '.join(text.split())
+        return text
+    except Exception as e:
+        print(f"Error cleaning text: {e}")
+        return text
+
 def parse_document(model, document_text, document_type):
     """
     Parse document text into structured JSON
@@ -167,54 +189,57 @@ def save_to_json(data, output_path):
     
     return None
 
-def process_documents(api_key, resume_pdf_path, job_description_path):
+
+def process_documents(api_key, resume_pdf_path, job_description_pdf_path):
     """
     Main function to process resume and job description
-    
+
     :param api_key: Google Gemini API key
     :param resume_pdf_path: Path to resume PDF
-    :param job_description_path: Path to job description text file
+    :param job_description_pdf_path: Path to job description PDF
     :return: Tuple of parsed resume and job description
     """
     try:
         # Configure Gemini API
         model = configure_gemini_api(api_key)
-        
+
         # Extract text from resume PDF
         resume_text = extract_pdf_text(resume_pdf_path)
-        
-        # Read job description with encoding detection
-        job_description_text = detect_and_read_file(job_description_path)
-        
+
+        # Extract text from job description PDF
+        job_description_text = extract_pdf_text(job_description_pdf_path)
+
         # Parse resume
         parsed_resume = parse_document(model, resume_text, 'resume')
-        
+
         # Parse job description
         parsed_job_description = parse_document(model, job_description_text, 'job_description')
-        
+
         return parsed_resume, parsed_job_description
-    
+
     except Exception as e:
         print(f"An error occurred: {e}")
         return None, None
+
 
 # Example usage (can be removed or commented out when imported)
 def main():
     # Replace with your actual Gemini API key
     api_key = 'AIzaSyDw1PTBcbK09IYvQkUI7Fp39A8M1NMm-Pg'
-    
-    # Paths for resume PDF and job description text file
-    resume_pdf_path = 'resume.pdf'
-    job_description_path = 'job_description.txt'
-    
+
+    # Paths for resume PDF and job description PDF file
+    resume_pdf_path = 'processed_resume/HarshavardanaReddyKolan_Resume.pdf'
+    job_description_pdf_path = 'Processed_jd/Job-Description_DataScientist.pdf'
+
     # Process documents
-    parsed_resume, parsed_job_description = process_documents(api_key, resume_pdf_path, job_description_path)
-    
+    parsed_resume, parsed_job_description = process_documents(api_key, resume_pdf_path, job_description_pdf_path)
+
     # Save parsed documents to JSON
     if parsed_resume:
         save_to_json(parsed_resume, 'parsed_resume.json')
     if parsed_job_description:
         save_to_json(parsed_job_description, 'parsed_job_description.json')
+
 
 if __name__ == "__main__":
     main()

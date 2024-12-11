@@ -228,8 +228,8 @@ def main():
     api_key = 'AIzaSyDw1PTBcbK09IYvQkUI7Fp39A8M1NMm-Pg'
 
     # Paths for resume PDF and job description PDF file
-    resume_pdf_path = 'processed_resume/HarshavardanaReddyKolan_Resume.pdf'
-    job_description_pdf_path = 'Processed_jd/Job-Description_DataScientist.pdf'
+    resume_pdf_path = 'resume.pdf'
+    job_description_pdf_path = 'Job_description.pdf'
 
     # Process documents
     parsed_resume, parsed_job_description = process_documents(api_key, resume_pdf_path, job_description_pdf_path)
