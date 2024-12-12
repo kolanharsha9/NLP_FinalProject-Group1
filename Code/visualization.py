@@ -223,8 +223,8 @@ def generate_skill_venn(parsed_resume, parsed_job_description):
 
 # Main script
 if __name__ == "_main_":
-    resume_file_path = 'processed_resume/HarshavardanaReddyKolan_Resume.pdf'
-    job_description_file_path = 'Processed_jd/Data_scientist.txt'
+    resume_file_path = 'resume.pdf'
+    job_description_file_path = 'Job_Description.txt'
 
     resume_text = extract_text_from_pdf(resume_file_path)
     job_description_text = extract_text_from_txt(job_description_file_path)

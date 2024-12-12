@@ -55,8 +55,8 @@ def calculate_weighted_similarity(resume, job_description, weights):
 # Main code
 if __name__ == "__main__":
     api_key = "AIzaSyDw1PTBcbK09IYvQkUI7Fp39A8M1NMm-Pg"
-    resume_file = "processed_resume/HarshavardanaReddyKolan_Resume.pdf"  # Replace with the actual resume file path
-    job_description_file = "Processed_jd/Carpenter-Job-Description-Template.pdf"  # Replace with the actual job description file path
+    resume_file = "resume.pdf"  # Replace with the actual resume file path
+    job_description_file = "Job-Description.pdf"  # Replace with the actual job description file path
 
     # Parse the documents
     parsed_resume, parsed_job_description = process_documents(api_key, resume_file, job_description_file)

@@ -2,20 +2,17 @@ import json
 import os
 import pathlib
 
-from dataextractor.Extractor import DataExtractor
-from dataextractor.utils.Utils import TextCleaner, generate_unique_id
+from DataExtractorProject.dataextractor.Extractor import DataExtractor
+from DataExtractorProject.dataextractor.utils.Utils import TextCleaner, generate_unique_id
 
 SAVE_DIRECTORY = "../../Data/Processed/JobDescription"
 
 
 class ParseJobDesc:
     def __init__(self, job_desc):
-        # Handle both string and dictionary inputs
         if isinstance(job_desc, dict):
-            # If input is a dictionary, use its text value
             job_desc_text = job_desc.get('text', str(job_desc))
         else:
-            # If input is already a string or other type, convert to string
             job_desc_text = str(job_desc)
 
         self.job_desc_data = job_desc_text

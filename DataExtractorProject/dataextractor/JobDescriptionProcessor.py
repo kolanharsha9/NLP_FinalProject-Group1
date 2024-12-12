@@ -1,9 +1,8 @@
 import json
 import os.path
 import pathlib
-from dataextractor.parsers.ParseJobDescToJson import ParseJobDesc
+from DataExtractorProject.dataextractor.parsers.ParseJobDescToJson import ParseJobDesc
 
-# Directory for saving processed job descriptions
 SAVE_DIRECTORY = "Data/Processed/JobDescription"
 
 

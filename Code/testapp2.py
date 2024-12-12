@@ -26,6 +26,8 @@ from sentence_transformers import SentenceTransformer, util
 from similarity_score_with_weights import calculate_weighted_similarity
 from models.skill_gap import analyze_skill_gap 
 from job_recommendation.w2v_fast import SemanticJobRecommender
+from dotenv import load_dotenv
+import os
 
 @st.cache_data
 def parse_documents_once(api_key, resume_file, job_description_text):
@@ -332,16 +334,21 @@ def visualization():
         else:
             st.error("Please upload a resume and enter job description text.")
 
-# AWS credentials (Replace these with secure methods in production)
-AWS_ACCESS_KEY_ID = "ASIATP2NJQDC2JBWHOKK"
-AWS_SECRET_ACCESS_KEY = "7j14BN9yNjpmXVy4lbAW2gpbWQCsbNXCEeA/lSzv"
-AWS_SESSION_TOKEN = "IQoJb3JpZ2luX2VjEML//////////wEaCXVzLWVhc3QtMSJIMEYCIQCtQqUvD93Zt1Q4y0nwaS7VMiFuZk47TjGttftX8Dp4BwIhAL3ANtXu/vTtoXXj6Vq2tgMYSZIMrL44t2EixJIwWzMgKpoDCHsQARoMMjQwMTQzNDAxMTU3IgxRw7ot3wG2cSa37wsq9wJ9xb67rycN9rEJiSgi/sC42ijZ8sIgdIEPxyOP4AVB/+pBQcuhngKY9OAk3n8NDzDuPDFhAt9kH14fVZVe63ZvwMA7HvZyhdjH/Kanw5ukqBs0EPgfu27ClReQ2pBTmy4QDIbZ7okqG5E6cXQtvnfWjo/hQ9iQpaZmMSupDQqOjSN3gazhMEKKUBf4HJpoalNNuuB7RG5lwf4oP9RhOwzsLIsT6GUkN7IjDYvovzSkD05Iy5/VhpRcMpN9BaGkppR+9rncPavRtHdQZBksxHgp0e9Xv5GFdjHm/+HU6wqjnVgd+DSGO/+9E0YJ0he68e4YBkVP6WrI9fRrE9OAEMOvNhdqO3qFXFOdl5nonjt0xZtnJIYYoCJ4pnTVZemtIUWH1XDx2ip47KpHEuINeDnlhpLMmVmBtn0nFhKx8Tudq4c2G2RoBZbqGhrPv0W9KEdh6appgrV+WuVQSZ6Kxms3ZhFcRWTSJEVydf8mY9wUtO1Nps+Hj/4wrN3cugY6pQGlv1cxF+0hsO2ISUb9vK3e/qIW1ctzHI2X3qrvUi2+gU3SkWNWRk6atBk1RbCNAR6WkJU+QDkp8u7YWJ/T57mGVgnquWd0boTqmwWRSE9cKsV0uelabYfFNZza9hi7qGIcZc12NbgURcpe9xJh9EQ5oElR5+Rjrsskp+ro6T5aFLFYojZTSqsN86rDVjhrxTFOjWpDi/edZxabh+TFtSrNQwXvUzA="
-REGION_NAME = 'us-east-1'
+
+
+# Load the .env file
+load_dotenv()
+
+# Access environment variables
+AWS_ACCESS_KEY_ID = "Enter your own key"
+AWS_ACCESS_KEY = "Enter your own key"
+AWS_SESSION_TOKEN = "Enter your own key"
+REGION_NAME = "Enter your own Region"
 
 def initialize_analyzer():
     return BedrockResumeAnalyzer(
         aws_access_key_id=AWS_ACCESS_KEY_ID,
-        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+        aws_access_key=AWS_ACCESS_KEY,
         aws_session_token=AWS_SESSION_TOKEN,
         region_name=REGION_NAME,
     )
