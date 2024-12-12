@@ -19,10 +19,11 @@ To get started with All Resume Solutions, follow these steps:
    ```
    git clone https://github.com/AravindaVijay/NLP_FinalProject-Group1.git
    ```
+   Note: Please initialise git lfs before cloning as the model files are large. 
+   
+3. **Navigate to the project directory** using the terminal. Alternatively, you can directly open the project in your IDE (e.g., VSCode or PyCharm).
 
-2. **Navigate to the project directory** using the terminal. Alternatively, you can directly open the project in your IDE (e.g., VSCode or PyCharm).
-
-3. **Install the required dependencies** by running the following command:
+4. **Install the required dependencies** by running the following command:
    ```
    pip install -r requirements.txt
    ```
