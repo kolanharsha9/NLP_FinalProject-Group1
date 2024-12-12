@@ -4,6 +4,9 @@ import PyPDF2
 import logging
 from typing import Dict, List, Any
 import re
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 logging.basicConfig(
     level=logging.INFO,
@@ -201,10 +204,9 @@ def analyze_resume(
 
 # Example usage
 if __name__ == "__main__":
-    AWS_ACCESS_KEY_ID = "ASIATP2NJQDCYS4B2AR6"
-    AWS_SECRET_ACCESS_KEY = "t+xAk085Nnm5Mb7SteZyZIccqv5wUl+hUyjDsnMH"
-    AWS_SESSION_TOKEN = "IQoJb3JpZ2luX2VjEJT//////////wEaCXVzLWVhc3QtMSJHMEUCIQCyhFs2NB8H8vC0n25TjJDRCucyaSrITZK+b6TrkDcSpgIgIyY1O6+4ltQUwMoeUQzbEygDH67ye80F3gXMprQ0StQqmgMITRABGgwyNDAxNDM0MDExNTciDG2pGLzlqEu4cAnjQSr3AuOgmGQ1XgHd5c6MMlptMdV5ggX76b7kTonkNmmOblG8gQaW0KSdNMHqh82FvGLc05L8vRIdOKeN0djeNe/KREkZnxScMT3bg7o/Pzg8HxL/5WkkaU3EjWQKUbtNcOGpfYUqyBwJYnPDDOc2tW56Z2KJZWDdUbh+OVfTz/I7DqfTDJ1CbljkQezhBvHRB6bHmT8VpK/idZXWgii8ksxAWbyNlR7rebds+VEnjcc509J8riTeXQhBj7FQUYFRXlmGmE2XA4E9ORVfY61pD9rKqSBY/VBL/AKForTmpM/my5fwZt9ZWREj7jjJt96Gfakx+lfmqKmQT4oTGM7rsaCvn1AvF3GoBWcuLNQe0lI8vMu460CsDfjdMo1EF1Gj0HHTD88ribWC5PGSoh0iGnAUl1JqkwHa+Q72X7VsNUZQorZI3j2LL+Fl0Auitid8uIV8qfksVopmPf90gPkAV86gDJZhAagArkYRd5TnC7FBYbAyLqk752c6mDCAyNK6BjqmAdLA/HDqkjou0PQg8XAT2sh+y9Oj++j5YVX1BxfuApABsf1tDGDrPyWyPAq5OPM849b8SonsbrkvgEaKGJpPLYGbWlR+PHeNw6sHcE042AJ/7ZImjdQIhNhyH6ztvhjf1XNRa6kT8DO73YFbjW5e1hF3U4Ldmvo+35Z0MCPM1+jji8IN/k/eoCmcCu2TpB1spsOlXNOm1Zmtfgno4oxs0MgCyuq3kIc="
-
+    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+    AWS_SESSION_TOKEN = os.getenv("AWS_SESSION_TOKEN")
     RESUME_PATH = "resumes/ResumeAman (2).pdf"
 
     results = analyze_resume(
