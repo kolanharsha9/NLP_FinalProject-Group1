@@ -203,8 +203,10 @@ def format_resume(text, sections):
     text = re.sub(r"(?<!\n)-\s*", "\n- ", text)
     return text.strip()
 
-#%%
-#%%
+#%% 
+
+## bleu score
+
 # import sacrebleu
 # from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 # from datasets import load_metric
@@ -230,8 +232,8 @@ def format_resume(text, sections):
 # average_bleu_score = sum(bleu_scores) / len(bleu_scores)
 # print(f"Average BLEU score on the test dataset: {average_bleu_score}")
 
-
-# # Load the ROUGE metric
+# rouge score
+# 
 # rouge = load_metric("rouge")
 
 # def calculate_rouge(reference, hypothesis):
@@ -247,7 +249,7 @@ def format_resume(text, sections):
 #     rouge_score = calculate_rouge(reference_resume, generated_resume)
 #     rouge_scores.append(rouge_score)
 
-# # Calculate average ROUGE scores
+# # Calculating average ROUGE scores
 # average_rouge_score = {
 #     "rouge1": sum(score["rouge1"].mid.fmeasure for score in rouge_scores) / len(rouge_scores),
 #     "rouge2": sum(score["rouge2"].mid.fmeasure for score in rouge_scores) / len(rouge_scores),
@@ -259,7 +261,7 @@ def format_resume(text, sections):
 # print(f"Average ROUGE-L score on the test dataset: {average_rouge_score['rougeL']}")
 
 
-#%% Step 11: Generate and clean a resume ctesst
+#%% Step 11: Generate and clean a resume 
 instruction = "Generate a Resume for a Systems Administrator Job"
 generated_resume = generate_resume(instruction, model, tokenizer)
 # Display the cleaned resume
@@ -268,6 +270,9 @@ print(generated_resume)
 
 
 # %%
+################################################################################################################################
+# This code is for testing the resume generation
+################################################################################################################################
 import re
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
@@ -275,40 +280,37 @@ from datasets import load_dataset
 from collections import Counter
 from datasets import DatasetDict
 
-# Set device
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# device
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load the model and tokenizer
-model_path = "../models_bart"  # Replace with your saved model path
+model_path = "../models_bart"  # Replace with model path
 model = AutoModelForSeq2SeqLM.from_pretrained(model_path).to(device)
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 
 def generate_resume(instruction, model, tokenizer, max_length=1024):
     """Generate a resume given an instruction."""
-    # Tokenize the input instruction
     inputs = tokenizer(
         f"generate_resume: {instruction}",
         return_tensors="pt",
         max_length=max_length,
         truncation=True,
     )
-
-    # Move inputs to the same device as the model
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     inputs = {key: value.to(device) for key, value in inputs.items()}
 
-    # Generate text with controlled randomness and repetition penalties
+    
     outputs = model.generate(
         inputs["input_ids"],
         max_length=1024,
         do_sample=True,
-        top_k=50,                 # Use top-k sampling
+        top_k=50,                
         top_p=0.9, 
-        temperature=.7,            # Add controlled randomness
-        repetition_penalty=5.0,     # Higher penalty for repetition
-        num_beams=6,                # Use beam search for diversity
-        no_repeat_ngram_size=5,     # Penalize repeated n-grams
-        early_stopping=True         # Stop when EOS token is reached
+        temperature=.7,            
+        repetition_penalty=5.0,     
+        num_beams=6,                
+        no_repeat_ngram_size=5,     
+        early_stopping=True         
     )
 #     outputs = model.generate(
 #     inputs["input_ids"],
@@ -318,12 +320,12 @@ def generate_resume(instruction, model, tokenizer, max_length=1024):
 #     early_stopping=True
 # )
 
-    # Decode and return output
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
+#not used in the latest version
 def clean_resume(text):
     """Apply additional cleaning and formatting for better readability."""
-    # Remove duplicate lines
+    # Removing duplicate lines
     lines = text.split("\n")
     seen = set()
     cleaned_lines = []
@@ -334,15 +336,11 @@ def clean_resume(text):
 
     text = "\n".join(cleaned_lines)
 
-    # Remove excessive whitespace
+    # Removing excessive whitespace
     text = re.sub(r"\s+", " ", text)
-
-    # Capitalize sections for better readability
     sections = ["Professional Summary", "Work Experience", "Education", "Skills"]
     for section in sections:
         text = re.sub(section, f"\n{section.upper()}\n", text, flags=re.IGNORECASE)
-
-    # Add bullet points for lists
     text = re.sub(r"(?<!\n)-\s*", "\n- ", text)
 
     return text.strip()
@@ -353,38 +351,38 @@ def format_resume(text, sections):
     # text = re.sub(r"(?i)([A-Z][A-Z\s]*):", r"\n\1\n", text)
     for section in sections:
         text = re.sub(rf"(?i)\b({section})\b:", rf"\n{section.upper()}:", text)
-    # Add bullet points for lists
     text = re.sub(r"(?<!\n)-\s*", "\n- ", text)
     
     return text.strip()
 
 # %%
-
 instruction = "Generate a Resume for a Accountant Job"
 generated_resume = generate_resume(instruction, model, tokenizer)
-#%%
 section_headers = [
     "Professional Summary", "Summary","SKILL SET", "Objective", "Experience","EXPERIENCE", "Work History",
     "Education", "Hobbies","SOFTWARE SKILLS","Education Details","Training attended","TECHNICAL EXPERTISE","Technical Expertise",  "SKILLS","CORE COMPETENCIES", "Skills", "Certifications", "Projects", "Accomplishments",
     "Affiliations","TECHNICALSKILLS","TECHNICAL PROFICIENCIES","Additional Information SKILLS","SUMMARY OF SKILLS","Technical Summary","Computer skills","Key Skills","TECHNICAL STRENGTHS","Technical Skill Set",  "KEY COMPETENCIES","PERSONAL SKILLS","IT SKILLS","Skill Set","Areas of expertise","AREA OF EXPERTISE", "Interests", "Languages", "References", "Technical Skills"
 ]
-
 cleaned_resume = format_resume(generated_resume,section_headers)
-
-
 # Display the cleaned resume
 print("Cleaned Resume:")
 print(cleaned_resume)
 # %%
-# Check the count of instructions in the dataset
-instruction_counts = Counter(dataset['train']['instruction'])
 
-# # Display the count of each instruction type
+#################################################################################################################################
+# Unused code
+#################################################################################################################################
+
+
+#counts the instruction and avgt length in dataset for each type of prompt
+# 
+# instruction_counts = Counter(dataset['train']['instruction'])
 # print("Instruction counts:")
+
 # for instruction, count in instruction_counts.items():
 #     print(f"{instruction}: {count}")
     
-#     # Calculate the average length of 'Resume_test' in the dataset
+#     
 #     def average_resume_length(dataset):
 #         total_length = 0
 #         num_resumes = 0
