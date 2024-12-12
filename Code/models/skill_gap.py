@@ -1,4 +1,9 @@
 #%%
+
+################################################################################################################
+#  Below is the skill gap analysis that is being used in the the app
+###############################################################################################################
+
 import json
 import spacy
 
@@ -9,7 +14,7 @@ nlp = spacy.load("en_core_web_md")
 
 def analyze_skill_gap(resume_json, job_description_json):
     
-    # Parse the JSON data
+    # Parseing the JSON data
     resume_data = resume_json
     job_description_data =job_description_json
 
@@ -19,7 +24,7 @@ def analyze_skill_gap(resume_json, job_description_json):
     missing_skills = [skill for skill in job_skills if skill not in resume_skills]
 
     resume_experience = [exp["responsibilities"] for exp in resume_data.get("work_experience", [])]
-    resume_experience = [item for sublist in resume_experience for item in sublist]  # Flatten the list
+    resume_experience = [item for sublist in resume_experience for item in sublist]  
     resume_education = resume_data.get("education", [])
     job_experience = job_description_data.get("responsibilities", [])
     job_education = job_description_data.get("qualifications", [])

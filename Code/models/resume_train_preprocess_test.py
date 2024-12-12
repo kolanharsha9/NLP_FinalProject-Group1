@@ -99,7 +99,13 @@
 
 # for header, count in header_counts.most_common():
 #     print(f"{header}: {count}")
+
+#####################################################################################################################################
+#  The above code was for testing and the below function is the one that is being integrated with stream app for resume genration
+#####################################################################################################################################
+
 # %%
+
 import re
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
