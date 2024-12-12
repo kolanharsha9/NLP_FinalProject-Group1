@@ -27,7 +27,7 @@ To get started with All Resume Solutions, follow these steps:
    pip install -r requirements.txt
    ```
 
-
+**Note- For the grammer checker to work please update the API keys in mentioned variable in the streamlitApp.py**
 
 ## Usage
 
