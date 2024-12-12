@@ -27,8 +27,8 @@ To get started with All Resume Solutions, follow these steps:
    pip install -r requirements.txt
    ```
 
-**Note- For the grammer checker to work please update the API keys in mentioned variable in the streamlitApp.py**
-
+**Note- For the grammer checker to work please update the API keys -AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN and REGION_NAME in mentioned variables in the streamlitApp.py**
+ 
 ## Usage
 
 To run the Streamlit app, use the following command in your terminal:
