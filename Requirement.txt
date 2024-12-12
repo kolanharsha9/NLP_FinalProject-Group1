@@ -1,0 +1,16 @@
+numpy
+scikit-learn
+gensim
+PyPDF2
+joblib
+pandas
+boto3
+python-dotenv
+torch
+tensorflow
+nltk
+datasets
+transformers
+spacy
+streamlit
+sentence-transformers
