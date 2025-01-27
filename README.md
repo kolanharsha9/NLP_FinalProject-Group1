@@ -22,10 +22,13 @@ To get started with All Resume Solutions, follow these steps:
    Note: Please initialise git lfs before cloning as the model files are large. 
    
 3. **Navigate to the project directory** using the terminal. Alternatively, you can directly open the project in your IDE (e.g., VSCode or PyCharm).
+   ```bash
+   cd NLP_FinalProject-Group1
+   ```
 
 4. **Install the required dependencies** by running the following command:
    ```
-   pip install -r requirements.txt
+   pip install -r Requirement.txt
    ```
 
 **Note- For the grammer checker to work please update the API keys -AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN and REGION_NAME in mentioned variables in the streamlitApp.py**
@@ -35,6 +38,7 @@ To get started with All Resume Solutions, follow these steps:
 To run the Streamlit app, use the following command in your terminal:
 
 ```bash
+cd Code
 streamlit run streamlitApp.py
 ```
 
