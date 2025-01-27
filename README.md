@@ -1,4 +1,4 @@
-# Welcome to All Resume Solutions
+# Welcome to Resume Navigator
 
 This repository provides comprehensive solutions for all your resume-related needs. Our tools are designed to assist both job seekers and hiring teams in various aspects of resume creation, analysis, and evaluation.
 
