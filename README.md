@@ -11,7 +11,7 @@ This repository provides comprehensive solutions for all your resume-related nee
 5. Rank resumes based on job descriptions (helpful for hiring teams)
 6. Resume generation for specific jobs
 
-![Image](https://github.com/user-attachments/assets/7d8cd79f-ead5-4a41-b13d-38f7a3e0adc2)
+![Image](https://github.com/user-attachments/assets/a0aa08c3-ddc5-4726-9e22-1adbdcd1dd26)
 
 
 ## Installation
