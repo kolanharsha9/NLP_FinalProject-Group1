@@ -14,3 +14,10 @@ transformers
 spacy
 streamlit
 sentence-transformers
+seaborn
+wordcloud
+plotly
+google-generativeai
+chardet
+matplotlib_venn
+tf-keras
